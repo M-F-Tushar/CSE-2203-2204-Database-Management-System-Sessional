@@ -12,4 +12,4 @@ This Part builds the conceptual foundation of database systems: what a DBMS is, 
 
 ## Why This Part Matters
 
-Board exams consistently open with conceptual questions (Q1, Q2, Q3) drawn from these three chapters — differentiating DBMS from file systems, identifying keys, and drawing E-R diagrams for real-world systems (Library, Hospital, University). Master this Part first since later Parts (SQL, Normalization) build directly on these concepts.
+Final exams consistently open with conceptual questions (Q1, Q2, Q3) drawn from these three chapters — differentiating DBMS from file systems, identifying keys, and drawing E-R diagrams for real-world systems (Library, Hospital, University). Master this Part first since later Parts (SQL, Normalization) build directly on these concepts.
