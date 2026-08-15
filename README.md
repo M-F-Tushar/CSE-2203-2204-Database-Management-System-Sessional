@@ -23,6 +23,7 @@ Click into a **Part** folder to see its chapters. Click into a **Chapter** folde
 
 | Part | Title | Chapters |
 |------|-------|----------|
+| [Part 0](Part-0-Final-Year-Question-and-Answer/README.md) | Final Year Question and Answer | [Theory](Part-0-Final-Year-Question-and-Answer/Theory/README.md) · [Lab](Part-0-Final-Year-Question-and-Answer/Lab/README.md) |
 | [Part 1](Part-1-Database-System-Foundations-and-Conceptual-Design/README.md) | Database System Foundations & Conceptual Design | [Ch.1](Part-1-Database-System-Foundations-and-Conceptual-Design/Chapter-01-Introduction/README.md) · [Ch.2](Part-1-Database-System-Foundations-and-Conceptual-Design/Chapter-02-Introduction-to-the-Relational-Model/README.md) · [Ch.6](Part-1-Database-System-Foundations-and-Conceptual-Design/Chapter-06-Database-Design-Using-the-ER-Model/README.md) |
 | [Part 2](Part-2-SQL-and-Application-Design/README.md) | SQL & Application Design | [Ch.3](Part-2-SQL-and-Application-Design/Chapter-03-Introduction-to-SQL/README.md) · [Ch.4](Part-2-SQL-and-Application-Design/Chapter-04-Intermediate-SQL/README.md) · [Ch.5](Part-2-SQL-and-Application-Design/Chapter-05-Advanced-SQL/README.md) · [Ch.8](Part-2-SQL-and-Application-Design/Chapter-08-Complex-Data-Types/README.md) · [Ch.10](Part-2-SQL-and-Application-Design/Chapter-10-Big-Data-NoSQL/README.md) |
 | [Part 3](Part-3-Schema-Design-and-Normalization/README.md) | Schema Design & Normalization | [Ch.7](Part-3-Schema-Design-and-Normalization/Chapter-07-Relational-Database-Design-Normalization/README.md) |
