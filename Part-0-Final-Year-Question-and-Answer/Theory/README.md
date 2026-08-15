@@ -9,4 +9,4 @@ This folder holds the **written/theory** final exam papers, one folder per batch
 | Batch | Link | Status |
 |---|---|---|
 | 1st Batch | [Open](1st-Batch/README.md) | All 8 questions solved |
-| 2nd Batch | [Open](2nd-Batch/README.md) | Pending |
+| 2nd Batch | [Open](2nd-Batch/README.md) | All 8 questions solved |
