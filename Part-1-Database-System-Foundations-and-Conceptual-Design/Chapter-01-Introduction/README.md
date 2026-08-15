@@ -383,6 +383,292 @@ The DBA is the person with **central control** over both the data and the progra
 
 ---
 
+## Lecture Supplement: Additional Concepts from Course Lecture Notes
+
+> The topics below extend the textbook material above with concepts covered in the course lecture slides — most importantly the **Hierarchical** and **Network** data models (referenced in past exam questions but not covered by the textbook excerpt), the **NoSQL model family**, **DCL/TCL**, and a concrete walk-through of the three-tier architecture.
+
+### From Data to Information
+
+In everyday speech *data* and *information* are used interchangeably, but in database theory they are distinct:
+
+> **Data** = raw, uninterpreted facts (e.g., `72`, `Rahim Ahmed`, `CSE`). **Information** = data that has been processed/summarized into a meaningful, decision-supporting form (e.g., *"average class mark = 80"*).
+
+A database's job is not just to store data — it is to make it easy to turn that raw data into useful information (e.g., a retailer analyzing millions of sales rows to find its best-selling product).
+
+### Types of Data by Structure
+
+```mermaid
+graph TD
+    T[Types of Data] --> S["**Structured Data**<br/>Fixed format, fits neatly into<br/>rows & columns (e.g., a Students table)"]
+    T --> SS["**Semi-Structured Data**<br/>Partial organization with labels,<br/>but flexible attributes<br/>(e.g., JSON, XML, HTML)"]
+    T --> U["**Unstructured Data**<br/>No predefined format<br/>(e.g., photos, videos, emails, PDFs)"]
+
+    style S fill:#57a773,color:#fff
+    style SS fill:#e67e22,color:#fff
+    style U fill:#c0392b,color:#fff
+```
+
+A JSON document is the classic example of semi-structured data — it uses key–value pairs, but unlike a relational table, different documents of the "same" type can have different sets of attributes:
+
+```json
+{ "studentId": "220101", "name": "Rahim Ahmed", "age": 21, "department": "Computer Science", "cgpa": 3.82 }
+```
+
+### Redundancy vs. Inconsistency — A Concrete Illustration
+
+The textbook groups **redundancy** and **inconsistency** together, but it helps to see them as cause and effect:
+
+1. **Redundancy** — the same fact (e.g., a student's address) is duplicated in the Admissions file *and* the Accounts file.
+2. **Inconsistency** — the student moves from Dhaka to Chattogram. The Admissions Office updates its copy, but the Accounts Office forgets. Now two files disagree, and the system has no way to know which value is correct.
+
+This is precisely why a DBMS centralizes data into **one** authoritative copy instead of many scattered ones.
+
+### Characteristics of a Well-Designed Database
+
+| Characteristic | Meaning |
+|---|---|
+| **Organized structure** | Similar data grouped into tables/logical structures instead of stored randomly |
+| **Related data** | Tables are logically linked (e.g., a shared `dept_name` connects `Students` and `Departments`) |
+| **Persistence** | Data outlives the application/process that created it — it is still there the next time the app runs |
+| **Shared access** | Many users (students, teachers, admins) use the same database concurrently, each for a different purpose |
+| **Controlled redundancy** | Duplication is minimized (not necessarily zero) by storing shared facts once and referencing them |
+| **Data integrity** | The system enforces rules so invalid data (e.g., CGPA = 5.30) is rejected |
+| **Security** | Different users are restricted to different operations/data based on their role |
+
+### Major Functions of a DBMS
+
+```mermaid
+graph LR
+    F[DBMS Functions] --> F1[Creating<br/>Databases]
+    F --> F2[Storing<br/>Data]
+    F --> F3[Retrieving<br/>Data]
+    F --> F4[Updating<br/>Data]
+    F --> F5[Deleting<br/>Data]
+    F --> F6[Security<br/>Management]
+    F --> F7[Backup &<br/>Recovery]
+    F --> F8[Concurrency<br/>Control]
+
+    style F fill:#4a90d9,color:#fff
+```
+
+### Popular DBMS Products
+
+| DBMS | Developed By | Common Applications |
+|---|---|---|
+| MySQL | Oracle Corporation | Web applications |
+| PostgreSQL | PostgreSQL Global Development Group | Enterprise systems, research |
+| Oracle Database | Oracle Corporation | Banking, finance, large enterprises |
+| Microsoft SQL Server | Microsoft | Business applications |
+| SQLite | SQLite Development Team | Mobile apps, embedded systems |
+| MariaDB | MariaDB Foundation | Web servers, cloud applications |
+
+### The Missing Data Models: Hierarchical, Network, Object-Oriented & NoSQL
+
+The main body above already introduced the **Relational**, **ER**, **Semi-structured**, and **Object-Based** models. Two *older* models and one *modern family* complete the historical picture — and are a favorite past-exam comparison question:
+
+```mermaid
+graph TD
+    H["**Hierarchical Model**<br/>Tree structure — each<br/>child has exactly ONE parent"]
+    N["**Network Model**<br/>Graph structure — a<br/>child can have MULTIPLE parents"]
+    R["**Relational Model**<br/>Tables + keys<br/>(the modern default)"]
+
+    H -->|"evolved into"| N -->|"evolved into"| R
+
+    style H fill:#8e44ad,color:#fff
+    style N fill:#e67e22,color:#fff
+    style R fill:#27ae60,color:#fff
+```
+
+**1. Hierarchical Model** — data organized as a tree (parent → child). Every record has exactly one parent (except the root). Modeled naturally with a `Parent_ID` column:
+
+| Employee_ID | Employee_Name | Parent_ID | Position |
+|---|---|---|---|
+| 1 | CEO | NULL | Chief Executive |
+| 2 | HR Manager | 1 | Manager |
+| 5 | HR Officer 1 | 2 | Officer |
+
+```
+CEO
+├── HR Manager
+│   ├── HR Officer 1
+│   └── HR Officer 2
+└── Sales Manager
+    ├── Sales Rep 1
+    └── Sales Rep 2
+```
+
+*Real-world example:* file systems, company organograms. **Limitation:** cannot naturally represent many-to-many relationships (a file that lives in two folders, an employee who reports to two managers).
+
+**2. Network Model** — generalizes the hierarchy into a **graph**, so a record can have *multiple* parents, directly supporting many-to-many relationships.
+
+```mermaid
+graph LR
+    S1[Student 1] --> C1[Course 1]
+    S1 --> C2[Course 2]
+    S2[Student 2] --> C1
+    S2 --> C3[Course 3]
+    S3[Student 3] --> C2
+    S3 --> C3
+
+    style S1 fill:#4a90d9,color:#fff
+    style S2 fill:#4a90d9,color:#fff
+    style S3 fill:#4a90d9,color:#fff
+```
+
+*Real-world example:* airline route networks, complex inventory/bill-of-materials systems. The **relational model** later replaced both by expressing the same many-to-many relationship declaratively — with a `Students` table, a `Courses` table, and an `Enrollment` junction table linked purely by keys (no hard-wired physical pointers).
+
+**3. Object-Oriented Model** — merges object-oriented programming (classes, inheritance, encapsulation) with the relational idea of persistent storage:
+
+```mermaid
+classDiagram
+    Person <|-- Student
+    Person <|-- Doctor
+    Person <|-- Engineer
+    class Person {
+        -Name
+        -Age
+        +SetName()
+    }
+    class Student {
+        -RollNo
+        -Branch
+        +SetMarks()
+    }
+    class Doctor {
+        -D_ID
+        -Specialist
+        +CountOperation()
+    }
+    class Engineer {
+        -E_ID
+        -Department
+        +Countpage()
+    }
+```
+
+**4. NoSQL Models** — a modern family of non-relational models designed for scale and flexible schemas:
+
+| NoSQL Type | Example Engine | Data Unit |
+|---|---|---|
+| **Document Model** | MongoDB | JSON/BSON documents grouped in collections |
+| **Key–Value Model** | Redis | Simple key → value pairs |
+| **Column-Family Model** | Cassandra | Rows with dynamic, wide sets of columns |
+| **Graph Model** | Neo4j | Nodes + edges (relationships as first-class citizens) |
+
+**MongoDB example** — each student is a self-contained document; note how nested `courses` arrays replace a separate join/`Enrollment` table entirely:
+
+```json
+{
+  "_id": "S1",
+  "name": "Rahim",
+  "department": "CSE",
+  "courses": [
+    { "course_id": "C1", "name": "Database", "semester": "Fall 2025" },
+    { "course_id": "C2", "name": "Networking", "semester": "Fall 2025" }
+  ]
+}
+```
+
+### Database Languages — Completing the Set (DCL and TCL)
+
+The textbook body above covers **DDL** and **DML** in depth. Two more categories complete the standard four-part classification:
+
+```mermaid
+graph TD
+    L[Database Languages] --> DDL2["**DDL**<br/>CREATE, ALTER, DROP<br/>defines structure"]
+    L --> DML2["**DML**<br/>SELECT, INSERT, UPDATE, DELETE<br/>manipulates data"]
+    L --> DCL["**DCL**<br/>GRANT, REVOKE<br/>controls access permissions"]
+    L --> TCL["**TCL**<br/>COMMIT, ROLLBACK, SAVEPOINT<br/>manages transaction boundaries"]
+
+    style DDL2 fill:#4a90d9,color:#fff
+    style DML2 fill:#57a773,color:#fff
+    style DCL fill:#8e44ad,color:#fff
+    style TCL fill:#c0392b,color:#fff
+```
+
+- **DCL (Data Control Language)** — grants or revokes privileges on database objects (covered in depth in Chapter 4's Authorization section).
+- **TCL (Transaction Control Language)** — marks the start/end of a logical unit of work and lets a transaction be rolled back to a savepoint if something goes wrong.
+
+### A Detailed Look Inside the Database Engine
+
+Zooming into the **Query Processor** and **Storage Manager** boxes from the textbook diagram earlier, the full internal pipeline looks like this:
+
+```mermaid
+flowchart TB
+    subgraph Users2["Users & Tools"]
+        NU["naive users"] --> AI["application<br/>interfaces"]
+        AP2["application<br/>programmers"] --> APR["application<br/>programs"]
+        SU2["sophisticated<br/>users"] --> QT["query<br/>tools"]
+        DBA2["DBAs"] --> AT["administration<br/>tools"]
+    end
+    AI --> CL["compiler<br/>& linker"]
+    APR --> CL
+    QT --> DMLQ["DML queries"]
+    AT --> DDLI["DDL interpreter"]
+
+    subgraph QueryProc["Query Processor"]
+        CL --> OBJ["application<br/>program object code"]
+        DMLQ --> DMLC["DML compiler<br/>& organizer"]
+        OBJ --> QEE["query evaluation<br/>engine"]
+        DMLC --> QEE
+    end
+
+    subgraph StorageMgr["Storage Manager"]
+        BM["buffer<br/>manager"]
+        FM["file<br/>manager"]
+        AIM["authorization &<br/>integrity manager"]
+        TXM["transaction<br/>manager"]
+    end
+
+    QEE --> BM
+    QEE --> FM
+    DDLI --> AIM
+    QEE --> TXM
+
+    BM --> Disk[("disk storage:<br/>data, indices,<br/>data dictionary,<br/>statistical data")]
+    FM --> Disk
+
+    style QueryProc fill:#4a90d9,color:#fff
+    style StorageMgr fill:#57a773,color:#fff
+```
+
+- **DDL Interpreter** — processes `CREATE`/`ALTER`/`DROP`, updating the schema and data dictionary.
+- **DML Compiler & Organizer** — translates `SELECT`/`INSERT`/`UPDATE`/`DELETE` into an executable plan.
+- **Compiler and Linker** — turns embedded-SQL application programs into executable object code linked against DBMS libraries.
+- **Query Evaluation Engine** — actually runs the low-level plan and returns results.
+- **Buffer Manager** — moves pages between disk and RAM, caching hot data.
+- **File Manager** — allocates and organizes the physical database files on disk.
+- **Authorization & Integrity Manager** — the enforcement point for privileges (DCL) and constraints.
+
+### Three-Tier Architecture — A Concrete Request Walk-Through
+
+The textbook already contrasts two-tier vs. three-tier structurally. Here is *exactly* what happens, step by step, when a student clicks **"View Results"** on a university web portal — useful for exam questions that ask you to "trace" a three-tier request:
+
+```mermaid
+sequenceDiagram
+    participant Browser as Client (Browser)
+    participant App as Application Server
+    participant DB as Database Server
+
+    Browser->>App: GET /results/220101 (no SQL — just a URL)
+    App->>App: student_id = "220101"
+    App->>DB: SELECT CourseCode, Grade FROM Result WHERE StudentID = '220101'
+    DB-->>App: (CSE201, A), (CSE203, B+)
+    App->>App: Convert rows to JSON
+    App-->>Browser: { "student":"220101", "results":[...] }
+    Browser->>Browser: Render results as a webpage
+```
+
+The key exam-worthy takeaway: **the client never sees or writes SQL** — only the application server talks to the database. This separation is exactly what makes the three-tier model more secure and scalable than the two-tier model.
+
+### A Fourth User Category: Specialized Users
+
+In addition to **Naïve Users**, **Application Programmers**, and **Sophisticated Users** described earlier, lecture material adds a fourth category:
+
+- **Specialized Users** — build advanced, domain-specific database applications beyond ordinary business processing, such as systems for scientific research, AI/knowledge bases, computer-aided design (CAD), multimedia databases, and geographic information systems (GIS).
+
+---
+
 ## Syllabus Connection
 
 Concepts of database systems, schemas, instances, levels of data abstraction, and database architectures.
