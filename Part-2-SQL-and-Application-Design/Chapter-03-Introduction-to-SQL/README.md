@@ -14,7 +14,7 @@
 - **3.8** Nested Subqueries (in, exists, unique, scalar subqueries)
 - **3.9** Modification of the Database (insert, delete, update using case expressions)
 
-> SQL is much more than a "query" language — it defines schemas (DDL), manipulates data (DML), enforces integrity, controls transactions, and manages authorization, all in one unified language.
+> SQL is not just for asking questions ("queries"). It is a complete language that lets you build tables (DDL), add/change/remove data (DML), enforce rules on your data, control transactions, and manage who is allowed to do what. All of that lives inside one language: SQL.
 
 ```mermaid
 graph TD
@@ -29,15 +29,17 @@ graph TD
     style DML fill:#57a773,color:#fff
 ```
 
-This chapter focuses on **basic DDL and DML** — the core of every SQL query and update you will write in the lab.
+In this chapter we only focus on the **basics of DDL and DML** — these are the commands you will use the most, both in exams and in the lab.
 
 ---
 
 ## 3.2 SQL Data Definition
 
-The **Data-Definition Language (DDL)** specifies relation schemas, types, constraints, indices, and security/storage details. This chapter covers **basic schema definition and basic types**.
+**DDL (Data-Definition Language)** is the part of SQL used to describe the *structure* of your data: what tables exist, what type of data each column holds, and what rules the data must follow. In this section we only look at the basics: simple data types and simple table creation.
 
 ### 3.2.1 Basic Built-in Types
+
+Think of a "type" as a label that tells the database what kind of value a column is allowed to store (text, number, etc.).
 
 | Type | Meaning |
 |---|---|
@@ -50,11 +52,13 @@ The **Data-Definition Language (DDL)** specifies relation schemas, types, constr
 | `float(n)` | Floating-point with precision of at least *n* digits |
 | `nvarchar` | Variable-length Unicode string (for multilingual data) |
 
-> **`char` vs `varchar`:** `char(10)` storing `'Avi'` pads it to 10 characters with trailing spaces; `varchar(10)` stores just `'Avi'`. Comparing a padded `char` against an unpadded `varchar` can silently return `false` even for "equal" text — **prefer `varchar`** to avoid this pitfall (a classic exam trick question).
+> **`char` vs `varchar` — an easy way to remember the difference:** If you store `'Avi'` in a `char(10)` column, the database silently adds spaces at the end until it becomes 10 characters long. A `varchar(10)` column, on the other hand, just keeps `'Avi'` exactly as it is. This matters because comparing a padded `char` value with an unpadded `varchar` value can wrongly come out as "not equal", even though the text looks the same. Because of this, **`varchar` is usually the safer choice**. (This small trap is a favorite exam question.)
 
-Every type may also hold a special **`null`** value — meaning the value is unknown or does not exist (explored fully in Section 3.6).
+Any column, no matter its type, can also store a special value called **`null`**. `null` simply means "this value is unknown or missing". We will look at `null` in detail in Section 3.6.
 
 ### 3.2.2 Basic Schema Definition — `create table`
+
+Here is a simple example of creating a table:
 
 ```sql
 create table department
@@ -64,7 +68,7 @@ create table department
     primary key (dept_name));
 ```
 
-**General form:**
+**In general, any `create table` statement looks like this:**
 
 ```sql
 create table r
@@ -77,7 +81,11 @@ create table r
     ⟨integrity-constraintk⟩);
 ```
 
+In plain words: you name the table (`r`), then list each column with its type (`A1 D1`, `A2 D2`, ...), and finally add any rules ("constraints") the data must obey.
+
 ### Integrity Constraints Supported in `create table`
+
+A **constraint** is just a rule that the database enforces automatically, so bad data never gets in. The three most common ones are:
 
 ```mermaid
 graph TD
@@ -90,7 +98,11 @@ graph TD
     style NN fill:#c9642a,color:#fff
 ```
 
-**Full university DDL example (with foreign keys):**
+- **`primary key`** — picks the column(s) that uniquely identify a row. These columns can never be empty (`null`) and can never repeat.
+- **`foreign key`** — says "the value in this column must already exist as a primary key value in another table". This is how tables stay linked and consistent with each other.
+- **`not null`** — simply forbids a column from ever being left empty.
+
+**A more complete example, showing how tables link to each other with foreign keys:**
 
 ```sql
 create table course
@@ -110,11 +122,13 @@ create table instructor
     foreign key (dept_name) references department);
 ```
 
-> ⚠️ **MySQL note:** some systems require the referenced attribute to be listed explicitly: `foreign key (dept_name) references department(dept_name)`.
+> ⚠️ **MySQL note:** some database systems ask you to name the referenced column explicitly, like this: `foreign key (dept_name) references department(dept_name)`.
 
-**Effect of constraints:** SQL **rejects** any insert/update that would leave a null (or duplicate) primary key, or a foreign-key value with no matching row in the referenced table.
+**What happens if you break a rule?** SQL simply **refuses** the change. If you try to insert a duplicate or empty primary key, or a foreign-key value that doesn't exist in the other table, the insert/update is rejected.
 
 ### `drop table` vs `delete` vs `alter table` — a classic exam comparison
+
+Students often confuse these three commands, so let's separate them clearly:
 
 ```mermaid
 graph LR
@@ -127,13 +141,13 @@ graph LR
     style C fill:#27ae60,color:#fff
 ```
 
-> **Board-exam favorite:** `DROP` destroys both data **and** schema; `TRUNCATE`/`DELETE` clears data but keeps the schema intact — this is exactly the `drop table` vs `delete from` distinction shown above.
+> **Easy way to remember for exams:** `DROP` deletes everything — both the data **and** the table itself. `DELETE` (and `TRUNCATE`) only clears out the data; the empty table stays behind, ready to be used again.
 
 ---
 
 ## 3.3 Basic Structure of SQL Queries
 
-Every SQL query is built from three core clauses:
+Almost every SQL query you write is built from just three clauses:
 
 ```mermaid
 flowchart LR
@@ -148,24 +162,26 @@ flowchart LR
     style S fill:#57a773,color:#fff
 ```
 
-> Although written in the order `select, from, where`, SQL is best **understood** in the operational order: **from → where → select**.
+> **Tip for beginners:** even though you *type* the clauses in the order `select, from, where`, it helps to *think* about them in the order: **from → where → select**. First figure out which table(s) you're reading from, then which rows to keep, and only then which columns to show.
 
 ### 3.3.1 Queries on a Single Relation
+
+A simple query that reads names from the `instructor` table:
 
 ```sql
 select name
 from instructor;
 ```
 
-- **Duplicates are NOT removed by default** in SQL (unlike pure relational algebra, since a relation is technically a *set*). Use **`distinct`** to force duplicate elimination, or **`all`** to explicitly retain duplicates (the default).
+- **By default, SQL does NOT remove duplicate rows.** This is different from relational algebra, where a relation is a strict set. If you want to remove duplicates, add **`distinct`**. If you want to explicitly keep every duplicate (the default behavior anyway), you can add **`all`**.
 
 ```sql
 select distinct dept_name
 from instructor;
 ```
 
-- The `select` clause can include **arithmetic expressions**: `select ID, name, salary * 1.1 from instructor;` (simulates a 10% raise without changing the table).
-- The `where` clause filters using comparison operators `<, <=, >, >=, =, <>` combined with `and`, `or`, `not`.
+- You can also do simple math inside `select`: `select ID, name, salary * 1.1 from instructor;` shows what everyone's salary would look like with a 10% raise — without actually changing anything in the table.
+- The `where` clause is how you filter rows. You can use comparisons like `<, <=, >, >=, =, <>`, and combine multiple conditions with `and`, `or`, `not`.
 
 ```sql
 select name
@@ -175,6 +191,8 @@ where dept_name = 'Comp. Sci.' and salary > 70000;
 
 ### 3.3.2 Queries on Multiple Relations (Implicit Join)
 
+To combine data from two tables, list both tables in `from` and connect them with a matching condition in `where`:
+
 ```sql
 select name, instructor.dept_name, building
 from instructor, department
@@ -182,6 +200,8 @@ where instructor.dept_name = department.dept_name;
 ```
 
 ### How SQL Conceptually Evaluates a Multi-Relation Query
+
+It helps to imagine SQL working through a query in three steps, one after another:
 
 ```mermaid
 flowchart TD
@@ -196,13 +216,15 @@ flowchart TD
     style C fill:#27ae60,color:#fff
 ```
 
-> ⚠️ **Danger of forgetting the `where` join condition:** `instructor × teaches` alone with no matching predicate produces the full Cartesian product — e.g., 12 instructors × 13 teaches rows = **156 meaningless combined tuples**. With 200 instructors × 600 teaches rows, that's **120,000 tuples**! Always include the join condition (`instructor.ID = teaches.ID`) in `where`.
+> ⚠️ **What goes wrong if you forget the join condition in `where`:** without a matching condition, `instructor × teaches` pairs up *every* instructor row with *every* teaches row — even ones that have nothing to do with each other. So 12 instructors × 13 teaches rows becomes **156 meaningless combinations**. With 200 instructors and 600 teaches rows, that balloons to **120,000 combinations**! Always remember to add the matching condition (`instructor.ID = teaches.ID`) inside `where`.
 
 ---
 
 ## 3.4 Additional Basic Operations
 
 ### 3.4.1 The Rename Operation (`as`)
+
+`as` lets you give a temporary, shorter, or clearer name to a column or a table.
 
 ```mermaid
 graph TD
@@ -220,13 +242,15 @@ from instructor as T, instructor as S
 where T.salary > S.salary and S.dept_name = 'Biology';
 ```
 
-`T` and `S` here are **correlation names** (also called table aliases or tuple variables) — essential whenever a relation must be compared **against itself**.
+Here, `T` and `S` are two different **nicknames** (also called correlation names, table aliases, or tuple variables) for the *same* `instructor` table. You need two different nicknames like this whenever you want to compare a table **against itself** — for example, comparing every instructor's salary to every Biology instructor's salary.
 
 ### 3.4.2 String Operations & Pattern Matching (`like`)
 
-- Strings use single quotes: `'Computer'`; an embedded quote is doubled: `'It''s right'`.
-- String equality is **case-sensitive** in the SQL standard (though MySQL/SQL Server may not distinguish case by default).
-- Common string functions: `upper(s)`, `lower(s)`, `trim(s)`, concatenation `||`.
+- Text values are written using single quotes: `'Computer'`. If your text itself contains a quote, double it: `'It''s right'`.
+- Comparing text is **case-sensitive** by the SQL standard (though some systems like MySQL or SQL Server may ignore case by default).
+- Some handy string functions: `upper(s)`, `lower(s)`, `trim(s)`, and `||` to join two strings together.
+
+`like` lets you search for a *pattern* inside text, instead of an exact match. It uses two special wildcard symbols:
 
 ```mermaid
 graph LR
@@ -250,12 +274,12 @@ from department
 where building like '%Watson%';
 ```
 
-- Use **`escape`** to match a literal `%` or `_`: `like 'ab\%cd%' escape '\'` matches strings starting with `"ab%cd"`.
-- Use **`not like`** for mismatches.
+- If you actually need to search for a literal `%` or `_` character (not as a wildcard), use **`escape`**: `like 'ab\%cd%' escape '\'` looks for strings starting with the literal text `"ab%cd"`.
+- To find rows that *don't* match a pattern, use **`not like`**.
 
 ### 3.4.3 `*` — All Attributes
 
-`select *` returns all attributes of the `from` clause's result; `select instructor.*` returns all attributes of just the `instructor` relation (useful after a multi-table join).
+Use `select *` when you want every column from the tables in `from`. If you've joined multiple tables and only want the columns from one of them, write `select instructor.*` instead.
 
 ### 3.4.4 Ordering Results — `order by`
 
@@ -263,16 +287,18 @@ where building like '%Watson%';
 select * from instructor order by salary desc, name asc;
 ```
 
-Default order is **ascending**; use `desc` for descending. Multiple sort keys are applied left to right (tie-breaking).
+Results are sorted in **ascending** order by default; add `desc` to sort in descending order instead. If you list more than one column, SQL sorts by the first column, and uses the next column(s) only to break ties.
 
 ### 3.4.5 `between` and Row Constructors
+
+`between` is a short, readable way to check whether a value falls inside a range:
 
 ```sql
 select name from instructor where salary between 90000 and 100000;
 -- equivalent to: where salary <= 100000 and salary >= 90000
 ```
 
-SQL also supports **row constructors** `(v1, v2, ...)` for lexicographic tuple comparison:
+SQL also lets you compare a whole group of values at once, using **row constructors** written as `(v1, v2, ...)`:
 
 ```sql
 where (instructor.ID, dept_name) = (teaches.ID, 'Biology');
@@ -282,7 +308,7 @@ where (instructor.ID, dept_name) = (teaches.ID, 'Biology');
 
 ## 3.5 Set Operations
 
-SQL's `union`, `intersect`, and `except` mirror the mathematical set operations **∪, ∩, −** — but with special rules for duplicates.
+If you have taken any math course, you already know the set operations **union (∪), intersection (∩), and difference (−)**. SQL has equivalents: `union`, `intersect`, and `except`. The main thing to watch out for is how each one treats duplicate rows.
 
 ```mermaid
 graph TD
@@ -297,7 +323,7 @@ graph TD
 
 ### Visualizing the Three Operations
 
-Given `c1` = courses taught in Fall 2017 and `c2` = courses taught in Spring 2018:
+Let's say `c1` = courses taught in Fall 2017 and `c2` = courses taught in Spring 2018:
 
 ```mermaid
 graph LR
@@ -330,19 +356,21 @@ union
 
 ### Duplicate-Retaining Variants: `union all`, `intersect all`, `except all`
 
+Sometimes you *do* want to keep duplicate rows instead of removing them. For that, just add `all` after the operation:
+
 | Variant | Duplicate count in result |
 |---|---|
 | `union all` | Total copies in **c1 + c2** |
 | `intersect all` | **Minimum** of copies in c1 and c2 |
 | `except all` | Copies in c1 **minus** copies in c2 (if positive) |
 
-> ⚠️ `intersect` is **not implemented in MySQL** — use `in`/subqueries instead (see Section 3.8). `except` is called **`minus`** in Oracle.
+> ⚠️ Good to know: `intersect` is **not available in MySQL** — you'll need to use `in`/subqueries instead (covered in Section 3.8). Also, Oracle calls `except` by a different name: **`minus`**.
 
 ---
 
 ## 3.6 Null Values
 
-`null` represents an unknown or nonexistent value, and it introduces a **third truth value** into SQL's logic: `unknown`.
+`null` means "this value is unknown or doesn't exist". Because of `null`, SQL logic isn't simply true/false — it has a **third possible result: `unknown`**.
 
 ### Three-Valued Logic Truth Tables
 
@@ -357,6 +385,8 @@ graph TD
     style BOOL fill:#c0392b,color:#fff
 ```
 
+Here's how `and`/`or` behave once `unknown` is added to the mix:
+
 | `AND` | true | false | unknown |
 |---|---|---|---|
 | **true** | true | false | unknown |
@@ -369,11 +399,13 @@ graph TD
 | **false** | true | false | unknown |
 | **unknown** | true | unknown | unknown |
 
-`not unknown` = **unknown**.
+And `not unknown` is still **unknown**.
 
-> **Key rule:** if the `where` predicate evaluates to **false or unknown**, the row is **excluded** from the result — only rows evaluating to **true** are kept.
+> **The one rule to remember:** in a `where` clause, only rows where the condition comes out **true** are kept. Rows that come out **false** or **unknown** are both thrown away.
 
 ### Testing for Null
+
+Because `null` doesn't behave like a normal value, you can't compare it with `=`. Instead, use `is null` / `is not null`:
 
 ```sql
 select name from instructor where salary is null;      -- test for null
@@ -381,13 +413,13 @@ select name from instructor where salary is not null;   -- test for non-null
 select name from instructor where salary > 10000 is unknown;  -- test the 3rd truth value
 ```
 
-> **Note on `distinct`/set operations:** unlike in predicate comparisons (where `null = null` → `unknown`), when eliminating duplicates for `distinct`, `union`, `intersect`, or `except`, two nulls in the same position **are treated as equal** — a subtle but important exception often tested.
+> **One exception worth remembering:** when comparing values with `=`, two `null`s are never considered equal (the result is `unknown`). But when SQL is removing duplicates — for `distinct`, `union`, `intersect`, or `except` — it treats two `null`s in the same position **as if they were equal**. This small inconsistency is a popular exam trap.
 
 ---
 
 ## 3.7 Aggregate Functions
 
-Aggregate functions collapse a collection of values into a **single** summary value.
+An **aggregate function** takes many values and boils them down into just **one** summary value — for example, turning a whole column of salaries into a single average.
 
 ```mermaid
 graph LR
@@ -412,7 +444,7 @@ from instructor
 where dept_name = 'Comp. Sci.';
 ```
 
-- **Duplicates matter for `avg`/`sum`** — they are **retained** by default (not eliminated), since eliminating them would skew the average. Use `distinct` inside the aggregate only when you deliberately want unique values counted once:
+- **For `avg` and `sum`, duplicate values are kept by default** — they are not automatically removed, because throwing them away would give you the wrong average. If you specifically want each *unique* value counted only once, add `distinct` inside the aggregate:
 
 ```sql
 select count(distinct ID)
@@ -424,7 +456,7 @@ select count(*) from course;                  -- counts rows; distinct NOT allow
 
 ### 3.7.2 Aggregation with Grouping — `group by`
 
-The **query pipeline** for grouped aggregation:
+`group by` lets you calculate an aggregate **separately for each group** of rows, instead of for the whole table at once. Here's the order in which SQL actually processes a grouped query:
 
 ```mermaid
 flowchart TD
@@ -449,7 +481,7 @@ from instructor
 group by dept_name;
 ```
 
-> **Golden rule:** every attribute in `select` that is **not** aggregated **must** appear in `group by` — otherwise SQL cannot decide which value to output per group (this produces an *erroneous query* error).
+> **Golden rule (very commonly tested):** any column you write in `select` must either be (1) wrapped in an aggregate function, or (2) listed in `group by`. If you break this rule, SQL has no way of knowing which single value to display for that column per group, and it will report an error.
 
 ```sql
 /* ERRONEOUS: ID is neither aggregated nor in group by */
@@ -460,7 +492,7 @@ group by dept_name;
 
 ### 3.7.3 The `having` Clause — Filtering *Groups*
 
-`having` applies conditions to **groups** (post-aggregation), whereas `where` applies to **individual rows** (pre-aggregation):
+Think of it this way: `where` filters out individual rows *before* grouping happens, while `having` filters out entire *groups* *after* they've already been formed.
 
 ```sql
 select dept_name, avg(salary) as avg_salary
@@ -476,13 +508,13 @@ having avg(salary) > 42000;
 
 ### 3.7.4 Aggregates and Nulls
 
-> **Rule:** every aggregate function **except `count(*)`** simply **ignores** `null` values in its input. `count` of an empty collection is `0`; every other aggregate returns `null` for an empty collection. SQL:1999 also adds a `boolean` type with `some`/`every` aggregates (disjunction/conjunction over Boolean columns).
+> **Rule to remember:** every aggregate function, except `count(*)`, simply **skips over** `null` values — it pretends they aren't there. If a group has no values at all (an empty collection), `count` returns `0`, but every other aggregate function returns `null`. (As a side note, SQL:1999 also introduced a `boolean` type along with `some`/`every` aggregate functions, which work like OR/AND across a column of true/false values.)
 
 ---
 
 ## 3.8 Nested Subqueries
 
-A **subquery** is a `select-from-where` expression nested inside another query — most often inside the `where` clause to test **set membership**, **set comparison**, or **cardinality**.
+A **subquery** is simply a `select-from-where` query written *inside* another query. It's most often placed inside a `where` clause to check things like: "does this value exist in that other set?", "is this value bigger than all of those?", or "how many rows does this return?"
 
 ```mermaid
 graph TD
@@ -501,6 +533,8 @@ graph TD
 
 ### 3.8.1 Set Membership — `in` / `not in`
 
+`in` checks whether a value appears anywhere inside a list or a subquery's results. `not in` checks the opposite.
+
 ```sql
 select distinct course_id
 from section
@@ -515,6 +549,8 @@ where name not in ('Mozart', 'Einstein');   -- works on enumerated lists too
 ```
 
 ### 3.8.2 Set Comparison — `some` / `all`
+
+`some` and `all` let you compare a value against a whole *set* of values, rather than against just one value.
 
 | Construct | Meaning | Equivalent to |
 |---|---|---|
@@ -539,6 +575,8 @@ where salary > all (select salary from instructor where dept_name = 'Biology');
 
 ### 3.8.3 Test for Empty Relations — `exists` / `not exists`
 
+`exists` just checks whether a subquery returns **any rows at all** — it doesn't care what the rows contain, only whether there are any.
+
 ```mermaid
 graph LR
     E["**exists (subquery)**<br/>TRUE if subquery returns<br/>≥ 1 row"]
@@ -548,7 +586,7 @@ graph LR
     style NE fill:#c0392b,color:#fff
 ```
 
-`exists` typically appears in a **correlated subquery** — one that references a correlation variable (table alias) from the *outer* query:
+`exists` is usually used together with a **correlated subquery** — a subquery that reaches "outside" itself to refer to a table from the outer query:
 
 ```sql
 select course_id
@@ -559,7 +597,7 @@ where semester = 'Fall' and year = 2017 and
                     S.course_id = T.course_id);
 ```
 
-**Simulating "contains" (division / universal quantification)** — "Find students who have taken **every** Biology course":
+**A useful trick — finding "who has done ALL of something":** for example, "find every student who has taken **every** Biology course":
 
 ```sql
 select S.ID, S.name
@@ -570,11 +608,11 @@ where not exists (
     (select T.course_id from takes as T where S.ID = T.ID));
 ```
 
-> **Pattern to memorize:** *"A contains B"* ⇔ `not exists (B except A)`. This is the standard technique for **"find X that has done ALL of Y"** queries — a very common lab/exam question type (e.g., "students who got Grade A in **all** courses").
+> **Pattern worth memorizing:** *"A contains B"* is the same as saying `not exists (B except A)`. Whenever you see a question that asks for something like "find X that has done ALL of Y", this is the pattern to reach for. It shows up often in labs and exams (e.g., "students who got Grade A in **all** courses").
 
 ### 3.8.4 Test for Duplicate Tuples — `unique` / `not unique`
 
-`unique(subquery)` is `true` if the subquery's result contains **no duplicate rows** (an empty result is trivially unique).
+`unique(subquery)` checks whether the subquery's result has **no repeated rows** at all. (An empty result automatically counts as unique.)
 
 ```sql
 select T.course_id
@@ -586,7 +624,7 @@ where unique (select R.course_id from section as R
 
 ### 3.8.5 Subqueries in the `from` Clause
 
-Any `select-from-where` produces a relation — so it can be used **anywhere** a relation is expected, including the `from` clause itself:
+Since any `select-from-where` query produces a table (a relation), you're allowed to use one **anywhere a table is expected** — including right inside the `from` clause of another query:
 
 ```sql
 select dept_name, avg_salary
@@ -596,13 +634,13 @@ from (select dept_name, avg(salary) as avg_salary
 where avg_salary > 42000;
 ```
 
-This is a `having`-free rewrite of the earlier grouped query — the subquery computes the aggregate first, then the outer `where` filters on it.
+This does the same job as the earlier `having` example, just written a different way: first compute the per-department average inside the subquery, then filter on that average using an ordinary `where` in the outer query.
 
-> The **`lateral`** keyword (SQL:2003+) lets a `from`-clause subquery reference correlation variables from *earlier* tables in the same `from` list — otherwise this is disallowed.
+> **A more advanced option:** the **`lateral`** keyword (added in SQL:2003) allows a subquery in `from` to refer to tables listed *earlier* in the same `from` clause. Without `lateral`, this isn't normally allowed.
 
 ### 3.8.6 The `with` Clause — Named Temporary Relations
 
-`with` defines one or more temporary, named result sets available only within the current query — much clearer than deeply nested subqueries:
+`with` lets you create one or more temporary, named results that you can reuse later in the same query. This is often much easier to read than nesting subqueries deeply inside each other.
 
 ```sql
 with max_budget(value) as
@@ -612,11 +650,11 @@ from department, max_budget
 where department.budget = max_budget.value;
 ```
 
-Multiple `with` definitions can be chained (each may reference earlier ones), which is ideal for multi-step aggregate comparisons (e.g., "departments whose total salary exceeds the average total salary across all departments").
+You can even chain several `with` definitions together, where each one can use the ones defined before it. This is especially handy for multi-step comparisons, like "find departments whose total salary is above the average total salary across all departments".
 
 ### 3.8.7 & 3.8.8 Scalar Subqueries
 
-A **scalar subquery** returns exactly **one row, one column**, and can be used **anywhere a single value is expected** — in `select`, `where`, or `having`:
+A **scalar subquery** is a subquery that is guaranteed to return just **one row and one column** — in other words, a single value. Because it's just one value, you can drop it in anywhere a single value would normally go: inside `select`, `where`, or `having`.
 
 ```sql
 select dept_name,
@@ -625,11 +663,13 @@ select dept_name,
 from department;
 ```
 
-> If a scalar subquery unexpectedly returns more than one row at run time, SQL raises an **error** — the single-row guarantee is often only enforceable at run time, not compile time.
+> **Something to watch for:** if a scalar subquery ends up returning more than one row when it actually runs, SQL will throw an **error**. The database usually can't check this in advance — it only discovers the problem when the query actually executes.
 
 ---
 
 ## 3.9 Modification of the Database
+
+Besides asking questions with `select`, SQL also gives you three commands to actually change the data:
 
 ```mermaid
 graph TD
@@ -659,7 +699,7 @@ delete from instructor
 where salary < (select avg(salary) from instructor);
 ```
 
-> **Critical evaluation rule:** SQL first identifies **all** tuples satisfying the predicate, **then** deletes them — this avoids the average shifting mid-deletion and producing order-dependent (non-deterministic) results.
+> **An important detail:** SQL first figures out **all** the rows that match the condition, and only *after* that does it delete them. This matters in the last example above — the average salary is calculated once, using the original data, before any row gets removed. Otherwise, the average would keep changing as rows are deleted, and the result would depend on the (unpredictable) order of deletion.
 
 ### 3.9.2 Insertion — `insert`
 
@@ -679,9 +719,9 @@ from student
 where dept_name = 'Music' and tot_cred > 144;
 ```
 
-> ⚠️ The `select` in an `insert ... select` is evaluated **completely first**, then all resulting rows are inserted — this prevents infinite self-insertion loops (e.g., `insert into student select * from student;` would otherwise recurse forever without a primary-key constraint).
+> ⚠️ When you use `insert ... select`, SQL runs the `select` part **completely first**, and only then inserts the resulting rows. This detail matters: it stops something like `insert into student select * from student;` from looping forever by repeatedly inserting the rows it just inserted.
 
-Omitted attributes in an `insert` are automatically set to `null`.
+If you leave any attribute out when inserting, SQL automatically fills it in with `null`.
 
 ### 3.9.3 Update — `update`, and the `case` Expression
 
@@ -696,7 +736,7 @@ set salary = salary * 1.05
 where salary < (select avg(salary) from instructor);
 ```
 
-**Problem:** applying two separate `update` statements in sequence for a tiered raise can produce **wrong, order-dependent results** (an instructor crossing the threshold mid-way could get double-raised). **Solution:** use a single `case` expression:
+**A common mistake:** if you try to give a tiered raise using two separate `update` statements, one after another, you can get **wrong results that depend on the order you ran them in** — an instructor's salary might cross the threshold partway through and accidentally get raised twice. **The fix** is to do it in a single `update`, using a `case` expression to choose the right formula per row:
 
 ```sql
 update instructor
@@ -706,7 +746,7 @@ set salary = case
              end;
 ```
 
-**General `case` syntax** (usable anywhere a value is expected):
+**The general shape of a `case` expression** (you can use it anywhere SQL expects a value):
 
 ```sql
 case
@@ -717,7 +757,7 @@ case
 end
 ```
 
-**Scalar subquery inside `set`** (updating a derived/summary attribute):
+**You can also use a scalar subquery inside `set`**, for example to recompute a summary column:
 
 ```sql
 update student
