@@ -3,7 +3,9 @@
 **Part:** [Part 3 — Schema Design & Normalization](../README.md)
 **Textbook:** *Database System Concepts*, 7th Edition — Silberschatz, Korth, Sudarshan
 
-> **Book-based scope note:** For this course note, the relevant part of the textbook chapter is mainly **7.1 to 7.5**. That means we focus on: bad design symptoms (anomalies), decomposition, functional dependencies, BCNF, 3NF, closure, canonical cover, and decomposition algorithms. The later higher-normal-form topics are not the main focus here.
+> **Book-based scope note:** For this course note, the relevant part of the textbook chapter is mainly **7.1 to 7.5**.
+>
+> **Blended-source note:** The overall scope still follows the textbook, but the explanation of **functional dependency**, **Armstrong's rules**, **attribute closure**, and **candidate-key solving** in Sections **7.2** and **7.4** is now aligned **first with the class note**, then blended with textbook terminology.
 
 ## Exact Subsections to Read
 
@@ -124,7 +126,9 @@ To normalize properly, we need some formal way to describe the rules of the real
 
 That is what **functional dependencies (FDs)** are for.
 
-### 7.2.1 A simple way to think about notation
+> **Class-note priority:** The explanation below follows the class-note style first: definition, determinant/dependent, simple table checking, FD types, Armstrong's rules, and step-by-step closure solving.
+
+### 7.2.1 What is a functional dependency?
 
 When you see:
 
@@ -134,11 +138,164 @@ X → Y
 
 it means:
 
-> **If two rows agree on `X`, they must also agree on `Y`.**
+> **`Y` functionally depends on `X`.**
+>
+> Or in simple words: **if two rows have the same value of `X`, then they must also have the same value of `Y`.**
 
-In other words, `X` determines `Y`.
+In this notation:
 
-### 7.2.2 Keys and functional dependencies
+- `X` is called the **determinant**
+- `Y` is called the **dependent**
+
+### Formal definition in simple words
+
+A functional dependency `X → Y` is true on a relation `R` if for any two tuples `t1` and `t2`:
+
+```text
+if t1[X] = t2[X], then t1[Y] = t2[Y]
+```
+
+That is the exact idea written in the class note, just in a cleaner form.
+
+### The class-note style example: `Student`
+
+In class, FD was explained using a small student-style relation. Below is a cleaned version of the same type of example so the logic becomes easier to see.
+
+```text
+Student(RNo, Name, Marks, Dept, Course)
+```
+
+| RNo | Name | Marks | Dept | Course |
+|---|---|---:|---|---|
+| 1 | a | 28 | CSE | C1 |
+| 2 | b | 60 | EEE | C1 |
+| 3 | a | 78 | IT | C2 |
+| 4 | b | 65 | EEE | C2 |
+| 5 | c | 80 | IT | C3 |
+| 6 | d | 80 | EEE | C2 |
+
+Now use this table to test whether an FD is true or false.
+
+#### Example 1: `RNo → Name, Marks, Dept, Course`
+
+This is **true**.
+
+Why?
+- `RNo` is unique in every row.
+- So if two rows have the same `RNo`, they are really the same row.
+- That means `RNo` fixes all the other attributes.
+
+#### Example 2: `Name → Course`
+
+This is **false** in the table above.
+
+Why?
+- `Name = a` appears in two rows.
+- But the corresponding `Course` values are `C1` and `C2`.
+- Same left side, different right side -> FD fails.
+
+#### Example 3: `Marks → Dept`
+
+This is **false**.
+
+Why?
+- `Marks = 80` appears twice.
+- One row has `Dept = IT` and the other has `Dept = EEE`.
+- So `Marks` does not determine `Dept`.
+
+#### Example 4: `(Name, Marks, Dept) → RNo`
+
+This is **true** in the sample table.
+
+Why?
+- No two rows share the same full combination of `(Name, Marks, Dept)`.
+- So that full combination points to exactly one `RNo`.
+
+### A very important class-note observation
+
+The class note says:
+
+> **If every value of `X` is unique, then `X → Y` must hold.**
+
+This is correct as an **instance-level idea**.
+
+In simple words:
+- if the left side is unique in the table,
+- then it automatically determines the right side in that table.
+
+That is exactly why a **key** determines other attributes.
+
+---
+
+### 7.2.2 Types of functional dependency
+
+The class note first divides FDs into **trivial** and **non-trivial**. We keep that style here, with one small textbook clarification.
+
+#### 1. Trivial functional dependency
+
+An FD `X → Y` is **trivial** if:
+
+```text
+Y ⊆ X
+```
+
+That means the right side is already contained in the left side.
+
+Examples:
+
+```text
+A → A
+AB → A
+(RNo, Name) → Name
+```
+
+These are always true.
+
+#### 2. Non-trivial functional dependency
+
+An FD `X → Y` is **non-trivial** if the right side is **not already contained** in the left side.
+
+Textbook form:
+
+```text
+Y ⊄ X
+```
+
+Examples:
+
+```text
+RNo → Name
+Dept → Course
+A → B
+```
+
+#### 3. Completely non-trivial functional dependency
+
+The class note writes the strict no-overlap case as:
+
+```text
+X ∩ Y = ∅
+```
+
+This is usually called **completely non-trivial** in textbook language.
+
+Example:
+
+```text
+RNo → Name
+```
+
+because `RNo` and `Name` do not overlap.
+
+> **Easy exam-safe summary:**
+>
+> - **Trivial:** RHS is already inside LHS
+> - **Non-trivial:** RHS is not inside LHS
+> - **Completely non-trivial:** LHS and RHS have no common attribute at all
+
+---
+
+### 7.2.3 Keys and functional dependencies
 
 A **superkey** identifies a whole row uniquely.
 A **functional dependency** may identify only some attributes.
@@ -150,24 +307,6 @@ A **functional dependency** may identify only some attributes.
 | **Primary key** | One chosen candidate key |
 | **Functional dependency** | A rule of the form `X → Y` meaning `X` determines `Y` |
 
-### Example of an FD
-
-From the university example:
-
-```text
-dept_name → building, budget
-```
-
-This means each department name has only one building and one budget.
-
-Another example:
-
-```text
-ID → name, dept_name, salary
-```
-
-This means once you know the instructor `ID`, the instructor's name, department, and salary are fixed.
-
 ### Superkey as a special case of FD
 
 A superkey is really just a special kind of functional dependency.
@@ -178,20 +317,22 @@ If `K` is a superkey for relation `R`, then:
 K → all attributes of R
 ```
 
-So you can think of a superkey as a "strong" FD whose right side is the whole relation.
+So you can think of a superkey as a very strong FD whose right side is the whole relation.
 
-### A beginner-friendly way to find a candidate key
+### The fastest beginner trick for candidate keys
 
-In exam problems, a common method is:
+In exam problems, this trick is very useful:
 
 1. **Find attributes that never appear on the right-hand side** of any FD.
-   - These usually must be part of every candidate key.
-2. **Take their closure**.
-   - If the closure gives all attributes, you found a superkey.
-3. **Check minimality**.
-   - Remove one attribute at a time. If removing one still gives all attributes, the key was not minimal.
+2. These attributes usually **must** be present in every candidate key.
+3. Compute closure.
+4. Remove extra attributes if possible.
 
-### 7.2.3 Lossless decomposition and functional dependencies
+We will use this trick in the worked closure examples below.
+
+---
+
+### 7.2.4 Lossless decomposition and functional dependencies
 
 Functional dependencies help us test whether a decomposition is lossless.
 
@@ -239,7 +380,7 @@ dept_name → building, budget
 
 ## 7.3 Normal Forms
 
-A **normal form** is simply a standard that tells us whether a relation design is "good enough" or still has avoidable redundancy.
+A **normal form** is simply a standard that tells us whether a relation design is good enough or still has avoidable redundancy.
 
 The textbook mainly focuses on **BCNF** and **3NF**.
 
@@ -389,6 +530,8 @@ The textbook discussion here mainly centers on BCNF and 3NF, but board exams may
 
 This section is about how to **reason** with FDs.
 
+> **Class-note priority:** The first focus here is the class-note pattern: Armstrong's rules, closure, candidate key finding, and step-by-step worked examples.
+
 ### 7.4.1 Closure of a set of functional dependencies: `F+`
 
 If you are given some FDs, other FDs may be logically implied by them.
@@ -410,27 +553,156 @@ A → C
 
 So `A → C` is in `F+`.
 
-### Armstrong's Axioms
+---
+
+### Armstrong's Axioms / Inference Rules
 
 These are the main rules used to derive new FDs.
 
-| Rule | Meaning |
-|---|---|
-| **Reflexivity** | If `Y` is part of `X`, then `X → Y` |
-| **Augmentation** | If `X → Y`, then `XZ → YZ` |
-| **Transitivity** | If `X → Y` and `Y → Z`, then `X → Z` |
+#### 1. Reflexivity rule
 
-There are also some commonly used derived rules:
+If `Y ⊆ X`, then:
 
-| Rule | Meaning |
-|---|---|
-| **Union** | If `X → Y` and `X → Z`, then `X → YZ` |
-| **Decomposition** | If `X → YZ`, then `X → Y` and `X → Z` |
-| **Pseudotransitivity** | If `X → Y` and `WY → Z`, then `WX → Z` |
+```text
+X → Y
+```
 
-### Easy purpose of Armstrong's axioms
+Examples:
 
-They help you prove whether a dependency follows from the given set or not.
+```text
+A → A
+AB → A
+(RNo, Name) → Name
+```
+
+#### 2. Transitivity rule
+
+If:
+
+```text
+X → Y
+Y → Z
+```
+
+then:
+
+```text
+X → Z
+```
+
+Example:
+
+```text
+A → B
+B → C
+therefore A → C
+```
+
+#### 3. Augmentation rule
+
+If:
+
+```text
+X → Y
+```
+
+then for any `Z`:
+
+```text
+XZ → YZ
+```
+
+Class-note style example:
+
+If:
+
+```text
+RNo → Marks
+```
+
+then adding `Name` to both sides gives:
+
+```text
+RNo, Name → Marks, Name
+```
+
+#### 4. Union rule
+
+If:
+
+```text
+X → Y
+X → Z
+```
+
+then:
+
+```text
+X → YZ
+```
+
+Example:
+
+```text
+RNo → Name
+RNo → Marks
+therefore RNo → Name, Marks
+```
+
+#### 5. Decomposition rule
+
+If:
+
+```text
+X → YZ
+```
+
+then:
+
+```text
+X → Y
+X → Z
+```
+
+Example:
+
+```text
+RNo → Name, Marks, Dept
+```
+
+can be split into:
+
+```text
+RNo → Name
+RNo → Marks
+RNo → Dept
+```
+
+#### 6. Pseudotransitivity rule
+
+If:
+
+```text
+X → Y
+YZ → A
+```
+
+then:
+
+```text
+XZ → A
+```
+
+A small symbolic example is usually the easiest way to remember this one.
+
+> **Easy memory tip:**
+>
+> - **Reflexivity** = subset rule
+> - **Transitivity** = chain rule
+> - **Augmentation** = add same thing to both sides
+> - **Union** = combine RHS values
+> - **Decomposition** = split RHS values
+> - **Pseudotransitivity** = mixed chain rule
 
 ---
 
@@ -473,37 +745,335 @@ flowchart TD
     G -->|No| H[Stop and return alpha plus]
 ```
 
-### Example
+---
 
-If:
+## Worked Examples in the Class-Note Solving Style
+
+### Example 1 — Find the closure and identify the key
+
+Given:
 
 ```text
-F = {A → B, A → C, CG → H, CG → I, B → H}
+R(A, B, C, D, E)
+F = {A → B, B → C, C → D, D → E}
 ```
 
-and we want `(AG)+`:
+#### Find `A+`
 
-- start with `{A, G}`
-- from `A → B`, add `B`
-- from `A → C`, add `C`
-- now `CG → H`, so add `H`
-- now `CG → I`, so add `I`
+Start with:
+
+```text
+A+ = {A}
+```
+
+| Step | Reason | Closure so far |
+|---|---|---|
+| Start | Begin with `A` | `{A}` |
+| 1 | `A → B` | `{A, B}` |
+| 2 | `B → C` | `{A, B, C}` |
+| 3 | `C → D` | `{A, B, C, D}` |
+| 4 | `D → E` | `{A, B, C, D, E}` |
 
 So:
 
 ```text
-(AG)+ = {A, B, C, G, H, I}
+A+ = {A, B, C, D, E}
 ```
 
-### Superkey test using closure
+That is **all attributes of the relation**.
+So:
 
-A set `X` is a **superkey** if:
+- `A` is a **superkey**
+- since `A` is already a single attribute, it is also a **candidate key**
+
+#### Find `B+`
+
+Start with:
 
 ```text
-X+ = all attributes of the relation
+B+ = {B}
 ```
 
-If it covers everything, it identifies the whole row.
+| Step | Reason | Closure so far |
+|---|---|---|
+| Start | Begin with `B` | `{B}` |
+| 1 | `B → C` | `{B, C}` |
+| 2 | `C → D` | `{B, C, D}` |
+| 3 | `D → E` | `{B, C, D, E}` |
+
+So:
+
+```text
+B+ = {B, C, D, E}
+```
+
+`A` is missing, so `B` is **not** a superkey.
+
+#### What about `AD+`?
+
+Yes, `AD+` also gives all attributes.
+But it is **not** a candidate key, because `A` alone already works.
+So `AD` is only a **superkey**, not a minimal one.
+
+> **Important rule:**
+>
+> - **Superkey** = closure gives all attributes
+> - **Candidate key** = closure gives all attributes **and** no proper subset can do that
+
+---
+
+### Example 2 — Find all candidate keys
+
+Given:
+
+```text
+R(A, B, C, D)
+F = {A → B, B → C, C → A}
+```
+
+### Step 1: Find attributes that never appear on the RHS
+
+Right-hand sides are:
+
+```text
+{B, C, A}
+```
+
+So `D` never appears on the right-hand side.
+That means:
+
+> `D` must be part of **every** candidate key.
+
+### Step 2: Compute small closures
+
+#### `A+`
+
+```text
+A+ = {A}
+A → B  => {A, B}
+B → C  => {A, B, C}
+```
+
+So:
+
+```text
+A+ = {A, B, C}
+```
+
+Still missing `D`.
+So `A` alone is not a superkey.
+
+#### `B+`
+
+```text
+B+ = {B}
+B → C  => {B, C}
+C → A  => {B, C, A}
+```
+
+So:
+
+```text
+B+ = {A, B, C}
+```
+
+Still missing `D`.
+
+#### `C+`
+
+```text
+C+ = {C}
+C → A  => {C, A}
+A → B  => {C, A, B}
+```
+
+So:
+
+```text
+C+ = {A, B, C}
+```
+
+Still missing `D`.
+
+### Step 3: Add `D`
+
+#### `AD+`
+
+Start with `{A, D}`:
+
+```text
+A → B  => {A, D, B}
+B → C  => {A, D, B, C}
+```
+
+So:
+
+```text
+AD+ = {A, B, C, D}
+```
+
+Hence `AD` is a superkey.
+
+Check minimality:
+- `A+` is not all attributes
+- `D+ = {D}` only
+
+So `AD` is a **candidate key**.
+
+#### `BD+`
+
+Start with `{B, D}`:
+
+```text
+B → C  => {B, D, C}
+C → A  => {B, D, C, A}
+```
+
+So:
+
+```text
+BD+ = {A, B, C, D}
+```
+
+`BD` is also a **candidate key**.
+
+#### `CD+`
+
+Start with `{C, D}`:
+
+```text
+C → A  => {C, D, A}
+A → B  => {C, D, A, B}
+```
+
+So:
+
+```text
+CD+ = {A, B, C, D}
+```
+
+`CD` is also a **candidate key**.
+
+### Final answer for Example 2
+
+Candidate keys are:
+
+```text
+AD, BD, CD
+```
+
+Since every attribute appears in at least one candidate key, all of them are **prime attributes**.
+
+---
+
+### Example 3 — Another candidate-key problem from the class-note style
+
+Given:
+
+```text
+R(A, B, C, D)
+F = {AB → CD, D → B, C → A}
+```
+
+We now check likely small combinations.
+
+#### `AB+`
+
+Start with `{A, B}`:
+
+```text
+AB → CD  => {A, B, C, D}
+```
+
+So:
+
+```text
+AB+ = {A, B, C, D}
+```
+
+Thus `AB` is a superkey.
+
+Check minimality:
+- `A+ = {A}`
+- `B+ = {B}`
+
+So `AB` is a **candidate key**.
+
+#### `CD+`
+
+Start with `{C, D}`:
+
+```text
+C → A   => {C, D, A}
+D → B   => {C, D, A, B}
+```
+
+So:
+
+```text
+CD+ = {A, B, C, D}
+```
+
+Check subsets:
+- `C+ = {C, A}`
+- `D+ = {D, B}`
+
+Neither is enough.
+So `CD` is a **candidate key**.
+
+#### `AD+`
+
+Start with `{A, D}`:
+
+```text
+D → B    => {A, D, B}
+AB → CD  => {A, D, B, C}
+```
+
+So:
+
+```text
+AD+ = {A, B, C, D}
+```
+
+Check subsets:
+- `A+ = {A}`
+- `D+ = {D, B}`
+
+So `AD` is also a **candidate key**.
+
+### Final answer for Example 3
+
+Candidate keys are:
+
+```text
+AB, CD, AD
+```
+
+---
+
+### A fast exam method for candidate-key questions
+
+Use this whenever the question says **find the candidate key**.
+
+```mermaid
+flowchart TD
+    A[Write all FDs] --> B[Mark attributes never on RHS]
+    B --> C[Those must usually be in every key]
+    C --> D[Compute closure of smallest possible set]
+    D --> E{Closure gives all attributes?}
+    E -->|No| F[Add another needed attribute]
+    F --> D
+    E -->|Yes| G[It is a superkey]
+    G --> H[Check minimality by removing one attribute at a time]
+    H --> I[Minimal superkey = candidate key]
+```
+
+### Short memory rules
+
+- If `X+` gives all attributes -> `X` is a **superkey**
+- If `X+` gives all attributes **and no smaller subset works** -> `X` is a **candidate key**
+- Attributes that never appear on RHS are very important -> they usually must be in every key
 
 ---
 
@@ -542,6 +1112,8 @@ A canonical cover is like cleaning a formula sheet:
 - merge repeated lines
 - remove useless symbols
 - keep only what is truly necessary
+
+> **Scope note:** The class note focused much more on FD definition, Armstrong's rules, closure, and candidate keys. So for canonical cover, the textbook summary is kept brief here.
 
 ---
 
@@ -659,6 +1231,9 @@ flowchart TD
 ### Final memory checklist
 
 - **FD:** `X → Y` means `X` determines `Y`
+- **Determinant:** left side of an FD
+- **Dependent:** right side of an FD
+- **Trivial FD:** RHS already inside LHS
 - **Superkey:** determines the whole tuple
 - **Candidate key:** minimal superkey
 - **Lossless decomposition:** no information loss
