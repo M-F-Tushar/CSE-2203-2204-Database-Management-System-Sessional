@@ -53,19 +53,11 @@ Database systems generally deal with data that is:
 
 ### Two Modes of Database Use
 
-```mermaid
-graph LR
-    A[Database Usage] --> B[Online Transaction<br/>Processing OLTP]
-    A --> C[Data Analytics]
+<p align="center">
+  <img src="diagrams/d01-two-modes-of-database.svg" alt="Two Modes of Database Use" />
+</p>
 
-    B --> B1["Many users<br/>Small reads/writes each<br/>e.g. booking a seat,<br/>registering for a course"]
-    C --> C1["Processes large volumes of data<br/>Finds patterns & builds<br/>predictive models"]
-    C --> C2["e.g. loan approval prediction,<br/>ad targeting, demand forecasting"]
-
-    style A fill:#4a90d9,color:#fff
-    style B fill:#57a773,color:#fff
-    style C fill:#c9642a,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d01-two-modes-of-database.excalidraw">d01-two-modes-of-database.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 **Key idea:** You don't need to know how a car engine works just to drive the car — you use the steering wheel and pedals. In the same way, a DBMS lets people work with data through simple commands, while hiding all the complicated work happening underneath.
 
@@ -73,16 +65,11 @@ graph LR
 
 The data used by all these applications doesn't always look the same. It usually comes in one of three shapes:
 
-```mermaid
-graph TD
-    T[Types of Data] --> S["**Structured Data**<br/>Fixed format, fits neatly into<br/>rows & columns (e.g., a Students table)"]
-    T --> SS["**Semi-Structured Data**<br/>Partial organization with labels,<br/>but flexible attributes<br/>(e.g., JSON, XML, HTML)"]
-    T --> U["**Unstructured Data**<br/>No predefined format<br/>(e.g., photos, videos, emails, PDFs)"]
+<p align="center">
+  <img src="diagrams/d02-the-data-behind-these.svg" alt="The Data Behind These Applications: Structured, Semi-Structured, Unstructured" />
+</p>
 
-    style S fill:#57a773,color:#fff
-    style SS fill:#e67e22,color:#fff
-    style U fill:#c0392b,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d02-the-data-behind-these.excalidraw">d02-the-data-behind-these.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 A JSON document is a good example of semi-structured data. It stores information as simple "label: value" pairs, but unlike a table, two documents of the same "type" don't need to have exactly the same fields:
 
@@ -117,19 +104,11 @@ To understand *why* we even need a DBMS, picture a university that keeps all its
 
 Here is what commonly goes wrong with this approach:
 
-```mermaid
-flowchart TD
-    FP[File-Processing System]
-    FP --> D1["**Data Redundancy & Inconsistency**<br/>Same data duplicated across files;<br/>updates may not reach every copy"]
-    FP --> D2["**Difficulty in Accessing Data**<br/>No program exists for an<br/>unanticipated query; needs new code"]
-    FP --> D3["**Data Isolation**<br/>Data scattered across files in<br/>different formats"]
-    FP --> D4["**Integrity Problems**<br/>Consistency constraints buried in<br/>scattered application code"]
-    FP --> D5["**Atomicity Problems**<br/>A crash mid-operation can leave<br/>data in a half-updated state"]
-    FP --> D6["**Concurrent-Access Anomalies**<br/>Simultaneous updates can<br/>overwrite each other (lost updates)"]
-    FP --> D7["**Security Problems**<br/>Hard to restrict access to only<br/>parts of the data per user role"]
+<p align="center">
+  <img src="diagrams/d03-disadvantages-of-file.svg" alt="Disadvantages of File-Processing Systems" />
+</p>
 
-    style FP fill:#c0392b,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d03-disadvantages-of-file.excalidraw">d03-disadvantages-of-file.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### Illustrative Example — Concurrent-Access Anomaly
 
@@ -182,19 +161,11 @@ Fixing those seven problems is only worthwhile if it actually leads to a databas
 
 To make all of that possible, every DBMS — no matter which company built it — does the same basic jobs:
 
-```mermaid
-graph LR
-    F[DBMS Functions] --> F1[Creating<br/>Databases]
-    F --> F2[Storing<br/>Data]
-    F --> F3[Retrieving<br/>Data]
-    F --> F4[Updating<br/>Data]
-    F --> F5[Deleting<br/>Data]
-    F --> F6[Security<br/>Management]
-    F --> F7[Backup &<br/>Recovery]
-    F --> F8[Concurrency<br/>Control]
+<p align="center">
+  <img src="diagrams/d04-major-functions-of-a.svg" alt="Major Functions of a DBMS" />
+</p>
 
-    style F fill:#4a90d9,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d04-major-functions-of-a.excalidraw">d04-major-functions-of-a.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 Later in §1.6, you'll see that each of these jobs is actually handled by a specific part inside the DBMS: security is handled by the Authorization & Integrity Manager, backups/recovery by the Recovery Manager, and controlling simultaneous access by the Concurrency-Control Manager.
 
@@ -210,15 +181,11 @@ A database system doesn't show you the messy, real details of how data sits on d
 
 A **data model** is simply a way of describing what the data looks like, how different pieces of data relate to each other, and what rules they must follow. There are four broad ways to do this:
 
-```mermaid
-graph TD
-    DM[Data Models] --> R["**Relational Model**<br/>Data as tables (relations)<br/>with rows & named columns"]
-    DM --> ER["**Entity-Relationship Model**<br/>Entities + relationships<br/>(used for design, Ch. 6)"]
-    DM --> SS["**Semi-structured Model**<br/>JSON / XML — items of the<br/>same type may differ in attributes"]
-    DM --> OB["**Object-Based Model**<br/>Encapsulation, methods,<br/>object identity"]
+<p align="center">
+  <img src="diagrams/d05-1-3-1-data-models.svg" alt="1.3.1 Data Models" />
+</p>
 
-    style DM fill:#4a90d9,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d05-1-3-1-data-models.excalidraw">d05-1-3-1-data-models.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 The **relational model** is the one used almost everywhere today. It stores data as **tables**, where each table has fixed **columns** (like "name" or "salary"), and each **row** is one record — for example, one instructor.
 
@@ -240,18 +207,11 @@ The **relational model** is the one used almost everywhere today. It stores data
 
 The relational model wasn't the first attempt at solving this problem. Two older models came before it, and a newer family of models has grown up next to it. Comparing all of these is a favorite exam question, so let's walk through each one simply:
 
-```mermaid
-graph TD
-    H["**Hierarchical Model**<br/>Tree structure — each<br/>child has exactly ONE parent"]
-    N["**Network Model**<br/>Graph structure — a<br/>child can have MULTIPLE parents"]
-    R["**Relational Model**<br/>Tables + keys<br/>(the modern default)"]
+<p align="center">
+  <img src="diagrams/d06-the-models-that-came.svg" alt="The Models That Came Before — and After — the Relational Model" />
+</p>
 
-    H -->|"evolved into"| N -->|"evolved into"| R
-
-    style H fill:#8e44ad,color:#fff
-    style N fill:#e67e22,color:#fff
-    style R fill:#27ae60,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d06-the-models-that-came.excalidraw">d06-the-models-that-came.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 **1. Hierarchical Model** — imagine data arranged like a family tree or a company org chart: every record (except the very top one) has exactly **one** parent. This is easy to represent using a `Parent_ID` column, like this:
 
@@ -275,50 +235,21 @@ CEO
 
 **2. Network Model** — this fixes the hierarchical model's biggest weakness by letting a record connect to **more than one** parent, forming a graph instead of a strict tree. This makes many-to-many relationships easy to represent.
 
-```mermaid
-graph LR
-    S1[Student 1] --> C1[Course 1]
-    S1 --> C2[Course 2]
-    S2[Student 2] --> C1
-    S2 --> C3[Course 3]
-    S3[Student 3] --> C2
-    S3 --> C3
+<p align="center">
+  <img src="diagrams/d07-the-models-that-came.svg" alt="The Models That Came Before — and After — the Relational Model" />
+</p>
 
-    style S1 fill:#4a90d9,color:#fff
-    style S2 fill:#4a90d9,color:#fff
-    style S3 fill:#4a90d9,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d07-the-models-that-came.excalidraw">d07-the-models-that-came.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 *You see this in real life in:* airline route maps, or complex product/parts inventories. Eventually, the **relational model** replaced both older models. Instead of hard-wiring pointers between records, it simply connects tables using shared key values — for example, linking the `instructor` and `department` tables just by matching a `dept_name` column, with no physical links needed.
 
 **3. Object-Based Model** — this combines ideas from object-oriented programming (classes, inheritance, bundling data with behavior) with the idea of storing that data permanently, as shown below:
 
-```mermaid
-classDiagram
-    Person <|-- Student
-    Person <|-- Doctor
-    Person <|-- Engineer
-    class Person {
-        -Name
-        -Age
-        +SetName()
-    }
-    class Student {
-        -RollNo
-        -Branch
-        +SetMarks()
-    }
-    class Doctor {
-        -D_ID
-        -Specialist
-        +CountOperation()
-    }
-    class Engineer {
-        -E_ID
-        -Department
-        +Countpage()
-    }
-```
+<p align="center">
+  <img src="diagrams/d08-the-models-that-came.svg" alt="The Models That Came Before — and After — the Relational Model" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d08-the-models-that-came.excalidraw">d08-the-models-that-came.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 **4. NoSQL Models** — a modern group of database types that don't use tables at all. They were built to handle huge amounts of data and flexible, changing structures, building on the same **semi-structured** idea already mentioned in §1.1:
 
@@ -347,18 +278,11 @@ classDiagram
 
 The real way data is stored on disk is complicated and messy. To hide that complexity, a DBMS presents data at **three different levels**, like layers of an onion:
 
-```mermaid
-graph TD
-    V["**View Level**<br/>Multiple partial views tailored<br/>to different user groups<br/>(e.g., registrar sees only student data)"]
-    L["**Logical Level**<br/>What data is stored & what<br/>relationships exist among them<br/>(the full schema — DBA's view)"]
-    P["**Physical Level**<br/>How data is actually stored:<br/>files, indices, byte layouts"]
+<p align="center">
+  <img src="diagrams/d09-1-3-2-data-abstraction.svg" alt="1.3.2 Data Abstraction" />
+</p>
 
-    V --> L --> P
-
-    style V fill:#57a773,color:#fff
-    style L fill:#4a90d9,color:#fff
-    style P fill:#8e44ad,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d09-1-3-2-data-abstraction.excalidraw">d09-1-3-2-data-abstraction.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 - **Physical level** — the lowest, most detailed level. It describes exactly how data is stored on disk: file layouts, indices, byte-level details. Most people never need to look here.
 - **Logical level** — describes *what* data exists and how the pieces relate to each other, without worrying about physical storage. This is the level a database administrator normally works at.
@@ -387,18 +311,11 @@ Because instances change constantly (inserts/deletes/updates) while the schema s
 
 To work with a database, you need two kinds of instructions. A **Data-Definition Language (DDL)** designs and defines the database's structure. A **Data-Manipulation Language (DML)** adds, reads, changes, or removes the actual data. In real life (like in SQL), both are part of the same language — you don't need to learn two separate tools.
 
-```mermaid
-flowchart LR
-    subgraph DBLang["Database Language"]
-        DDL["**DDL**<br/>Data-Definition Language<br/>defines schema + constraints"]
-        DML["**DML**<br/>Data-Manipulation Language<br/>queries + updates data"]
-    end
-    DDL -->|"create table,<br/>constraints"| DD[(Data Dictionary<br/>Metadata)]
-    DML -->|"select, insert,<br/>update, delete"| Data[(Actual Data)]
+<p align="center">
+  <img src="diagrams/d10-1-4-database-languages.svg" alt="1.4 Database Languages" />
+</p>
 
-    style DDL fill:#4a90d9,color:#fff
-    style DML fill:#57a773,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d10-1-4-database-languages.excalidraw">d10-1-4-database-languages.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### 1.4.1 Data-Definition Language (DDL)
 
@@ -427,15 +344,11 @@ create table department
 
 A DML lets you **read**, **add**, **remove**, and **change** data.
 
-```mermaid
-graph TD
-    DML2[DML Types] --> Proc["**Procedural DML**<br/>User specifies WHAT data<br/>is needed AND HOW to get it"]
-    DML2 --> Decl["**Declarative / Non-procedural DML**<br/>User specifies only WHAT data<br/>is needed — system decides HOW"]
-    Decl --> SQLNote["SQL is the classic example.<br/>Easier to learn & use;<br/>the query optimizer picks<br/>the efficient access plan"]
+<p align="center">
+  <img src="diagrams/d11-1-4-2-data-manipulation.svg" alt="1.4.2 Data-Manipulation Language (DML)" />
+</p>
 
-    style Proc fill:#c0392b,color:#fff
-    style Decl fill:#27ae60,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d11-1-4-2-data-manipulation.excalidraw">d11-1-4-2-data-manipulation.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 A **query** is simply a DML statement that asks for some data back. In casual conversation, people often use "query language" and "DML" to mean the same thing.
 
@@ -460,18 +373,11 @@ where  instructor.dept_name = department.dept_name
 
 DDL and DML are the two main categories covered by the textbook, but real SQL usage has two more categories that complete the full picture:
 
-```mermaid
-graph TD
-    L[Database Languages] --> DDL2["**DDL**<br/>CREATE, ALTER, DROP<br/>defines structure"]
-    L --> DML2["**DML**<br/>SELECT, INSERT, UPDATE, DELETE<br/>manipulates data"]
-    L --> DCL["**DCL**<br/>GRANT, REVOKE<br/>controls access permissions"]
-    L --> TCL["**TCL**<br/>COMMIT, ROLLBACK, SAVEPOINT<br/>manages transaction boundaries"]
+<p align="center">
+  <img src="diagrams/d12-completing-the-language.svg" alt="Completing the Language Set: DCL and TCL" />
+</p>
 
-    style DDL2 fill:#4a90d9,color:#fff
-    style DML2 fill:#57a773,color:#fff
-    style DCL fill:#8e44ad,color:#fff
-    style TCL fill:#c0392b,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d12-completing-the-language.excalidraw">d12-completing-the-language.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 - **DCL (Data Control Language)** — commands like `GRANT` and `REVOKE`, used to actually hand out or take away the read/insert/update/delete permissions described above (covered in more depth in Chapter 4).
 - **TCL (Transaction Control Language)** — commands like `COMMIT`, `ROLLBACK`, and `SAVEPOINT`, used to mark where a logical unit of work begins and ends. This connects directly to the Transaction Manager described later in §1.6.3.
@@ -489,23 +395,11 @@ SQL is great at handling data, but it can't do everything a general-purpose prog
 
 Inside every DBMS, the work is split into three broad parts:
 
-```mermaid
-flowchart TB
-    subgraph Engine["Database Engine"]
-        direction TB
-        QP["**Query Processor**<br/>DDL Interpreter, DML Compiler<br/>& Query Optimizer, Query<br/>Evaluation Engine"]
-        SM["**Storage Manager**<br/>Authorization & Integrity Manager,<br/>Transaction Manager, File Manager,<br/>Buffer Manager"]
-        TM["**Transaction Management**<br/>Concurrency-Control Manager<br/>+ Recovery Manager"]
-    end
-    QP --> SM
-    SM --> Disk[("Disk Storage<br/>data files, indices,<br/>data dictionary")]
-    TM -.ensures ACID.-> QP
-    TM -.ensures ACID.-> SM
+<p align="center">
+  <img src="diagrams/d13-1-6-database-engine.svg" alt="1.6 Database Engine" />
+</p>
 
-    style QP fill:#4a90d9,color:#fff
-    style SM fill:#57a773,color:#fff
-    style TM fill:#c0392b,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d13-1-6-database-engine.excalidraw">d13-1-6-database-engine.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### 1.6.1 Storage Manager
 
@@ -530,15 +424,11 @@ This part makes it easy and fast to get data, so users never have to think about
 
 A **transaction** is a group of operations that should all be treated as one single unit — for example, transferring money means both subtracting from one account *and* adding to another; both must happen together. The transaction manager makes sure every transaction follows these four rules, known as **ACID**:
 
-```mermaid
-graph LR
-    ACID["Transaction Properties<br/>(ACID)"] --> At["**Atomicity**<br/>All-or-nothing execution"]
-    ACID --> Co["**Consistency**<br/>Moves DB from one<br/>valid state to another"]
-    ACID --> Is["**Isolation**<br/>Concurrent transactions don't<br/>interfere with each other"]
-    ACID --> Du["**Durability**<br/>Committed changes survive<br/>crashes permanently"]
+<p align="center">
+  <img src="diagrams/d14-1-6-3-transaction.svg" alt="1.6.3 Transaction Management" />
+</p>
 
-    style ACID fill:#e67e22,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d14-1-6-3-transaction.excalidraw">d14-1-6-3-transaction.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 - **Recovery Manager** — makes sure transactions are all-or-nothing (**atomicity**) and that finished work is never lost (**durability**), even after a crash.
 - **Concurrency-Control Manager** — carefully manages the order in which multiple transactions run together, so they don't step on each other's toes (**consistency** and **isolation**).
@@ -547,44 +437,11 @@ graph LR
 
 Let's zoom into the **Query Processor** and **Storage Manager** boxes from the diagram above and see the full journey a request takes, from the user all the way down to the disk and back:
 
-```mermaid
-flowchart TB
-    subgraph Users2["Users & Tools"]
-        NU["naive users"] --> AI["application<br/>interfaces"]
-        AP2["application<br/>programmers"] --> APR["application<br/>programs"]
-        SU2["sophisticated<br/>users"] --> QT["query<br/>tools"]
-        DBA2["DBAs"] --> AT["administration<br/>tools"]
-    end
-    AI --> CL["compiler<br/>& linker"]
-    APR --> CL
-    QT --> DMLQ["DML queries"]
-    AT --> DDLI["DDL interpreter"]
+<p align="center">
+  <img src="diagrams/d15-putting-it-all-together.svg" alt="Putting It All Together: The Full Engine Pipeline" />
+</p>
 
-    subgraph QueryProc["Query Processor"]
-        CL --> OBJ["application<br/>program object code"]
-        DMLQ --> DMLC["DML compiler<br/>& organizer"]
-        OBJ --> QEE["query evaluation<br/>engine"]
-        DMLC --> QEE
-    end
-
-    subgraph StorageMgr["Storage Manager"]
-        BM["buffer<br/>manager"]
-        FM["file<br/>manager"]
-        AIM["authorization &<br/>integrity manager"]
-        TXM["transaction<br/>manager"]
-    end
-
-    QEE --> BM
-    QEE --> FM
-    DDLI --> AIM
-    QEE --> TXM
-
-    BM --> Disk[("disk storage:<br/>data, indices,<br/>data dictionary,<br/>statistical data")]
-    FM --> Disk
-
-    style QueryProc fill:#4a90d9,color:#fff
-    style StorageMgr fill:#57a773,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d15-putting-it-all-together.excalidraw">d15-putting-it-all-together.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 This is really just a more detailed picture of §1.6.1 and §1.6.2, showing how each of the four kinds of users (from §1.8) eventually reaches the disk:
 
@@ -601,22 +458,17 @@ This is really just a more detailed picture of §1.6.1 and §1.6.2, showing how 
 
 How a modern computer system is set up has a big effect on how database applications are built. Most applications use one of two basic layouts: **two-tier** or **three-tier**.
 
-```mermaid
-flowchart LR
-    subgraph TwoTier["(a) Two-Tier Architecture"]
-        direction LR
-        C1[Client:<br/>User + Application] -->|"direct DB<br/>calls / SQL"| S1[Server:<br/>Database System]
-    end
-```
+<p align="center">
+  <img src="diagrams/d16-1-7-database-and.svg" alt="1.7 Database and Application Architecture" />
+</p>
 
-```mermaid
-flowchart LR
-    subgraph ThreeTier["(b) Three-Tier Architecture"]
-        direction LR
-        C2["Client:<br/>User + Application Client<br/>(web/mobile front-end)"] -->|network| AS["Application Server<br/>(business logic)"]
-        AS -->|DB queries| DS["Database System"]
-    end
-```
+<sub><em>Editable diagram source: <a href="diagrams/d16-1-7-database-and.excalidraw">d16-1-7-database-and.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
+
+<p align="center">
+  <img src="diagrams/d17-1-7-database-and.svg" alt="1.7 Database and Application Architecture" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d17-1-7-database-and.excalidraw">d17-1-7-database-and.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 
 | Feature | Two-Tier | Three-Tier |
@@ -633,20 +485,11 @@ flowchart LR
 
 Let's trace through exactly what happens, step by step, when a student clicks **"View Results"** on a university website. This kind of step-by-step tracing is a common exam question:
 
-```mermaid
-sequenceDiagram
-    participant Browser as Client (Browser)
-    participant App as Application Server
-    participant DB as Database Server
+<p align="center">
+  <img src="diagrams/d18-a-concrete-request-walk.svg" alt="A Concrete Request Walk-Through" />
+</p>
 
-    Browser->>App: GET /results/220101 (no SQL — just a URL)
-    App->>App: student_id = "220101"
-    App->>DB: SELECT CourseCode, Grade FROM Result WHERE StudentID = '220101'
-    DB-->>App: (CSE201, A), (CSE203, B+)
-    App->>App: Convert rows to JSON
-    App-->>Browser: { "student":"220101", "results":[...] }
-    Browser->>Browser: Render results as a webpage
-```
+<sub><em>Editable diagram source: <a href="diagrams/d18-a-concrete-request-walk.excalidraw">d18-a-concrete-request-walk.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 The most important thing to remember: **the client (browser) never sees or writes any SQL.** Only the application server talks directly to the database. This is exactly the separation between layers described in the comparison table above.
 
@@ -656,15 +499,11 @@ The most important thing to remember: **the client (browser) never sees or write
 
 ### Types of Database Users
 
-```mermaid
-graph TD
-    U[Database Users] --> N["**Naïve Users**<br/>Use predefined forms/apps<br/>(e.g., student registering<br/>for a class via a web form)"]
-    U --> AP["**Application Programmers**<br/>Write the application<br/>programs / interfaces"]
-    U --> SU["**Sophisticated Users**<br/>Write queries directly or use<br/>data-analysis tools (analysts)"]
-    U --> SP["**Specialized Users**<br/>Build advanced domain-specific apps:<br/>scientific research, AI/knowledge bases,<br/>CAD, multimedia, GIS"]
+<p align="center">
+  <img src="diagrams/d19-types-of-database-users.svg" alt="Types of Database Users" />
+</p>
 
-    style U fill:#4a90d9,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d19-types-of-database-users.excalidraw">d19-types-of-database-users.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 These four types of users match up exactly with the "Users & Tools" box at the top of the pipeline diagram in §1.6: naïve users go through application interfaces, application programmers write the programs compiled in that pipeline, sophisticated users use the query tools directly, and specialized users push every layer of the engine to support unusual data like images, map coordinates, or knowledge graphs.
 

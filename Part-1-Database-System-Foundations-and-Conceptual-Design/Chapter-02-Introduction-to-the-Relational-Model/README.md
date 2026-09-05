@@ -30,19 +30,11 @@ A relational database is a **collection of tables**, each assigned a unique name
 
 ### Core Terminology
 
-```mermaid
-graph TD
-    T["**Table**<br/>(everyday term)"] --- R["**Relation**<br/>(formal term)"]
-    Row["**Row**<br/>(everyday term)"] --- Tup["**Tuple**<br/>an n-tuple of n values"]
-    Col["**Column**<br/>(everyday term)"] --- Attr["**Attribute**<br/>named field of a relation"]
+<p align="center">
+  <img src="diagrams/d01-core-terminology.svg" alt="Core Terminology" />
+</p>
 
-    R --> Attr
-    R --> Tup
-
-    style R fill:#4a90d9,color:#fff
-    style Tup fill:#57a773,color:#fff
-    style Attr fill:#c9642a,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d01-core-terminology.excalidraw">d01-core-terminology.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 | Term | Meaning |
 |---|---|
@@ -65,14 +57,11 @@ graph TD
 
 ## 2.2 Database Schema
 
-```mermaid
-graph LR
-    S["**Database Schema**<br/>(logical DESIGN — like a<br/>type/variable declaration)"] -->|"stays<br/>stable"| I
-    I["**Database Instance**<br/>(a SNAPSHOT of actual data<br/>at one moment — like a<br/>variable's current value)"] -.changes over time.-> I
+<p align="center">
+  <img src="diagrams/d02-2-2-database-schema.svg" alt="2.2 Database Schema" />
+</p>
 
-    style S fill:#4a90d9,color:#fff
-    style I fill:#57a773,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d02-2-2-database-schema.excalidraw">d02-2-2-database-schema.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 - **Relation schema** — the list of attributes (and their domains) that define a relation's structure, e.g.:
 
@@ -110,22 +99,11 @@ prereq     (course_id, prereq_id)
 
 We need a way to uniquely distinguish every tuple in a relation using its attribute values.
 
-```mermaid
-graph TD
-    SK["**Superkey**<br/>any attribute set that<br/>uniquely identifies a tuple<br/>(may contain extra/redundant attributes)"]
-    CK["**Candidate Key**<br/>a MINIMAL superkey —<br/>no attribute can be removed<br/>without losing uniqueness"]
-    PK["**Primary Key**<br/>the candidate key CHOSEN<br/>by the designer as the<br/>main identifier"]
-    AK["**Alternate Key**<br/>a candidate key that was<br/>NOT chosen as primary key"]
+<p align="center">
+  <img src="diagrams/d03-2-3-keys.svg" alt="2.3 Keys" />
+</p>
 
-    SK -->|"minimality<br/>filter"| CK
-    CK -->|"designer's<br/>choice"| PK
-    CK -->|"the rest"| AK
-
-    style SK fill:#8e44ad,color:#fff
-    style CK fill:#4a90d9,color:#fff
-    style PK fill:#27ae60,color:#fff
-    style AK fill:#e67e22,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d03-2-3-keys.excalidraw">d03-2-3-keys.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### Definitions
 
@@ -158,19 +136,11 @@ A single `time_slot_id` can meet on multiple days and even multiple times per da
 
 ### Foreign Keys & Referential Integrity
 
-```mermaid
-graph LR
-    subgraph R1["Referencing Relation (r1)"]
-        I["instructor<br/>(ID, name, **dept_name**, salary)"]
-    end
-    subgraph R2["Referenced Relation (r2)"]
-        D["department<br/>(**dept_name**, building, budget)"]
-    end
-    I -->|"foreign key:<br/>dept_name must exist<br/>as a department.dept_name value"| D
+<p align="center">
+  <img src="diagrams/d04-foreign-keys.svg" alt="Foreign Keys & Referential Integrity" />
+</p>
 
-    style I fill:#4a90d9,color:#fff
-    style D fill:#57a773,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d04-foreign-keys.excalidraw">d04-foreign-keys.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 | Concept | Definition |
 |---|---|
@@ -195,89 +165,11 @@ A **schema diagram** is a visual depiction of a database schema showing relation
 
 ### University Database — Schema Diagram (Mermaid ER Diagram)
 
-```mermaid
-erDiagram
-    DEPARTMENT ||--o{ INSTRUCTOR : "employs"
-    DEPARTMENT ||--o{ COURSE : "offers"
-    DEPARTMENT ||--o{ STUDENT : "majors"
-    COURSE ||--o{ SECTION : "offered as"
-    COURSE ||--o{ PREREQ : "has prerequisite"
-    INSTRUCTOR ||--o{ TEACHES : "teaches"
-    SECTION ||--o{ TEACHES : "taught in"
-    SECTION ||--o{ TAKES : "enrolled via"
-    STUDENT ||--o{ TAKES : "takes"
-    CLASSROOM ||--o{ SECTION : "hosts"
-    TIME_SLOT ||--o{ SECTION : "schedules (ref. integrity)"
-    STUDENT ||--o{ ADVISOR : "is advisee"
-    INSTRUCTOR ||--o{ ADVISOR : "is advisor"
+<p align="center">
+  <img src="diagrams/d05-university-database.svg" alt="University Database — Schema Diagram (Mermaid ER Diagram)" />
+</p>
 
-    DEPARTMENT {
-        string dept_name PK
-        string building
-        number budget
-    }
-    INSTRUCTOR {
-        string ID PK
-        string name
-        string dept_name FK
-        number salary
-    }
-    COURSE {
-        string course_id PK
-        string title
-        string dept_name FK
-        number credits
-    }
-    SECTION {
-        string course_id PK_FK
-        string sec_id PK
-        string semester PK
-        number year PK
-        string building FK
-        string room_number FK
-        string time_slot_id
-    }
-    TEACHES {
-        string ID PK_FK
-        string course_id PK_FK
-        string sec_id PK_FK
-        string semester PK
-        number year PK
-    }
-    STUDENT {
-        string ID PK
-        string name
-        string dept_name FK
-        number tot_cred
-    }
-    TAKES {
-        string ID PK_FK
-        string course_id PK_FK
-        string sec_id PK_FK
-        string semester PK
-        number year PK
-        string grade
-    }
-    CLASSROOM {
-        string building PK
-        string room_number PK
-        number capacity
-    }
-    TIME_SLOT {
-        string time_slot_id PK
-        string day PK
-        string start_time PK
-        string end_time
-    }
-    PREREQ {
-        string course_id PK_FK
-        string prereq_id PK_FK
-    }
-    ADVISOR {
-        string s_id PK_FK
-        string i_id FK
-    }
-```
+<sub><em>Editable diagram source: <a href="diagrams/d05-university-database.excalidraw">d05-university-database.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 > **Note:** This textbook uses a special "two-headed arrow" convention (not shown by the Mermaid `erDiagram` renderer above) to distinguish plain referential-integrity constraints from true foreign-key constraints — remember the *distinction*, even though the diagramming tool represents all relationships uniformly.
 
@@ -289,24 +181,11 @@ erDiagram
 
 The **relational algebra** is a *formal, functional query language*: a set of operations that take one or two relations as input and produce a **new relation** as output. Because outputs are themselves relations, operations can be **composed** into larger expressions — just like arithmetic expressions.
 
-```mermaid
-graph TD
-    RA[Relational Algebra Operations] --> U["**Unary Operations**<br/>(operate on ONE relation)"]
-    RA --> B["**Binary Operations**<br/>(operate on TWO relations)"]
+<p align="center">
+  <img src="diagrams/d06-2-6-the-relational.svg" alt="2.6 The Relational Algebra" />
+</p>
 
-    U --> S["Select σ"]
-    U --> P["Project Π"]
-    U --> RN["Rename ρ"]
-
-    B --> CP["Cartesian Product ×"]
-    B --> UN["Union ∪"]
-    B --> SD["Set Difference −"]
-    B --> SI["Set Intersection ∩"]
-    B --> J["Theta Join ⋈θ"]
-
-    style U fill:#4a90d9,color:#fff
-    style B fill:#c9642a,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d06-2-6-the-relational.excalidraw">d06-2-6-the-relational.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### 2.6.1 Select (σ) — Unary
 
@@ -337,15 +216,11 @@ A generalized form allows expressions in the attribute list, e.g. `Π ID, name, 
 
 Because the *result* of any relational-algebra operation is itself a relation, operations **chain together** naturally:
 
-```mermaid
-flowchart LR
-    A[instructor table] -->|"σ dept_name='Physics'"| B[Physics instructors<br/>only]
-    B -->|"Π name"| C[names of Physics<br/>instructors]
+<p align="center">
+  <img src="diagrams/d07-2-6-3-composing.svg" alt="2.6.3 Composing Operations" />
+</p>
 
-    style A fill:#95a5a6,color:#fff
-    style B fill:#4a90d9,color:#fff
-    style C fill:#27ae60,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d07-2-6-3-composing.excalidraw">d07-2-6-3-composing.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ```text
 Π name ( σ dept_name = "Physics" (instructor) )
@@ -368,22 +243,11 @@ The join operation combines **select + Cartesian product into one step**, keepin
 
 $$ r \bowtie_{\theta} s \;=\; \sigma_{\theta}(r \times s) $$
 
-```mermaid
-flowchart TB
-    subgraph Naive["Naive approach (2 steps)"]
-        direction LR
-        R1[instructor] --> X1["× teaches<br/>(Cartesian Product)<br/>huge intermediate result"]
-        X1 --> Sel["σ instructor.ID = teaches.ID<br/>(Select)"]
-    end
-    subgraph Join["Join (1 step, same result)"]
-        direction LR
-        R2[instructor] --> J["⋈ instructor.ID = teaches.ID<br/>teaches"]
-    end
-    Naive -.equivalent to.-> Join
+<p align="center">
+  <img src="diagrams/d08-2-6-5-theta-join-binary.svg" alt="2.6.5 Theta Join (⋈θ) — Binary" />
+</p>
 
-    style Naive fill:#e74c3c,color:#fff
-    style Join fill:#27ae60,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d08-2-6-5-theta-join-binary.excalidraw">d08-2-6-5-theta-join-binary.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ```text
 instructor ⋈ instructor.ID = teaches.ID teaches
@@ -394,14 +258,11 @@ instructor ⋈ instructor.ID = teaches.ID teaches
 
 Union, intersection, and set-difference operate on two **compatible relations**:
 
-```mermaid
-graph LR
-    subgraph Rules["Compatibility Rules for r ∪ s, r ∩ s, r − s"]
-        R1["1. Same arity<br/>(same number of attributes)"]
-        R2["2. Matching attribute types<br/>(ith attribute of r and s<br/>must have the same domain)"]
-    end
-    style Rules fill:#4a90d9,color:#fff
-```
+<p align="center">
+  <img src="diagrams/d09-2-6-6-set-operations.svg" alt="2.6.6 Set Operations — Binary (∪, ∩, −)" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d09-2-6-6-set-operations.excalidraw">d09-2-6-6-set-operations.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 | Operation | Symbol | Meaning | Example |
 |---|---|---|---|
@@ -415,24 +276,11 @@ graph LR
 Π course_id (σ semester="Spring" ∧ year=2018 (section))
 ```
 
-```mermaid
-graph TD
-    F["Fall 2017 courses<br/>{CS-101, CS-347, PHY-101}"]
-    S["Spring 2018 courses<br/>{CS-101, CS-315, CS-319,<br/>FIN-201, HIS-351, MU-199}"]
-    U["**∪ Union**<br/>all 8 distinct courses<br/>(CS-101 counted once)"]
-    I["**∩ Intersection**<br/>{CS-101}"]
-    D["**− Difference**<br/>(Fall − Spring)<br/>{CS-347, PHY-101}"]
+<p align="center">
+  <img src="diagrams/d10-2-6-6-set-operations.svg" alt="2.6.6 Set Operations — Binary (∪, ∩, −)" />
+</p>
 
-    F --> U
-    S --> U
-    F --> I
-    S --> I
-    F --> D
-
-    style U fill:#27ae60,color:#fff
-    style I fill:#4a90d9,color:#fff
-    style D fill:#e67e22,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d10-2-6-6-set-operations.excalidraw">d10-2-6-6-set-operations.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### 2.6.7 Assignment (←)
 

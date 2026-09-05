@@ -29,13 +29,11 @@ That works very well for many business systems. But some applications need somet
 
 This is where **semi-structured data** becomes useful.
 
-```mermaid
-graph TD
-    A[Semi-structured Data] --> B[Flexible schema]
-    A --> C[Nested values]
-    A --> D[Lists arrays maps]
-    A --> E[Good for data exchange]
-```
+<p align="center">
+  <img src="diagrams/d01-8-1-semi-structured-data.svg" alt="8.1 Semi-structured Data" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d01-8-1-semi-structured-data.excalidraw">d01-8-1-semi-structured-data.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### Why semi-structured data is needed
 
@@ -91,16 +89,11 @@ This kind of structure is called **nested data**. JSON and XML both support this
 
 ### Relational data vs semi-structured data
 
-```mermaid
-flowchart LR
-    R[Relational model] --> R1[Fixed columns]
-    R --> R2[Mostly atomic values]
-    R --> R3[Best for structured tabular data]
+<p align="center">
+  <img src="diagrams/d02-relational-data-vs-semi.svg" alt="Relational data vs semi-structured data" />
+</p>
 
-    S[Semi-structured model] --> S1[Flexible fields]
-    S --> S2[Nested values]
-    S --> S3[Best for evolving document-like data]
-```
+<sub><em>Editable diagram source: <a href="diagrams/d02-relational-data-vs-semi.excalidraw">d02-relational-data-vs-semi.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ---
 
@@ -251,13 +244,11 @@ So even without seeing the schema first, a human can often understand the struct
 
 ### XML structure at a glance
 
-```mermaid
-graph TD
-    X[XML document] --> T1[Tags]
-    X --> T2[Hierarchy]
-    X --> T3[Nested elements]
-    X --> T4[Good for document exchange]
-```
+<p align="center">
+  <img src="diagrams/d03-xml-structure-at-a.svg" alt="XML structure at a glance" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d03-xml-structure-at-a.excalidraw">d03-xml-structure-at-a.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### XML support inside SQL systems
 

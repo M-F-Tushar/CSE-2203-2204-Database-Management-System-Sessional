@@ -97,13 +97,11 @@ employee2(name, street, city, salary)
 
 This is dangerous because two different employees can have the same `name`. If both are named Kim, then joining on `name` can mix their data incorrectly.
 
-```mermaid
-flowchart TD
-    A[Original relation] --> B[Split into smaller relations]
-    B --> C{Join them back}
-    C -->|Exact original meaning returns| D[Lossless decomposition]
-    C -->|Extra wrong combinations appear| E[Lossy decomposition]
-```
+<p align="center">
+  <img src="diagrams/d01-lossy-decomposition.svg" alt="Lossy decomposition" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d01-lossy-decomposition.excalidraw">d01-lossy-decomposition.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 > **Easy memory rule:** A decomposition is good only if it is **lossless**.
 
@@ -732,18 +730,11 @@ A simple method:
 3. if the left side of an FD is already inside `result`, add the right side to `result`
 4. repeat until nothing new can be added
 
-```mermaid
-flowchart TD
-    A[Start with alpha] --> B[Put alpha into result]
-    B --> C[Scan all FDs]
-    C --> D{Left side already in result?}
-    D -->|Yes| E[Add right side to result]
-    D -->|No| F[Skip]
-    E --> C
-    F --> G{Any new attribute added?}
-    G -->|Yes| C
-    G -->|No| H[Stop and return alpha plus]
-```
+<p align="center">
+  <img src="diagrams/d02-how-to-compute.svg" alt="How to compute α+" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d02-how-to-compute.excalidraw">d02-how-to-compute.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ---
 
@@ -1056,18 +1047,11 @@ AB, CD, AD
 
 Use this whenever the question says **find the candidate key**.
 
-```mermaid
-flowchart TD
-    A[Write all FDs] --> B[Mark attributes never on RHS]
-    B --> C[Those must usually be in every key]
-    C --> D[Compute closure of smallest possible set]
-    D --> E{Closure gives all attributes?}
-    E -->|No| F[Add another needed attribute]
-    F --> D
-    E -->|Yes| G[It is a superkey]
-    G --> H[Check minimality by removing one attribute at a time]
-    H --> I[Minimal superkey = candidate key]
-```
+<p align="center">
+  <img src="diagrams/d03-a-fast-exam-method-for.svg" alt="A fast exam method for candidate-key questions" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d03-a-fast-exam-method-for.excalidraw">d03-a-fast-exam-method-for.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### Short memory rules
 
@@ -1217,16 +1201,11 @@ The 3NF decomposition algorithm is designed to solve a practical problem:
 
 ## Quick Summary of the Whole Chapter
 
-```mermaid
-flowchart TD
-    A[Bad design symptoms] --> B[Anomalies and redundancy]
-    B --> C[Use functional dependencies]
-    C --> D[Check keys and closures]
-    D --> E[Test BCNF or 3NF]
-    E --> F[Decompose relation]
-    F --> G[Prefer lossless decomposition]
-    G --> H[Also preserve dependencies if possible]
-```
+<p align="center">
+  <img src="diagrams/d04-quick-summary-of-the.svg" alt="Quick Summary of the Whole Chapter" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d04-quick-summary-of-the.excalidraw">d04-quick-summary-of-the.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### Final memory checklist
 

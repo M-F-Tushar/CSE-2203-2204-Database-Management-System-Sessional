@@ -18,18 +18,11 @@
 
 So far, whenever we combined two tables, we did it the "long way": list both tables in `from`, and write the matching condition in `where`. SQL's **join expressions** let us do the same thing, but more clearly and safely, directly inside the `from` clause.
 
-```mermaid
-graph TD
-    J[SQL Join Expressions] --> NJ["**Natural Join**<br/>auto-matches ALL same-named<br/>attributes across both tables"]
-    J --> UJ["**Join ... using (A1,...,An)**<br/>matches ONLY the explicitly<br/>listed attributes"]
-    J --> OJ["**Join ... on &lt;predicate&gt;**<br/>matches on ANY arbitrary<br/>condition you write"]
-    J --> OUT["**Outer Joins**<br/>preserve unmatched rows<br/>by padding with null"]
+<p align="center">
+  <img src="diagrams/d01-4-1-join-expressions.svg" alt="4.1 Join Expressions" />
+</p>
 
-    style NJ fill:#4a90d9,color:#fff
-    style UJ fill:#57a773,color:#fff
-    style OJ fill:#c9642a,color:#fff
-    style OUT fill:#8e44ad,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d01-4-1-join-expressions.excalidraw">d01-4-1-join-expressions.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### 4.1.1 The Natural Join
 
@@ -73,22 +66,11 @@ This gives basically the same result as a Cartesian product with a `where` claus
 
 A normal join (also called an **inner** join) only keeps rows that have a match on both sides — any row without a partner is simply dropped. An **outer join** is more forgiving: it keeps those unmatched rows too, and just fills in the missing side with `null`.
 
-```mermaid
-graph LR
-    subgraph "Left Outer Join"
-        L1["ALL rows from LEFT table<br/>+ matching rows from right<br/>(right-only columns = null if no match)"]
-    end
-    subgraph "Right Outer Join"
-        R1["ALL rows from RIGHT table<br/>+ matching rows from left<br/>(left-only columns = null if no match)"]
-    end
-    subgraph "Full Outer Join"
-        F1["ALL rows from BOTH tables<br/>unmatched rows on either side<br/>padded with null"]
-    end
+<p align="center">
+  <img src="diagrams/d02-4-1-3-outer-joins.svg" alt="4.1.3 Outer Joins — Preserving Unmatched Rows" />
+</p>
 
-    style L1 fill:#4a90d9,color:#fff
-    style R1 fill:#57a773,color:#fff
-    style F1 fill:#c9642a,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d02-4-1-3-outer-joins.excalidraw">d02-4-1-3-outer-joins.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 | Outer Join Type | Keeps unmatched rows from... | SQL Keyword |
 |---|---|---|
@@ -116,19 +98,11 @@ where course_id is null;
 
 ### `on` vs. `where` with Outer Joins — the Critical Difference
 
-```mermaid
-flowchart TD
-    A["student LEFT OUTER JOIN takes<br/>**ON** student.ID = takes.ID"]
-    B["Non-matching student rows<br/>ARE preserved<br/>(padded with null)"]
-    A --> B
+<p align="center">
+  <img src="diagrams/d03-on-vs-where-with-outer.svg" alt="on vs. where with Outer Joins — the Critical Difference" />
+</p>
 
-    C["student LEFT OUTER JOIN takes<br/>**ON true**, then<br/>**WHERE** student.ID = takes.ID"]
-    D["Non-matching student rows<br/>are DISCARDED<br/>(where filters AFTER the outer join<br/>generates the full Cartesian product)"]
-    C --> D
-
-    style B fill:#27ae60,color:#fff
-    style D fill:#c0392b,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d03-on-vs-where-with-outer.excalidraw">d03-on-vs-where-with-outer.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 > **Why this matters:** the `on` condition is checked *while the outer join itself is happening* — it decides which rows get the `null`-padding treatment. A `where` clause, on the other hand, is checked *afterward*, once the join has already produced its result. So if you accidentally put your matching condition in `where` instead of `on`, it can throw away the very unmatched rows the outer join was supposed to keep. This is a small detail, but it's a favorite trick question in exams.
 
@@ -136,10 +110,11 @@ flowchart TD
 
 Here's something useful to know: any **join type** (inner, left outer, right outer, full outer) can be freely combined with any **join condition** (natural, `using`, `on`). They are independent choices.
 
-```mermaid
-graph LR
-    T["Join Types<br/>inner join · left outer join<br/>right outer join · full outer join"] -.pairs with.-> C["Join Conditions<br/>natural · using(...) · on &lt;predicate&gt;"]
-```
+<p align="center">
+  <img src="diagrams/d04-combining-join-types.svg" alt="Combining Join Types × Join Conditions" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d04-combining-join-types.excalidraw">d04-combining-join-types.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ---
 
@@ -147,15 +122,11 @@ graph LR
 
 A **view** is like a "saved query" that behaves as if it were a table. You can `select` from it just like a real table, but it doesn't actually store any rows itself — every time you use it, the database runs the underlying query again to compute the result fresh.
 
-```mermaid
-flowchart LR
-    U["User writes:<br/>select * from faculty"] --> DB["Database system substitutes<br/>the STORED QUERY DEFINITION<br/>of the view"]
-    DB --> R["Query is evaluated against<br/>the REAL underlying table(s)<br/>every time the view is used"]
+<p align="center">
+  <img src="diagrams/d05-4-2-views.svg" alt="4.2 Views" />
+</p>
 
-    style U fill:#4a90d9,color:#fff
-    style DB fill:#c9642a,color:#fff
-    style R fill:#27ae60,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d05-4-2-views.excalidraw">d05-4-2-views.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### 4.2.1 View Definition — `create view`
 
@@ -183,19 +154,11 @@ create view departments_total_salary(dept_name, total_salary) as
 
 By default, a view is **never stored** — every time you query it, the database recomputes it from scratch. A **materialized view** flips this around: its result is **physically saved** on disk, so reading it is much faster. The tradeoff is that the saved copy can go "stale" and needs to be refreshed (this is called **view maintenance**) whenever the underlying tables change.
 
-```mermaid
-graph TD
-    V["**Ordinary (Virtual) View**"] --> V1["NOT stored"]
-    V --> V2["Always up-to-date<br/>(recomputed each access)"]
-    V --> V3["Slower for complex/large queries"]
+<p align="center">
+  <img src="diagrams/d06-4-2-2-materialized-views.svg" alt="4.2.2 Materialized Views" />
+</p>
 
-    M["**Materialized View**"] --> M1["Physically STORED"]
-    M --> M2["May become stale — needs<br/>'view maintenance' to refresh"]
-    M --> M3["Much faster for repeated<br/>reads of large aggregations"]
-
-    style V fill:#4a90d9,color:#fff
-    style M fill:#e67e22,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d06-4-2-2-materialized-views.excalidraw">d06-4-2-2-materialized-views.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 | Aspect | Virtual View | Materialized View |
 |---|---|---|
@@ -209,21 +172,11 @@ graph TD
 
 You might expect to be able to `insert`, `update`, or `delete` through a view just like a normal table — but this gets tricky, because the database has to translate your change back onto the *real* underlying table(s), and that's not always possible to do without ambiguity.
 
-```mermaid
-flowchart TD
-    Q["Is the view UPDATABLE?"] --> C1{"FROM clause has<br/>only ONE relation?"}
-    C1 -->|No| BAD["❌ Not updatable"]
-    C1 -->|Yes| C2{"SELECT clause has only<br/>plain attribute names<br/>(no expressions/aggregates/distinct)?"}
-    C2 -->|No| BAD
-    C2 -->|Yes| C3{"Every omitted attribute<br/>can be NULL<br/>(no not-null / no primary-key)?"}
-    C3 -->|No| BAD
-    C3 -->|Yes| C4{"No GROUP BY / HAVING?"}
-    C4 -->|No| BAD
-    C4 -->|Yes| GOOD["✅ View is updatable"]
+<p align="center">
+  <img src="diagrams/d07-4-2-3-updatable-views.svg" alt="4.2.3 Updatable Views" />
+</p>
 
-    style GOOD fill:#27ae60,color:#fff
-    style BAD fill:#c0392b,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d07-4-2-3-updatable-views.excalidraw">d07-4-2-3-updatable-views.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 **For a view to be updatable, SQL requires all four of these conditions to hold:**
 1. The `from` clause has **only one** database relation (table).
@@ -239,20 +192,11 @@ flowchart TD
 
 Integrity constraints exist to stop **accidental** mistakes from corrupting your data — even by users who are otherwise fully authorized to make changes. (This is different from *authorization*, covered in Section 4.7, which is about stopping **unauthorized** access.)
 
-```mermaid
-graph TD
-    IC[SQL Integrity Constraints] --> D["**Domain / not null**<br/>restricts allowed values<br/>or forbids null"]
-    IC --> U["**unique**<br/>declares a superkey<br/>(nulls still permitted)"]
-    IC --> CH["**check(predicate)**<br/>arbitrary condition every<br/>tuple must satisfy"]
-    IC --> PK["**primary key**<br/>NOT NULL + UNIQUE,<br/>identifies each tuple"]
-    IC --> FK["**foreign key ... references**<br/>referential integrity —<br/>values must exist in another relation"]
+<p align="center">
+  <img src="diagrams/d08-4-4-integrity.svg" alt="4.4 Integrity Constraints" />
+</p>
 
-    style D fill:#4a90d9,color:#fff
-    style U fill:#57a773,color:#fff
-    style CH fill:#c9642a,color:#fff
-    style PK fill:#8e44ad,color:#fff
-    style FK fill:#e67e22,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d08-4-4-integrity.excalidraw">d08-4-4-integrity.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### 4.4.1–4.4.2 `not null` and Domain Constraints
 
@@ -295,19 +239,11 @@ This makes sure that every `dept_name` value in this table **actually exists** a
 
 What should happen if someone tries to delete or update a row that other rows still depend on through a foreign key? SQL lets you decide:
 
-```mermaid
-graph TD
-    V["Referenced row is<br/>DELETED or UPDATED,<br/>would violate FK"] --> Action{"Referential Action<br/>Specified?"}
-    Action -->|"none (default)"| REJ["**Reject** the operation<br/>(transaction rolled back)"]
-    Action -->|"on delete/update cascade"| CAS["**Cascade**: automatically<br/>delete/update the<br/>matching referencing row(s)"]
-    Action -->|"on delete/update set null"| SNULL["Set the referencing<br/>foreign-key column to **null**"]
-    Action -->|"on delete/update set default"| SDEF["Set the referencing<br/>foreign-key column to its<br/>**default value**"]
+<p align="center">
+  <img src="diagrams/d09-referential-actions.svg" alt="Referential Actions — What Happens on Violation?" />
+</p>
 
-    style REJ fill:#c0392b,color:#fff
-    style CAS fill:#e67e22,color:#fff
-    style SNULL fill:#4a90d9,color:#fff
-    style SDEF fill:#57a773,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d09-referential-actions.excalidraw">d09-referential-actions.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ```sql
 foreign key (dept_name) references department
@@ -346,19 +282,11 @@ Giving a constraint a name (like `minsalary` above) means you can remove it late
 
 Authorization is about deciding **which users** are allowed to perform **which actions**. This is a *security* concern — different from integrity constraints, which protect data correctness rather than access.
 
-```mermaid
-graph TD
-    A[SQL Authorization / Privileges] --> S["**select**<br/>read tuples"]
-    A --> I["**insert**<br/>add new tuples<br/>(optionally restricted to<br/>specific attributes)"]
-    A --> U["**update**<br/>modify tuples<br/>(optionally per-attribute)"]
-    A --> D["**delete**<br/>remove tuples"]
-    A --> ALL["**all privileges**<br/>shorthand for every privilege"]
+<p align="center">
+  <img src="diagrams/d10-4-7-authorization.svg" alt="4.7 Authorization" />
+</p>
 
-    style S fill:#4a90d9,color:#fff
-    style I fill:#57a773,color:#fff
-    style U fill:#c9642a,color:#fff
-    style D fill:#8e44ad,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d10-4-7-authorization.excalidraw">d10-4-7-authorization.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### 4.7.1 Granting and Revoking Privileges — Discretionary Access Control (DAC)
 
@@ -377,21 +305,11 @@ This style — where the owner of a table decides, user by user, who gets access
 
 Imagine you had to grant the same set of privileges to every single instructor, one by one — that would get tedious fast. Instead, you can define a **role** once, grant privileges to that role, and then simply give the role to each user who needs it.
 
-```mermaid
-flowchart TD
-    DBA["Database Administrator"] -->|"create role<br/>grant privileges to role"| R1["Role: instructor"]
-    DBA -->|"create role"| R2["Role: dean"]
-    R1 -->|"grant instructor to dean"| R2
-    R2 -->|"grant dean to Satoshi"| U1["User: Satoshi"]
-    R1 -->|"grant instructor to Amit"| U2["User: Amit"]
+<p align="center">
+  <img src="diagrams/d11-4-7-2-roles-role-based.svg" alt="4.7.2 Roles — Role-Based Access Control (RBAC)" />
+</p>
 
-    U1 -.inherits privileges of.-> R2
-    U1 -.inherits (via dean).-> R1
-    U2 -.inherits privileges of.-> R1
-
-    style R1 fill:#4a90d9,color:#fff
-    style R2 fill:#57a773,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d11-4-7-2-roles-role-based.excalidraw">d11-4-7-2-roles-role-based.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ```sql
 create role instructor;
@@ -425,16 +343,11 @@ grant select on department to Amit with grant option;   -- Amit may now re-grant
 revoke select on department from Amit, Satoshi restrict; -- fails if it would cascade
 ```
 
-```mermaid
-graph TD
-    DBA2["DBA"] -->|grants| U1b["U1"]
-    DBA2 -->|grants| U2b["U2"]
-    U1b -->|grants| U4b["U4"]
-    U1b -->|grants| U5b["U5"]
-    U2b -->|grants| U5b
+<p align="center">
+  <img src="diagrams/d12-4-7-5-4-7-6-privilege.svg" alt="4.7.5–4.7.6 Privilege Transfer and Cascading Revocation" />
+</p>
 
-    style DBA2 fill:#c0392b,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d12-4-7-5-4-7-6-privilege.excalidraw">d12-4-7-5-4-7-6-privilege.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 > **What is "cascading revocation"?** If you revoke a privilege from U1, that revocation also automatically cascades to anyone who only received the privilege *through* U1 (in the diagram above, that's U4). But notice U5 **keeps** the privilege — because U2 *also* independently granted it to U5. The rule is simple: a user keeps a privilege as long as **at least one valid path** still connects them back to the DBA (the root of the authorization graph).
 

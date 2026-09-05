@@ -16,18 +16,11 @@
 
 > SQL is not just for asking questions ("queries"). It is a complete language that lets you build tables (DDL), add/change/remove data (DML), enforce rules on your data, control transactions, and manage who is allowed to do what. All of that lives inside one language: SQL.
 
-```mermaid
-graph TD
-    SQL[SQL Language] --> DDL["**DDL**<br/>Data-Definition Language<br/>create, alter, drop table"]
-    SQL --> DML["**DML**<br/>Data-Manipulation Language<br/>select, insert, delete, update"]
-    SQL --> INT["**Integrity**<br/>primary key, foreign key,<br/>not null constraints"]
-    SQL --> VIEW["**View Definition**"]
-    SQL --> TXN["**Transaction Control**"]
-    SQL --> AUTH["**Authorization**"]
+<p align="center">
+  <img src="diagrams/d01-exact-subsections-to.svg" alt="Exact Subsections to Read" />
+</p>
 
-    style DDL fill:#4a90d9,color:#fff
-    style DML fill:#57a773,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d01-exact-subsections-to.excalidraw">d01-exact-subsections-to.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 In this chapter we only focus on the **basics of DDL and DML** — these are the commands you will use the most, both in exams and in the lab.
 
@@ -87,16 +80,11 @@ In plain words: you name the table (`r`), then list each column with its type (`
 
 A **constraint** is just a rule that the database enforces automatically, so bad data never gets in. The three most common ones are:
 
-```mermaid
-graph TD
-    IC[create table Integrity Constraints] --> PK["**primary key (A1,...,Am)**<br/>attributes must be NOT NULL<br/>and UNIQUE across all tuples"]
-    IC --> FK["**foreign key (A1,...,An) references s**<br/>values must match the primary<br/>key of some tuple in relation s"]
-    IC --> NN["**not null**<br/>excludes null from that<br/>attribute's domain"]
+<p align="center">
+  <img src="diagrams/d02-integrity-constraints.svg" alt="Integrity Constraints Supported in create table" />
+</p>
 
-    style PK fill:#4a90d9,color:#fff
-    style FK fill:#57a773,color:#fff
-    style NN fill:#c9642a,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d02-integrity-constraints.excalidraw">d02-integrity-constraints.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 - **`primary key`** — picks the column(s) that uniquely identify a row. These columns can never be empty (`null`) and can never repeat.
 - **`foreign key`** — says "the value in this column must already exist as a primary key value in another table". This is how tables stay linked and consistent with each other.
@@ -130,16 +118,11 @@ create table instructor
 
 Students often confuse these three commands, so let's separate them clearly:
 
-```mermaid
-graph LR
-    A["**drop table r**<br/>Removes the TABLE + its DATA<br/>+ its SCHEMA entirely.<br/>Table no longer exists."]
-    B["**delete from r**<br/>Removes only the ROWS (data).<br/>The empty table/schema<br/>still exists."]
-    C["**alter table r add/drop A D**<br/>Changes the SCHEMA:<br/>adds or removes a column<br/>(new column values = null)"]
+<p align="center">
+  <img src="diagrams/d03-drop-table-vs-delete-vs.svg" alt="drop table vs delete vs alter table — a classic exam comparison" />
+</p>
 
-    style A fill:#c0392b,color:#fff
-    style B fill:#e67e22,color:#fff
-    style C fill:#27ae60,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d03-drop-table-vs-delete-vs.excalidraw">d03-drop-table-vs-delete-vs.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 > **Easy way to remember for exams:** `DROP` deletes everything — both the data **and** the table itself. `DELETE` (and `TRUNCATE`) only clears out the data; the empty table stays behind, ready to be used again.
 
@@ -149,18 +132,11 @@ graph LR
 
 Almost every SQL query you write is built from just three clauses:
 
-```mermaid
-flowchart LR
-    S["**select**<br/>which attributes/expressions<br/>to output"]
-    F["**from**<br/>which relation(s) to read<br/>(defines a Cartesian product)"]
-    W["**where**<br/>predicate to filter/match rows"]
+<p align="center">
+  <img src="diagrams/d04-3-3-basic-structure-of.svg" alt="3.3 Basic Structure of SQL Queries" />
+</p>
 
-    F --> W --> S
-
-    style F fill:#4a90d9,color:#fff
-    style W fill:#c9642a,color:#fff
-    style S fill:#57a773,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d04-3-3-basic-structure-of.excalidraw">d04-3-3-basic-structure-of.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 > **Tip for beginners:** even though you *type* the clauses in the order `select, from, where`, it helps to *think* about them in the order: **from → where → select**. First figure out which table(s) you're reading from, then which rows to keep, and only then which columns to show.
 
@@ -203,18 +179,11 @@ where instructor.dept_name = department.dept_name;
 
 It helps to imagine SQL working through a query in three steps, one after another:
 
-```mermaid
-flowchart TD
-    A["**Step 1: FROM**<br/>Compute the Cartesian Product<br/>of ALL relations listed<br/>(every row × every row)"]
-    B["**Step 2: WHERE**<br/>Keep only rows satisfying<br/>the join/filter predicate"]
-    C["**Step 3: SELECT**<br/>Project only the requested<br/>attributes/expressions"]
+<p align="center">
+  <img src="diagrams/d05-how-sql-conceptually.svg" alt="How SQL Conceptually Evaluates a Multi-Relation Query" />
+</p>
 
-    A --> B --> C
-
-    style A fill:#c0392b,color:#fff
-    style B fill:#e67e22,color:#fff
-    style C fill:#27ae60,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d05-how-sql-conceptually.excalidraw">d05-how-sql-conceptually.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 > ⚠️ **What goes wrong if you forget the join condition in `where`:** without a matching condition, `instructor × teaches` pairs up *every* instructor row with *every* teaches row — even ones that have nothing to do with each other. So 12 instructors × 13 teaches rows becomes **156 meaningless combinations**. With 200 instructors and 600 teaches rows, that balloons to **120,000 combinations**! Always remember to add the matching condition (`instructor.ID = teaches.ID`) inside `where`.
 
@@ -226,14 +195,11 @@ flowchart TD
 
 `as` lets you give a temporary, shorter, or clearer name to a column or a table.
 
-```mermaid
-graph TD
-    AS[as clause] --> R1["Rename an ATTRIBUTE<br/>select name as instructor_name"]
-    AS --> R2["Rename a RELATION (alias)<br/>from instructor as T"]
-    AS --> R3["Self-join: compare a table<br/>to itself using TWO aliases"]
+<p align="center">
+  <img src="diagrams/d06-3-4-1-the-rename.svg" alt="3.4.1 The Rename Operation (as)" />
+</p>
 
-    style AS fill:#4a90d9,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d06-3-4-1-the-rename.excalidraw">d06-3-4-1-the-rename.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ```sql
 -- Renaming for a self-comparison ("correlation names" / table aliases)
@@ -252,14 +218,11 @@ Here, `T` and `S` are two different **nicknames** (also called correlation names
 
 `like` lets you search for a *pattern* inside text, instead of an exact match. It uses two special wildcard symbols:
 
-```mermaid
-graph LR
-    P["**like** pattern-matching wildcards"] --> PC["**%** (percent)<br/>matches ANY substring<br/>(zero or more characters)"]
-    P --> UN["**_** (underscore)<br/>matches exactly ONE character"]
+<p align="center">
+  <img src="diagrams/d07-3-4-2-string-operations.svg" alt="3.4.2 String Operations & Pattern Matching (like)" />
+</p>
 
-    style PC fill:#4a90d9,color:#fff
-    style UN fill:#57a773,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d07-3-4-2-string-operations.excalidraw">d07-3-4-2-string-operations.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 | Pattern | Matches |
 |---|---|
@@ -310,37 +273,21 @@ where (instructor.ID, dept_name) = (teaches.ID, 'Biology');
 
 If you have taken any math course, you already know the set operations **union (∪), intersection (∩), and difference (−)**. SQL has equivalents: `union`, `intersect`, and `except`. The main thing to watch out for is how each one treats duplicate rows.
 
-```mermaid
-graph TD
-    SO[SQL Set Operations] --> U["**union**<br/>rows in EITHER query<br/>(duplicates removed by default)"]
-    SO --> I["**intersect**<br/>rows in BOTH queries<br/>(duplicates removed by default)"]
-    SO --> E["**except**<br/>rows in FIRST query but<br/>NOT in the second<br/>(= 'minus' in Oracle)"]
+<p align="center">
+  <img src="diagrams/d08-3-5-set-operations.svg" alt="3.5 Set Operations" />
+</p>
 
-    style U fill:#27ae60,color:#fff
-    style I fill:#4a90d9,color:#fff
-    style E fill:#c0392b,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d08-3-5-set-operations.excalidraw">d08-3-5-set-operations.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### Visualizing the Three Operations
 
 Let's say `c1` = courses taught in Fall 2017 and `c2` = courses taught in Spring 2018:
 
-```mermaid
-graph LR
-    subgraph c1["c1: Fall 2017"]
-        a1[CS-101]
-        a2[CS-347]
-        a3[PHY-101]
-    end
-    subgraph c2["c2: Spring 2018"]
-        b1[CS-101]
-        b2[CS-315]
-        b3[CS-319]
-        b4[FIN-201]
-        b5[HIS-351]
-        b6[MU-199]
-    end
-```
+<p align="center">
+  <img src="diagrams/d09-visualizing-the-three.svg" alt="Visualizing the Three Operations" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d09-visualizing-the-three.excalidraw">d09-visualizing-the-three.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 | Operation | SQL | Result (using c1, c2 above) |
 |---|---|---|
@@ -374,16 +321,11 @@ Sometimes you *do* want to keep duplicate rows instead of removing them. For tha
 
 ### Three-Valued Logic Truth Tables
 
-```mermaid
-graph TD
-    N[Null Propagation Rules] --> AR["**Arithmetic**<br/>any_expr + null = null<br/>(any operand null → result null)"]
-    N --> CMP["**Comparisons**<br/>1 < null → unknown<br/>(NOT true, NOT false)"]
-    N --> BOOL["**Boolean Logic**<br/>extended with 'unknown'"]
+<p align="center">
+  <img src="diagrams/d10-three-valued-logic.svg" alt="Three-Valued Logic Truth Tables" />
+</p>
 
-    style AR fill:#4a90d9,color:#fff
-    style CMP fill:#e67e22,color:#fff
-    style BOOL fill:#c0392b,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d10-three-valued-logic.excalidraw">d10-three-valued-logic.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 Here's how `and`/`or` behave once `unknown` is added to the mix:
 
@@ -421,20 +363,11 @@ select name from instructor where salary > 10000 is unknown;  -- test the 3rd tr
 
 An **aggregate function** takes many values and boils them down into just **one** summary value — for example, turning a whole column of salaries into a single average.
 
-```mermaid
-graph LR
-    AG[SQL Aggregate Functions] --> AVG["**avg**<br/>average (numeric only)"]
-    AG --> MINF["**min**<br/>minimum (any comparable type)"]
-    AG --> MAXF["**max**<br/>maximum (any comparable type)"]
-    AG --> SUMF["**sum**<br/>total (numeric only)"]
-    AG --> CNT["**count**<br/>number of values / rows"]
+<p align="center">
+  <img src="diagrams/d11-3-7-aggregate-functions.svg" alt="3.7 Aggregate Functions" />
+</p>
 
-    style AVG fill:#4a90d9,color:#fff
-    style MINF fill:#57a773,color:#fff
-    style MAXF fill:#57a773,color:#fff
-    style SUMF fill:#c9642a,color:#fff
-    style CNT fill:#8e44ad,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d11-3-7-aggregate-functions.excalidraw">d11-3-7-aggregate-functions.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### 3.7.1 Basic Aggregation
 
@@ -458,22 +391,11 @@ select count(*) from course;                  -- counts rows; distinct NOT allow
 
 `group by` lets you calculate an aggregate **separately for each group** of rows, instead of for the whole table at once. Here's the order in which SQL actually processes a grouped query:
 
-```mermaid
-flowchart TD
-    A["**1. FROM**<br/>Evaluate base relation(s)"]
-    B["**2. WHERE**<br/>Filter individual rows"]
-    C["**3. GROUP BY**<br/>Partition remaining rows into<br/>groups sharing the same<br/>group-by attribute value(s)"]
-    D["**4. HAVING**<br/>Keep only GROUPS satisfying<br/>the group-level condition"]
-    E["**5. SELECT**<br/>Compute aggregate(s) per<br/>surviving group → 1 row/group"]
+<p align="center">
+  <img src="diagrams/d12-3-7-2-aggregation-with.svg" alt="3.7.2 Aggregation with Grouping — group by" />
+</p>
 
-    A --> B --> C --> D --> E
-
-    style A fill:#95a5a6,color:#fff
-    style B fill:#4a90d9,color:#fff
-    style C fill:#c9642a,color:#fff
-    style D fill:#e67e22,color:#fff
-    style E fill:#27ae60,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d12-3-7-2-aggregation-with.excalidraw">d12-3-7-2-aggregation-with.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ```sql
 select dept_name, avg(salary) as avg_salary
@@ -516,20 +438,11 @@ having avg(salary) > 42000;
 
 A **subquery** is simply a `select-from-where` query written *inside* another query. It's most often placed inside a `where` clause to check things like: "does this value exist in that other set?", "is this value bigger than all of those?", or "how many rows does this return?"
 
-```mermaid
-graph TD
-    NS[Nested Subquery Constructs] --> IN["**in / not in**<br/>set membership test"]
-    NS --> CMP["**some / all**<br/>set comparison<br/>(> some, > all, etc.)"]
-    NS --> EX["**exists / not exists**<br/>test for a NON-EMPTY result"]
-    NS --> UQ["**unique / not unique**<br/>test for absence/presence<br/>of duplicate rows"]
-    NS --> SC["**scalar subquery**<br/>single value used wherever<br/>an expression is expected"]
+<p align="center">
+  <img src="diagrams/d13-3-8-nested-subqueries.svg" alt="3.8 Nested Subqueries" />
+</p>
 
-    style IN fill:#4a90d9,color:#fff
-    style CMP fill:#57a773,color:#fff
-    style EX fill:#c9642a,color:#fff
-    style UQ fill:#8e44ad,color:#fff
-    style SC fill:#e67e22,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d13-3-8-nested-subqueries.excalidraw">d13-3-8-nested-subqueries.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### 3.8.1 Set Membership — `in` / `not in`
 
@@ -577,14 +490,11 @@ where salary > all (select salary from instructor where dept_name = 'Biology');
 
 `exists` just checks whether a subquery returns **any rows at all** — it doesn't care what the rows contain, only whether there are any.
 
-```mermaid
-graph LR
-    E["**exists (subquery)**<br/>TRUE if subquery returns<br/>≥ 1 row"]
-    NE["**not exists (subquery)**<br/>TRUE if subquery returns<br/>ZERO rows"]
+<p align="center">
+  <img src="diagrams/d14-3-8-3-test-for-empty.svg" alt="3.8.3 Test for Empty Relations — exists / not exists" />
+</p>
 
-    style E fill:#27ae60,color:#fff
-    style NE fill:#c0392b,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d14-3-8-3-test-for-empty.excalidraw">d14-3-8-3-test-for-empty.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 `exists` is usually used together with a **correlated subquery** — a subquery that reaches "outside" itself to refer to a table from the outer query:
 
@@ -671,16 +581,11 @@ from department;
 
 Besides asking questions with `select`, SQL also gives you three commands to actually change the data:
 
-```mermaid
-graph TD
-    DML2[Database Modification Statements] --> DEL["**delete**<br/>removes WHOLE tuples<br/>matching a predicate"]
-    DML2 --> INS["**insert**<br/>adds new tuple(s), either\nliteral values or from a query"]
-    DML2 --> UPD["**update**<br/>modifies specific attribute\nvalues of matching tuples"]
+<p align="center">
+  <img src="diagrams/d15-3-9-modification-of-the.svg" alt="3.9 Modification of the Database" />
+</p>
 
-    style DEL fill:#c0392b,color:#fff
-    style INS fill:#27ae60,color:#fff
-    style UPD fill:#4a90d9,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d15-3-9-modification-of-the.excalidraw">d15-3-9-modification-of-the.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### 3.9.1 Deletion — `delete`
 

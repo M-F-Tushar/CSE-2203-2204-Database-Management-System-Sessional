@@ -19,29 +19,19 @@
 
 SQL is a powerful **declarative** query language, but a real application needs a general-purpose programming language for two reasons:
 
-```mermaid
-graph TD
-    Q["Why can't we use SQL alone?"] --> R1["**1. Limited expressive power**<br/>Some computations (loops, complex<br/>control flow) cannot be written in SQL"]
-    Q --> R2["**2. Nondeclarative actions**<br/>Printing reports, GUIs, sending<br/>results to a web page — SQL<br/>cannot do these"]
+<p align="center">
+  <img src="diagrams/d01-why-sql-alone-is-not.svg" alt="Why SQL Alone Is Not Enough" />
+</p>
 
-    style Q fill:#4a90d9,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d01-why-sql-alone-is-not.excalidraw">d01-why-sql-alone-is-not.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### Two Approaches to Connecting SQL and a Host Language
 
-```mermaid
-flowchart TD
-    A[Accessing SQL from a<br/>Host Language] --> D["**Dynamic SQL**<br/>Program builds a query as a<br/>string AT RUNTIME, submits it,<br/>and fetches results tuple-by-tuple"]
-    A --> E["**Embedded SQL**<br/>SQL statements written directly<br/>in the host-language source code;<br/>a PREPROCESSOR translates them<br/>into function calls at COMPILE time"]
+<p align="center">
+  <img src="diagrams/d02-two-approaches-to.svg" alt="Two Approaches to Connecting SQL and a Host Language" />
+</p>
 
-    D --> D1["JDBC (Java)"]
-    D --> D2["Python DB-API / psycopg2"]
-    D --> D3["ODBC (C, C++, PHP, Ruby...)"]
-    E --> E1["EXEC SQL statements<br/>+ preprocessor (rare today)"]
-
-    style D fill:#57a773,color:#fff
-    style E fill:#e67e22,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d02-two-approaches-to.excalidraw">d02-two-approaches-to.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 | Aspect | Dynamic SQL | Embedded SQL |
 |---|---|---|
@@ -59,30 +49,11 @@ flowchart TD
 
 **Step-by-step life cycle of a JDBC interaction:**
 
-```mermaid
-sequenceDiagram
-    participant Prog as Java Program
-    participant Drv as JDBC Driver
-    participant DB as Database Server
+<p align="center">
+  <img src="diagrams/d03-5-1-1-jdbc-java.svg" alt="5.1.1 JDBC (Java Database Connectivity)" />
+</p>
 
-    Prog->>Drv: DriverManager.getConnection(url, user, passwd)
-    Drv->>DB: open connection (vendor-specific protocol)
-    DB-->>Drv: connection established
-    Drv-->>Prog: Connection object (conn)
-
-    Prog->>Prog: Statement stmt = conn.createStatement()
-    Prog->>DB: stmt.executeUpdate("insert into instructor values(...)")
-    DB-->>Prog: number of rows affected
-
-    Prog->>DB: stmt.executeQuery("select dept_name, avg(salary) ... group by dept_name")
-    DB-->>Prog: ResultSet rset
-
-    loop while rset.next() returns true
-        Prog->>Prog: rset.getString("dept_name"), rset.getFloat(2)
-    end
-
-    Prog->>DB: conn.close() (via try-with-resources)
-```
+<sub><em>Editable diagram source: <a href="diagrams/d03-5-1-1-jdbc-java.excalidraw">d03-5-1-1-jdbc-java.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 **Key JDBC building blocks:**
 
@@ -131,15 +102,11 @@ pStmt.executeUpdate();
 
 Beyond efficiency, prepared statements solve a **critical security problem**: **SQL injection**.
 
-```mermaid
-flowchart TD
-    U["User input:<br/>X' or 'Y' = 'Y"] --> C{"How is the query built?"}
-    C -->|"String concatenation<br/>(UNSAFE)"| BAD["select * from instructor<br/>where name = 'X' or 'Y' = 'Y'<br/><br/>⚠️ WHERE clause is always TRUE<br/>→ entire table is leaked!"]
-    C -->|"Prepared statement<br/>with setString() (SAFE)"| GOOD["select * from instructor<br/>where name = 'X\' or \'Y\' = \'Y'<br/><br/>✅ Treated as one literal string<br/>→ returns empty result"]
+<p align="center">
+  <img src="diagrams/d04-prepared-statements-and.svg" alt="Prepared Statements — and Why They Matter for Security" />
+</p>
 
-    style BAD fill:#c0392b,color:#fff
-    style GOOD fill:#27ae60,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d04-prepared-statements-and.excalidraw">d04-prepared-statements-and.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 > **Security rule:** Programmer must **never** build SQL by concatenating raw user input into a string. Always pass user-supplied values as **parameters** of a prepared statement — the driver automatically escapes special characters (like `'`). Malicious input like `X'; drop table instructor; --` can otherwise let an attacker delete entire tables or steal data; several real-world financial breaches were caused exactly by this mistake.
 
@@ -192,18 +159,11 @@ Key differences from JDBC to remember:
 
 **ODBC** is a C-language API (later extended to C++, C#, PHP, Ruby, Visual Basic) with the same conceptual steps as JDBC, but a lower-level, more verbose syntax:
 
-```mermaid
-graph LR
-    A[SQLAllocEnv] --> B[SQLAllocConnect]
-    B --> C["SQLConnect(server, uid, pwd)"]
-    C --> D["SQLAllocStmt + SQLExecDirect(query)"]
-    D --> E["SQLBindCol (bind result columns<br/>to C variables)"]
-    E --> F["SQLFetch (loop, one row at a time)"]
-    F --> G["SQLFreeStmt / SQLDisconnect / SQLFreeConnect / SQLFreeEnv"]
+<p align="center">
+  <img src="diagrams/d05-5-1-3-odbc-open.svg" alt="5.1.3 ODBC (Open Database Connectivity)" />
+</p>
 
-    style A fill:#4a90d9,color:#fff
-    style G fill:#c0392b,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d05-5-1-3-odbc-open.excalidraw">d05-5-1-3-odbc-open.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ODBC defines **conformance levels** (core, level 1, level 2) specifying which optional features (like catalog metadata queries) a driver must support. The SQL standard's **Call-Level Interface (CLI)** is essentially the standardized version of the same idea.
 
@@ -221,21 +181,11 @@ Because each database vendor's preprocessor syntax differs and debugging preproc
 
 Universities (and organizations generally) have **business rules** — e.g., "a student cannot register for a course section once it is full." Such logic can be written as **stored procedures/functions** inside the database itself, instead of scattered across every application program that touches the data.
 
-```mermaid
-graph TD
-    BL["Where should business logic live?"] --> APP["**In application code**<br/>(outside the DB)"]
-    BL --> DB["**In stored procedures/functions**<br/>(inside the DB)"]
+<p align="center">
+  <img src="diagrams/d06-why-put-logic-inside.svg" alt="Why Put Logic Inside the Database?" />
+</p>
 
-    APP --> A1["❌ Every application must<br/>re-implement the same rule"]
-    APP --> A2["❌ A rule change means<br/>updating many programs"]
-
-    DB --> D1["✅ Single point of change"]
-    DB --> D2["✅ All applications automatically<br/>share the same enforced logic"]
-    DB --> D3["✅ Can be invoked directly<br/>from SQL queries"]
-
-    style DB fill:#27ae60,color:#fff
-    style APP fill:#c0392b,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d06-why-put-logic-inside.excalidraw">d06-why-put-logic-inside.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### 5.2.1 Declaring and Invoking SQL Functions and Procedures
 
@@ -290,20 +240,11 @@ declare d_count integer;
 call dept_count_proc('Physics', d_count);
 ```
 
-```mermaid
-graph LR
-    subgraph Function["Function"]
-        F1["returns a value/table"]
-        F2["used inline in SELECT/WHERE"]
-    end
-    subgraph Procedure["Procedure"]
-        P1["uses in/out parameters"]
-        P2["invoked with CALL statement"]
-    end
+<p align="center">
+  <img src="diagrams/d07-5-2-1-declaring-and.svg" alt="5.2.1 Declaring and Invoking SQL Functions and Procedures" />
+</p>
 
-    style Function fill:#4a90d9,color:#fff
-    style Procedure fill:#57a773,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d07-5-2-1-declaring-and.excalidraw">d07-5-2-1-declaring-and.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 | | Function | Procedure |
 |---|---|---|
@@ -356,17 +297,11 @@ begin
 end;
 ```
 
-```mermaid
-flowchart TD
-    Start([registerStudent called]) --> Count["Count currEnrol in section"]
-    Count --> Cap["Look up section capacity (limit)"]
-    Cap --> Check{"currEnrol < limit?"}
-    Check -->|Yes| Insert["INSERT into takes"] --> Success(["return 0 (success)"])
-    Check -->|No| Fail["set errorMsg = 'Enrollment limit reached...'"] --> Error(["return -1 (error)"])
+<p align="center">
+  <img src="diagrams/d08-5-2-2-language.svg" alt="5.2.2 Language Constructs for Procedures and Functions (PSM)" />
+</p>
 
-    style Success fill:#27ae60,color:#fff
-    style Error fill:#c0392b,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d08-5-2-2-language.excalidraw">d08-5-2-2-language.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### 5.2.3 External Language Routines
 
@@ -381,16 +316,11 @@ external name '/usr/avi/bin/dept_count'
 
 **Security trade-off:**
 
-```mermaid
-graph TD
-    EX["Executing external-language code"] --> S1["**In-process execution**<br/>Fast, but a bug can corrupt<br/>database memory / bypass access control"]
-    EX --> S2["**Separate process +<br/>interprocess communication**<br/>Safer, but much slower<br/>(tens of thousands of instructions of overhead)"]
-    EX --> S3["**Sandbox execution**<br/>(Java/C# only)<br/>Runs inside the query process but<br/>restricted to its own memory —<br/>best of both worlds"]
+<p align="center">
+  <img src="diagrams/d09-5-2-3-external-language.svg" alt="5.2.3 External Language Routines" />
+</p>
 
-    style S3 fill:#27ae60,color:#fff
-    style S1 fill:#e67e22,color:#fff
-    style S2 fill:#8e44ad,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d09-5-2-3-external-language.excalidraw">d09-5-2-3-external-language.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 A sandbox is possible only for "safe" languages (Java, C#) that don't allow raw pointer access to memory — not for C.
 
@@ -434,16 +364,11 @@ end;
 
 A trigger definition usually has these parts:
 
-```mermaid
-graph LR
-    T[Trigger Definition] --> EV["**Event**<br/>Which change should be watched?<br/>(insert / update / delete)"]
-    T --> TM["**Timing**<br/>Should it run after the action,<br/>or replace the action?"]
-    T --> AC["**Action**<br/>What SQL should run automatically?"]
+<p align="center">
+  <img src="diagrams/d10-basic-structure-of-a.svg" alt="Basic Structure of a Trigger" />
+</p>
 
-    style EV fill:#4a90d9,color:#fff
-    style TM fill:#e67e22,color:#fff
-    style AC fill:#57a773,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d10-basic-structure-of-a.excalidraw">d10-basic-structure-of-a.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### Why Do We Need Triggers?
 
@@ -461,14 +386,11 @@ In the `Products` / `AuditRecord` example, common reasons are:
 
 The SQL examples here follow **SQL Server-style** trigger syntax.
 
-```mermaid
-flowchart LR
-    Stmt["INSERT / UPDATE / DELETE issued"] --> A["**AFTER / FOR**<br/>Base table change happens first,<br/>then the trigger runs"]
-    Stmt --> I["**INSTEAD OF**<br/>The original change is replaced;<br/>the trigger body decides what to do"]
+<p align="center">
+  <img src="diagrams/d11-trigger-timing-in-the.svg" alt="Trigger Timing in the SQL Server Style Used Here" />
+</p>
 
-    style A fill:#4a90d9,color:#fff
-    style I fill:#8e44ad,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d11-trigger-timing-in-the.excalidraw">d11-trigger-timing-in-the.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 | Timing | Meaning in simple words | Use in this section |
 |---|---|---|
@@ -638,15 +560,11 @@ Triggers can be disabled, re-enabled, altered, or removed later using commands s
 
 Triggers are useful, but they are not always the best tool.
 
-```mermaid
-graph TD
-    W["Choose the simpler built-in feature first"] --> C1["Need a default value?<br/>Use `default` constraint"]
-    W --> C2["Need parent-child delete behavior?<br/>Use foreign key cascade if possible"]
-    W --> C3["Need simple validation?<br/>Use `check`, `not null`, `unique` first"]
-    W --> C4["Need audit/business workflow?<br/>Then a trigger may be appropriate"]
+<p align="center">
+  <img src="diagrams/d12-when-not-to-use-triggers.svg" alt="When Not to Use Triggers" />
+</p>
 
-    style W fill:#4a90d9,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d12-when-not-to-use-triggers.excalidraw">d12-when-not-to-use-triggers.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 If a normal constraint already solves the problem clearly, prefer that. Triggers are best used when the task is more procedural, such as writing to an audit table or reacting to a change automatically.
 

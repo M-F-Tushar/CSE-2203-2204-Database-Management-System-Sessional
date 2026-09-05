@@ -31,13 +31,11 @@ Instead of keeping all data in one place, Big Data systems usually:
 - **copy** important data onto more than one machine
 - **send requests** to the correct machine automatically
 
-```mermaid
-graph TD
-    A[Big Data storage] --> B[Partition data across many machines]
-    A --> C[Replicate data for safety]
-    A --> D[Route requests to correct machine]
-    A --> E[Handle very large scale]
-```
+<p align="center">
+  <img src="diagrams/d01-main-idea.svg" alt="Main idea" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d01-main-idea.excalidraw">d01-main-idea.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### Storage systems mentioned in this section
 
@@ -119,11 +117,11 @@ A **key-value store** is a storage system where each piece of data is stored wit
 
 You can think of it like a dictionary or map in programming.
 
-```mermaid
-flowchart LR
-    K[Key] --> V[Value]
-    V --> EX[Example: user_id -> user profile]
-```
+<p align="center">
+  <img src="diagrams/d02-10-2-3-key-value.svg" alt="10.2.3 Key-Value Storage Systems" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d02-10-2-3-key-value.excalidraw">d02-10-2-3-key-value.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### Core operations
 
@@ -228,13 +226,11 @@ That means the system can often query parts of the value too.
 - the document may follow a format like **JSON**
 - the system may allow limited queries on fields inside the document
 
-```mermaid
-graph TD
-    A[Document store] --> B[Key identifies document]
-    A --> C[Value is a structured document]
-    A --> D[Often JSON based]
-    A --> E[Limited querying on document fields]
-```
+<p align="center">
+  <img src="diagrams/d03-main-idea.svg" alt="Main idea" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d03-main-idea.excalidraw">d03-main-idea.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### MongoDB as an example
 
@@ -339,13 +335,11 @@ For example, if `dept_name` is the shard key:
 
 The textbook says client requests can go to a **router**, which then forwards each request to the right partition.
 
-```mermaid
-flowchart LR
-    C[Client] --> R[Router]
-    R --> P1[Partition 1]
-    R --> P2[Partition 2]
-    R --> P3[Partition 3]
-```
+<p align="center">
+  <img src="diagrams/d04-router-idea.svg" alt="Router idea" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d04-router-idea.excalidraw">d04-router-idea.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ---
 

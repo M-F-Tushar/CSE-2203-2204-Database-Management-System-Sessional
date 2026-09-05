@@ -72,18 +72,11 @@ Now the designer picks **`Student_ID`** to be the **Primary Key** (maybe because
 
 "Abstraction" simply means **hiding the complicated details and only showing what is necessary** for each type of user. A DBMS is built in **3 levels**, like 3 floors of a building, each hiding more detail than the one above it:
 
-```mermaid
-flowchart TD
-    A["**1. View Level (External Level)**<br/>What ordinary end-users see<br/>Different views for different users"]
-    B["**2. Logical Level (Conceptual Level)**<br/>What data is stored & how tables<br/>relate to each other (the full design)"]
-    C["**3. Physical Level (Internal Level)**<br/>How data is actually stored on<br/>disk — bytes, files, indexes"]
+<p align="center">
+  <img src="diagrams/d01-1-c-explain-the-levels.svg" alt="1(c) Explain the levels of abstraction in the database management system. [10]" />
+</p>
 
-    A --> B --> C
-
-    style A fill:#4a90d9,color:#fff
-    style B fill:#57a773,color:#fff
-    style C fill:#c0392b,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d01-1-c-explain-the-levels.excalidraw">d01-1-c-explain-the-levels.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 1. **Physical Level (lowest level)** — This describes **how the data is really stored** on the hard disk: as bytes, blocks, files, and index structures. This is the most detailed and most complicated level. Only database engineers/administrators deal with this.
 2. **Logical Level (middle level)** — This describes **what data is stored in the database and what relationships exist** among that data — for example: "there is a Student table with columns ID, Name, Department" and "Students are linked to Courses." Database designers and administrators work at this level. Users at this level don't need to know how data is stored on disk.
@@ -162,23 +155,11 @@ flowchart TD
 
 In RAID-01, we **first stripe, then mirror the whole striped set**. So it is a "mirror of stripes."
 
-```mermaid
-flowchart TD
-    subgraph Mirror ["Mirrored Pair (RAID 1 on top)"]
-        subgraph StripeA ["Stripe Set A (RAID 0)"]
-            D1["Disk 1<br/>Block 1, 3, 5..."]
-            D2["Disk 2<br/>Block 2, 4, 6..."]
-        end
-        subgraph StripeB ["Stripe Set B — exact mirror copy"]
-            D3["Disk 3<br/>Block 1, 3, 5..."]
-            D4["Disk 4<br/>Block 2, 4, 6..."]
-        end
-    end
-    StripeA -. mirrored to .-> StripeB
+<p align="center">
+  <img src="diagrams/d02-2-b-different-raid.svg" alt="2(b) Different RAID levels offer various combinations of redundancy and performance benefits. Explain RAID-01 with an appropriate figure. [08]" />
+</p>
 
-    style StripeA fill:#4a90d9,color:#fff
-    style StripeB fill:#57a773,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d02-2-b-different-raid.excalidraw">d02-2-b-different-raid.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 **Simple explanation:** Data is first broken into pieces and spread (striped) across Disk 1 and Disk 2 for speed. Then that **entire striped set** is copied (mirrored) onto Disk 3 and Disk 4 for safety.
 
@@ -204,36 +185,11 @@ flowchart TD
 
 **Step 3 — Diagram:**
 
-```mermaid
-erDiagram
-    MEMBER ||--o{ BORROWS : makes
-    BOOK ||--o{ BORROWS : "is included in"
-    LIBRARIAN ||--o{ BOOK : manages
+<p align="center">
+  <img src="diagrams/d03-2-c-design-an-er.svg" alt="2(c) Design an ER Diagram for a library management system. Identify entities, attributes, relationships, and cardinality. [10]" />
+</p>
 
-    MEMBER {
-        int Member_ID PK
-        string Name
-        string Address
-        string Phone
-    }
-    BOOK {
-        int Book_ID PK
-        string Title
-        string Author
-        string Genre
-        int Copies_Available
-    }
-    LIBRARIAN {
-        int Librarian_ID PK
-        string Name
-        string Shift
-    }
-    BORROWS {
-        date Issue_Date
-        date Due_Date
-        date Return_Date
-    }
-```
+<sub><em>Editable diagram source: <a href="diagrams/d03-2-c-design-an-er.excalidraw">d03-2-c-design-an-er.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 > 💡 **Easy explanation:** A `Member` and a `Book` are connected through the `Borrows` relationship — since one member can borrow many books, and one book can be borrowed by many members (at different times), this is a **Many-to-Many** relationship. A `Librarian` manages many `Book` records, which is a **One-to-Many** relationship.
 
@@ -500,28 +456,31 @@ END;
 
 *Example:* One `Person` has exactly one `Passport`, and one `Passport` belongs to exactly one `Person`.
 
-```mermaid
-erDiagram
-    PERSON ||--|| PASSPORT : owns
-```
+<p align="center">
+  <img src="diagrams/d04-5-a-explain-the-concept.svg" alt="5(a) Explain the concept of mapping cardinalities in the E-R model. Illustrate One-to-One, One-to-Many, and Many-to-Many. [09]" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d04-5-a-explain-the-concept.excalidraw">d04-5-a-explain-the-concept.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 **ii. One-to-Many (1:N)** — One record in Entity A can be connected to **many** records in Entity B, but each record in B connects back to only **one** record in A.
 
 *Example:* One `Department` has many `Employees`, but each `Employee` belongs to only one `Department`.
 
-```mermaid
-erDiagram
-    DEPARTMENT ||--o{ EMPLOYEE : has
-```
+<p align="center">
+  <img src="diagrams/d05-5-a-explain-the-concept.svg" alt="5(a) Explain the concept of mapping cardinalities in the E-R model. Illustrate One-to-One, One-to-Many, and Many-to-Many. [09]" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d05-5-a-explain-the-concept.excalidraw">d05-5-a-explain-the-concept.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 **iii. Many-to-Many (M:N)** — Many records in Entity A can connect to many records in Entity B, and vice versa.
 
 *Example:* One `Student` can register for many `Courses`, and one `Course` can have many `Students` registered.
 
-```mermaid
-erDiagram
-    STUDENT }o--o{ COURSE : registers
-```
+<p align="center">
+  <img src="diagrams/d06-5-a-explain-the-concept.svg" alt="5(a) Explain the concept of mapping cardinalities in the E-R model. Illustrate One-to-One, One-to-Many, and Many-to-Many. [09]" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d06-5-a-explain-the-concept.excalidraw">d06-5-a-explain-the-concept.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 > 💡 **Easy way to remember:** Look at *both* directions of the arrow: "how many B's can one A have?" and "how many A's can one B have?" If both answers are "only 1" → it's 1:1. If one side is "many" and the other is "1" → it's 1:N. If both sides are "many" → it's M:N.
 
@@ -542,31 +501,11 @@ erDiagram
 - **Student "Registers for" Course** → **Many-to-Many (M:N)** — a student can register for many courses, and a course can have many students registered.
 - **Instructor "Teaches" Course** → **One-to-Many (1:N)** — one instructor can teach many courses, but (typically) each course section is taught by one instructor.
 
-```mermaid
-erDiagram
-    STUDENT }o--o{ REGISTERS : registers
-    COURSE }o--o{ REGISTERS : "is registered in"
-    INSTRUCTOR ||--o{ COURSE : teaches
+<p align="center">
+  <img src="diagrams/d07-5-b-design-an-e-r.svg" alt="5(b) Design an E-R diagram for a university system with entities Student, Course, Instructor, and relationships 'Student registers for Course' and 'Instructor teaches Course.' Include primary keys and cardinalities. [10]" />
+</p>
 
-    STUDENT {
-        int Student_ID PK
-        string Name
-        string Department
-    }
-    COURSE {
-        int Course_ID PK
-        string Course_Name
-        int Credit
-    }
-    INSTRUCTOR {
-        int Instructor_ID PK
-        string Name
-        string Designation
-    }
-    REGISTERS {
-        date Registration_Date
-    }
-```
+<sub><em>Editable diagram source: <a href="diagrams/d07-5-b-design-an-e-r.excalidraw">d07-5-b-design-an-e-r.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 > 💡 **Simple explanation:** Since a student can take many courses and a course can have many students, "Registers for" is **M:N**. Since one instructor usually teaches multiple courses, but each course (section) has one instructor, "Teaches" is **1:N**.
 
@@ -599,20 +538,11 @@ Remove `Department_Name` and `Department_Location` as *direct attributes* of `St
 - **Student** `(Student_ID [PK], Name, Department_Name [FK → Department])`
 - **Department** `(Department_Name [PK], Department_Location)`
 
-```mermaid
-erDiagram
-    DEPARTMENT ||--o{ STUDENT : enrolls
+<p align="center">
+  <img src="diagrams/d08-5-c-analyse-the-given-e.svg" alt="5(c) Analyse the given E-R diagram fragment. Identify redundancy and suggest normalization by removing unnecessary attributes. [16]" />
+</p>
 
-    STUDENT {
-        int Student_ID PK
-        string Name
-        string Department_Name FK
-    }
-    DEPARTMENT {
-        string Department_Name PK
-        string Department_Location
-    }
-```
+<sub><em>Editable diagram source: <a href="diagrams/d08-5-c-analyse-the-given-e.excalidraw">d08-5-c-analyse-the-given-e.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 > 💡 **Easy rule to remember:** If a fact (like a department's location) **describes the department itself and not the student**, it should live **only** in the `Department` entity, and the `Student` entity should just **reference** it using the department's key (foreign key) — never copy the whole fact again.
 
@@ -717,18 +647,11 @@ A **B+ tree** is a balanced, sorted tree structure used for indexing, with two s
 
 Since the number of buckets in static hashing is fixed, what happens when a bucket becomes full but more records still hash to it? The extra records are stored in an **overflow bucket**, chained (linked) to the original bucket.
 
-```mermaid
-flowchart LR
-    B0["Bucket 0<br/>(full: 3 records)"] --> O0["Overflow Bucket 0<br/>(extra records)"]
-    B1["Bucket 1<br/>(has space)"]
-    B2["Bucket 2<br/>(full: 3 records)"] --> O2["Overflow Bucket 2<br/>(extra records)"] --> O2b["Overflow Bucket 2b<br/>(more overflow, if needed)"]
+<p align="center">
+  <img src="diagrams/d09-6-c-compare-static.svg" alt="6(c) Compare static hashing vs. dynamic hashing in file organization. Draw diagrams to illustrate overflow handling in static hashing. [13]" />
+</p>
 
-    style B0 fill:#4a90d9,color:#fff
-    style B2 fill:#4a90d9,color:#fff
-    style O0 fill:#c0392b,color:#fff
-    style O2 fill:#c0392b,color:#fff
-    style O2b fill:#c0392b,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d09-6-c-compare-static.excalidraw">d09-6-c-compare-static.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 *In simple words:* Bucket 0 and Bucket 2 got full, so extra records that still hash into them get placed into a **chained overflow bucket** attached to the original one. If that overflow bucket also fills up, another overflow bucket is chained again — creating a long chain that **slows down search** over time. This is exactly the weakness that dynamic hashing solves, by growing the number of buckets instead of piling up long overflow chains.
 
@@ -886,10 +809,11 @@ If we follow the arrows and **end up back where we started** — a **cycle** —
 - T2 is waiting for a lock held by T3 → draw edge `T2 → T3`
 - T3 is waiting for a lock held by T1 → draw edge `T3 → T1`
 
-```mermaid
-graph LR
-    T1 --> T2 --> T3 --> T1
-```
+<p align="center">
+  <img src="diagrams/d10-8-b-explain-how-the.svg" alt="8(b) Explain how the wait-for graph is used to detect deadlocks. [10]" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d10-8-b-explain-how-the.excalidraw">d10-8-b-explain-how-the.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 This forms a **cycle** (`T1 → T2 → T3 → T1`) → **deadlock confirmed.**
 

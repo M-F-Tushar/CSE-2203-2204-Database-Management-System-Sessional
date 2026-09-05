@@ -24,37 +24,22 @@ Designing a database is more than picking table columns — it requires understa
 
 ### The Four Design Phases
 
-```mermaid
-flowchart LR
-    A["**Requirements Analysis**<br/>Interact with users/domain experts<br/>→ Specification of user requirements"]
-    B["**Conceptual Design**<br/>Choose a data model (E-R)<br/>→ E-R diagram + functional requirements"]
-    C["**Logical Design**<br/>Map conceptual schema to the<br/>implementation data model<br/>(E-R → Relational schema)"]
-    D["**Physical Design**<br/>Choose file organization &<br/>index structures (Ch. 13, 14)"]
+<p align="center">
+  <img src="diagrams/d01-the-four-design-phases.svg" alt="The Four Design Phases" />
+</p>
 
-    A --> B --> C --> D
-
-    style A fill:#4a90d9,color:#fff
-    style B fill:#57a773,color:#fff
-    style C fill:#c9642a,color:#fff
-    style D fill:#8e44ad,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d01-the-four-design-phases.excalidraw">d01-the-four-design-phases.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 - The **conceptual-design** phase (this chapter) produces an **E-R diagram** — a graphical, high-level overview that both database designers and non-technical domain experts can review together.
 - **Physical schema** changes are relatively easy to make later; **logical schema** changes are much harder, since application code depends on it — so careful conceptual design up front pays off.
 
 ### Two Pitfalls to Avoid in Database Design
 
-```mermaid
-graph TD
-    P[Design Pitfalls] --> R["**Redundancy**<br/>The same fact is stored in more<br/>than one place unnecessarily<br/>(e.g., storing a course's title with<br/>every section offering)"]
-    P --> I["**Incompleteness**<br/>The design makes it difficult<br/>or impossible to represent<br/>certain real-world facts<br/>(e.g., no way to record a course<br/>that has never been offered)"]
+<p align="center">
+  <img src="diagrams/d02-two-pitfalls-to-avoid.svg" alt="Two Pitfalls to Avoid in Database Design" />
+</p>
 
-    R --> RC["Risk: copies can go out of sync<br/>→ data inconsistency"]
-    I --> IC["Risk: work-arounds using nulls,<br/>which primary-key constraints<br/>may even forbid"]
-
-    style R fill:#c0392b,color:#fff
-    style I fill:#e67e22,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d02-two-pitfalls-to-avoid.excalidraw">d02-two-pitfalls-to-avoid.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 **Rule of thumb:** ideally, every piece of information should appear in **exactly one place** in the schema, while still being possible to represent **every** fact the enterprise needs to record. Beyond avoiding bad designs, the designer must also choose wisely among several *valid* designs (e.g., "is a sale a relationship, or an entity?") — good E-R design blends formal rules with judgment.
 
@@ -64,16 +49,11 @@ graph TD
 
 The E-R model uses **three basic building blocks**: entity sets, relationship sets, and attributes.
 
-```mermaid
-graph LR
-    EM[E-R Model Building Blocks] --> ES["**Entity Set**<br/>(rectangle)"]
-    EM --> RS["**Relationship Set**<br/>(diamond)"]
-    EM --> AT["**Attribute**<br/>(listed inside entity/<br/>linked oval)"]
+<p align="center">
+  <img src="diagrams/d03-6-2-the-entity.svg" alt="6.2 The Entity-Relationship Model" />
+</p>
 
-    style ES fill:#4a90d9,color:#fff
-    style RS fill:#57a773,color:#fff
-    style AT fill:#c9642a,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d03-6-2-the-entity.excalidraw">d03-6-2-the-entity.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### Entity Sets
 
@@ -84,19 +64,11 @@ graph LR
 
 **E-R diagram notation:** an entity set is a rectangle split into two parts — the (blue-shaded) name at top, and the attribute list below; primary-key attributes are **underlined**.
 
-```mermaid
-classDiagram
-    class instructor {
-        ID
-        name
-        salary
-    }
-    class student {
-        ID
-        name
-        tot_cred
-    }
-```
+<p align="center">
+  <img src="diagrams/d04-entity-sets.svg" alt="Entity Sets" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d04-entity-sets.excalidraw">d04-entity-sets.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### Relationship Sets
 
@@ -108,15 +80,11 @@ classDiagram
 - **Role:** the function an entity plays in a relationship; usually implicit, but made **explicit** in a **recursive relationship set**, where the *same* entity set participates more than once (e.g., `prereq` relates `course` to itself via roles `course_id` and `prereq_id`).
 - **Descriptive attributes:** a relationship set may itself carry attributes (e.g., `takes` between `student` and `section` carries the descriptive attribute `grade`), shown as an undivided rectangle attached with a dashed line to the diamond.
 
-```mermaid
-graph LR
-    I[instructor] ---|"line"| A{{advisor}} ---|"line"| S[student]
-    ST[student] ---|"line"| T{{takes}} ---|"line"| SEC[section]
-    T -.-> G[/grade/]
+<p align="center">
+  <img src="diagrams/d05-relationship-sets.svg" alt="Relationship Sets" />
+</p>
 
-    style A fill:#57a773,color:#fff
-    style T fill:#57a773,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d05-relationship-sets.excalidraw">d05-relationship-sets.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 **Binary vs. Ternary example:** `proj_guide` relates `instructor`, `student`, and `project` — a **ternary** relationship, needed because a student may have *different* instructor-guides on *different* projects, something two separate binary relationships cannot capture.
 
@@ -126,44 +94,21 @@ graph LR
 
 Attributes are not always "simple" scalar values — the E-R model supports several attribute types:
 
-```mermaid
-graph TD
-    Attr[Attribute Types] --> SC["**Simple vs. Composite**"]
-    Attr --> SM["**Single-valued vs. Multivalued**"]
-    Attr --> DV["**Derived**"]
+<p align="center">
+  <img src="diagrams/d06-6-3-complex-attributes.svg" alt="6.3 Complex Attributes" />
+</p>
 
-    SC --> S1["Simple: not divisible<br/>(e.g., salary)"]
-    SC --> S2["Composite: divides into sub-parts<br/>(e.g., name → first, middle, last)"]
-    SM --> M1["Single-valued: one value per entity<br/>(e.g., student ID)"]
-    SM --> M2["Multivalued: a set of values<br/>(e.g., phone_number{ })"]
-    DV --> D1["Computed from other attributes/entities<br/>(e.g., age derived from date_of_birth)<br/>NOT stored directly"]
-
-    style SC fill:#4a90d9,color:#fff
-    style SM fill:#57a773,color:#fff
-    style DV fill:#c9642a,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d06-6-3-complex-attributes.excalidraw">d06-6-3-complex-attributes.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### Composite Attribute Hierarchy Example
 
 A composite attribute can itself be composed of further composite attributes:
 
-```mermaid
-graph TD
-    N[name] --> N1[first_name]
-    N --> N2[middle_initial]
-    N --> N3[last_name]
+<p align="center">
+  <img src="diagrams/d07-composite-attribute.svg" alt="Composite Attribute Hierarchy Example" />
+</p>
 
-    AD[address] --> AD1[street]
-    AD --> AD2[city]
-    AD --> AD3[state]
-    AD --> AD4[postal_code]
-    AD1 --> AD1a[street_number]
-    AD1 --> AD1b[street_name]
-    AD1 --> AD1c[apartment_number]
-
-    style N fill:#4a90d9,color:#fff
-    style AD fill:#4a90d9,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d07-composite-attribute.excalidraw">d07-composite-attribute.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### Domain and Null Values
 
@@ -189,47 +134,31 @@ graph TD
 
 **Mapping cardinality** (cardinality ratio) expresses how many entities of one set can be associated, via a relationship, with entities of another set. For a binary relationship *R* between entity sets *A* and *B*:
 
-```mermaid
-graph TD
-    MC[Mapping Cardinalities] --> OO["**One-to-One (1:1)**<br/>An A relates to at most one B,<br/>and a B relates to at most one A"]
-    MC --> OM["**One-to-Many (1:N)**<br/>An A relates to many Bs,<br/>but a B relates to at most one A"]
-    MC --> MO["**Many-to-One (N:1)**<br/>An A relates to at most one B,<br/>but a B relates to many As"]
-    MC --> MM["**Many-to-Many (M:N)**<br/>An A can relate to many Bs,<br/>and a B can relate to many As"]
+<p align="center">
+  <img src="diagrams/d08-6-4-mapping.svg" alt="6.4 Mapping Cardinalities" />
+</p>
 
-    style OO fill:#27ae60,color:#fff
-    style OM fill:#4a90d9,color:#fff
-    style MO fill:#e67e22,color:#fff
-    style MM fill:#c0392b,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d08-6-4-mapping.excalidraw">d08-6-4-mapping.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### Visualizing Cardinality with Bipartite Mappings
 
-```mermaid
-graph LR
-    subgraph "One-to-One"
-        a1((a1)) --- b1((b1))
-        a2((a2)) --- b2((b2))
-    end
-```
+<p align="center">
+  <img src="diagrams/d09-visualizing-cardinality.svg" alt="Visualizing Cardinality with Bipartite Mappings" />
+</p>
 
-```mermaid
-graph LR
-    subgraph "One-to-Many (A to B)"
-        x1((a1)) --- y1((b1))
-        x1 --- y2((b2))
-        x2((a2)) --- y3((b3))
-    end
-```
+<sub><em>Editable diagram source: <a href="diagrams/d09-visualizing-cardinality.excalidraw">d09-visualizing-cardinality.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
-```mermaid
-graph LR
-    subgraph "Many-to-Many"
-        p1((a1)) --- q1((b1))
-        p1 --- q2((b2))
-        p2((a2)) --- q1
-        p3((a3)) --- q2
-    end
-```
+<p align="center">
+  <img src="diagrams/d10-visualizing-cardinality.svg" alt="Visualizing Cardinality with Bipartite Mappings" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d10-visualizing-cardinality.excalidraw">d10-visualizing-cardinality.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
+
+<p align="center">
+  <img src="diagrams/d11-visualizing-cardinality.svg" alt="Visualizing Cardinality with Bipartite Mappings" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d11-visualizing-cardinality.excalidraw">d11-visualizing-cardinality.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### E-R Diagram Arrow Notation
 
@@ -242,14 +171,11 @@ graph LR
 
 ### Participation Constraints
 
-```mermaid
-graph LR
-    T["**Total Participation**<br/>EVERY entity in the set must<br/>participate in at least one relationship<br/>→ drawn with a DOUBLE line"]
-    P["**Partial Participation**<br/>SOME entities may not<br/>participate at all<br/>→ drawn with a SINGLE line"]
+<p align="center">
+  <img src="diagrams/d12-participation.svg" alt="Participation Constraints" />
+</p>
 
-    style T fill:#27ae60,color:#fff
-    style P fill:#95a5a6,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d12-participation.excalidraw">d12-participation.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 **Example:** every `student` must have an `advisor` → total participation of `student`. An `instructor` need not advise anyone → partial participation of `instructor`.
 
@@ -284,19 +210,11 @@ The familiar concepts of **superkey**, **candidate key**, and **primary key** (C
 
 Some entities cannot be uniquely identified by their own attributes alone — they depend on another entity for identification.
 
-```mermaid
-graph TD
-    SEC["**Weak Entity Set**: section<br/>attributes: sec_id, semester, year<br/>(discriminator only — NOT globally unique)"]
-    COU["**Identifying (Strong) Entity Set**: course<br/>primary key: course_id"]
-    ID{{"**Identifying Relationship**: sec_course<br/>(many-to-one, TOTAL participation<br/>of section, no descriptive attributes)"}}
+<p align="center">
+  <img src="diagrams/d13-weak-entity-sets.svg" alt="Weak Entity Sets" />
+</p>
 
-    SEC ===|"double line:<br/>total participation"| ID
-    ID -->|"arrow: many-to-one"| COU
-
-    style SEC fill:#e67e22,color:#fff
-    style COU fill:#4a90d9,color:#fff
-    style ID fill:#57a773,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d13-weak-entity-sets.excalidraw">d13-weak-entity-sets.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 | Term | Definition |
 |---|---|
@@ -328,15 +246,11 @@ Once entity sets and their attributes are chosen, defining relationship sets can
 
 > If entity set **B**'s primary key already appears as an attribute inside entity set **A**, and a relationship set explicitly connects **A** to **B**, then that primary-key attribute is **redundant** in **A** and should be **removed** — the relationship captures the connection instead.
 
-```mermaid
-flowchart LR
-    Before["**Before (redundant)**<br/>instructor(ID, name, **dept_name**, salary)<br/>department(dept_name, building, budget)"]
-    After["**After (correct)**<br/>instructor(ID, name, salary)<br/>department(dept_name, building, budget)<br/>+ relationship: inst_dept"]
-    Before -->|"remove dept_name from instructor,<br/>model the connection explicitly"| After
+<p align="center">
+  <img src="diagrams/d14-the-core-rule.svg" alt="The Core Rule" />
+</p>
 
-    style Before fill:#c0392b,color:#fff
-    style After fill:#27ae60,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d14-the-core-rule.excalidraw">d14-the-core-rule.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 **Why this matters:** treating the connection as an explicit **relationship** (rather than a repeated foreign-key-like attribute) makes the design's logical structure clear and avoids **prematurely assuming** cardinality (e.g., assuming an instructor belongs to only one department).
 
@@ -365,22 +279,11 @@ prereq                              -- course ↔ course (recursive)
 
 ### Full E-R Diagram (Mermaid ER Diagram)
 
-```mermaid
-erDiagram
-    DEPARTMENT ||--o{ INSTRUCTOR : "inst_dept (total, many-to-one)"
-    DEPARTMENT ||--o{ STUDENT : "stud_dept (total, many-to-one)"
-    DEPARTMENT ||--o{ COURSE : "course_dept (total, many-to-one)"
-    INSTRUCTOR ||--o{ TEACHES : "teaches"
-    SECTION ||--o{ TEACHES : "taught in"
-    STUDENT ||--o{ TAKES : "takes (grade)"
-    SECTION ||--o{ TAKES : "enrolled section"
-    INSTRUCTOR |o--o{ STUDENT : "advisor (partial-instructor, total-student)"
-    COURSE ||--o{ SECTION : "sec_course (identifying, weak)"
-    CLASSROOM ||--o{ SECTION : "sec_class"
-    TIME_SLOT ||--o{ SECTION : "sec_time_slot"
-    COURSE ||--o{ PREREQ : "course_id role"
-    COURSE ||--o{ PREREQ : "prereq_id role"
-```
+<p align="center">
+  <img src="diagrams/d15-full-e-r-diagram.svg" alt="Full E-R Diagram (Mermaid ER Diagram)" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d15-full-e-r-diagram.excalidraw">d15-full-e-r-diagram.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 > This mirrors the textbook's Figure 6.15 — note that `section` is a **weak entity** owned by `course`, and `advisor` is drawn with **total participation on the student side** (every student has an advisor) but **partial on the instructor side** (not every instructor advises someone).
 
@@ -390,18 +293,11 @@ erDiagram
 
 Once an E-R diagram is finalized, it is mechanically converted into relational schemas (this is the **logical-design phase**). Both models are logical/abstract representations, which is what makes this direct translation possible.
 
-```mermaid
-flowchart TD
-    ER[E-R Diagram] --> R1["**Strong Entity Set**<br/>→ one schema, all simple attributes,<br/>primary key = entity set's primary key"]
-    ER --> R2["**Entity Set with Complex Attributes**<br/>→ composite attrs flattened into components;<br/>multivalued attrs → SEPARATE schema"]
-    ER --> R3["**Weak Entity Set**<br/>→ schema = own attributes + owner's primary key;<br/>PK = owner PK + discriminator;<br/>FK → owner entity set"]
-    ER --> R4["**Relationship Set**<br/>→ schema = union of participating PKs<br/>+ descriptive attributes;<br/>FK → each participating entity set"]
+<p align="center">
+  <img src="diagrams/d16-6-7-reducing-e-r.svg" alt="6.7 Reducing E-R Diagrams to Relational Schemas" />
+</p>
 
-    style R1 fill:#4a90d9,color:#fff
-    style R2 fill:#57a773,color:#fff
-    style R3 fill:#e67e22,color:#fff
-    style R4 fill:#8e44ad,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d16-6-7-reducing-e-r.excalidraw">d16-6-7-reducing-e-r.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ### 6.7.1 Strong Entity Sets
 
@@ -425,15 +321,11 @@ instructor_phone (ID, phone_number)     -- from multivalued phone_number
 
 ### 6.7.3 Weak Entity Sets
 
-```mermaid
-graph LR
-    W["Weak Entity: section<br/>(sec_id, semester, year)"] -->|"PK = owner PK<br/>+ discriminator"| S["section(course_id, sec_id, semester, year)"]
-    S -->|"FK constraint"| C["course(course_id, ...)"]
+<p align="center">
+  <img src="diagrams/d17-6-7-3-weak-entity-sets.svg" alt="6.7.3 Weak Entity Sets" />
+</p>
 
-    style W fill:#e67e22,color:#fff
-    style S fill:#4a90d9,color:#fff
-    style C fill:#57a773,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d17-6-7-3-weak-entity-sets.excalidraw">d17-6-7-3-weak-entity-sets.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 For weak entity set *A* owned by strong entity set *B*: schema *A* gets all of *A*'s own attributes **plus** *B*'s primary-key attributes; the combined primary key is *(B's PK, A's discriminator)*; a foreign key on *A* references *B*.
 
@@ -461,15 +353,11 @@ The relationship schema linking a **weak entity set to its identifying entity se
 
 ### 6.7.6 Combination of Schemas (Optimization #2)
 
-```mermaid
-flowchart LR
-    A3["Schema A"] --> Merge["**Merge condition:**<br/>relationship AB is many-to-one<br/>from A to B, AND participation<br/>of A in AB is TOTAL"]
-    AB3["Schema AB"] --> Merge
-    Merge --> Combined["**Combined schema**<br/>= attributes(A) ∪ attributes(AB)<br/>Primary key = primary key of A"]
+<p align="center">
+  <img src="diagrams/d18-6-7-6-combination-of.svg" alt="6.7.6 Combination of Schemas (Optimization #2)" />
+</p>
 
-    style Merge fill:#4a90d9,color:#fff
-    style Combined fill:#27ae60,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d18-6-7-6-combination-of.excalidraw">d18-6-7-6-combination-of.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 If relationship set *AB* is many-to-one from *A* to *B* **and** *A*'s participation in *AB* is **total**, the schemas for *A* and *AB* can be **merged** into a single schema — this is exactly why the familiar `instructor(ID, name, dept_name, salary)` table (with `dept_name` folded back in) is derived from merging `instructor` with `inst_dept`. If participation is only *partial*, merging is still possible but requires **null values** for entities without a relationship instance.
 
@@ -481,23 +369,11 @@ Basic E-R concepts don't always capture every nuance of a real enterprise. The *
 
 ### Specialization vs. Generalization
 
-```mermaid
-graph TD
-    P["**person**<br/>ID, name, street, city"]
-    E["**employee**<br/>+ salary"]
-    S["**student**<br/>+ tot_credits"]
-    IN["**instructor**<br/>+ rank"]
-    SE["**secretary**<br/>+ hours_per_week"]
+<p align="center">
+  <img src="diagrams/d19-specialization-vs.svg" alt="Specialization vs. Generalization" />
+</p>
 
-    P -->|ISA| E
-    P -->|ISA| S
-    E -->|ISA| IN
-    E -->|ISA| SE
-
-    style P fill:#4a90d9,color:#fff
-    style E fill:#57a773,color:#fff
-    style S fill:#57a773,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d19-specialization-vs.excalidraw">d19-specialization-vs.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 | Process | Direction | Description |
 |---|---|---|
@@ -512,19 +388,11 @@ Both processes result in the same structure: a **higher-level entity set** (supe
 
 ### Constraints on Specialization
 
-```mermaid
-graph TD
-    C1["**Overlapping vs. Disjoint**"] --> C1a["Overlapping: an entity MAY belong<br/>to more than one subclass<br/>(e.g., person can be BOTH<br/>student AND employee)<br/>→ TWO separate arrows"]
-    C1 --> C1b["Disjoint: an entity belongs to<br/>AT MOST ONE subclass<br/>(e.g., instructor XOR secretary)<br/>→ ONE single arrow"]
+<p align="center">
+  <img src="diagrams/d20-constraints-on.svg" alt="Constraints on Specialization" />
+</p>
 
-    C2["**Total vs. Partial (Completeness)**"] --> C2a["Total: every higher-level entity<br/>MUST belong to some lower-level set"]
-    C2 --> C2b["Partial: some higher-level entities<br/>may belong to NO lower-level set<br/>(the DEFAULT)"]
-
-    style C1a fill:#4a90d9,color:#fff
-    style C1b fill:#57a773,color:#fff
-    style C2a fill:#27ae60,color:#fff
-    style C2b fill:#95a5a6,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d20-constraints-on.excalidraw">d20-constraints-on.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 These two constraint types are **independent**, giving four combinations: partial-overlapping, partial-disjoint, total-overlapping, total-disjoint.
 
@@ -535,18 +403,11 @@ These two constraint types are **independent**, giving four combinations: partia
 
 E-R's basic constructs cannot directly express a **relationship of a relationship**. **Aggregation** solves this by treating an entire relationship set (plus its participating entities) as a new **higher-level entity** that can itself participate in further relationships.
 
-```mermaid
-flowchart TD
-    subgraph Aggregated["Aggregation: treat proj_guide as one entity"]
-        INS[instructor] --- PG{{proj_guide}}
-        STU[student] --- PG
-        PRJ[project] --- PG
-    end
-    Aggregated --- EF{{eval_for}} --- EV[evaluation]
+<p align="center">
+  <img src="diagrams/d21-aggregation.svg" alt="Aggregation" />
+</p>
 
-    style PG fill:#57a773,color:#fff
-    style EF fill:#c9642a,color:#fff
-```
+<sub><em>Editable diagram source: <a href="diagrams/d21-aggregation.excalidraw">d21-aggregation.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 **Why not just add a 4-way relationship instead?** Because `eval_for` between `instructor`, `student`, `project`, and `evaluation` directly would create **redundant information** — every (instructor, student, project) combination in `eval_for` would have to duplicate what's already captured in `proj_guide`. Aggregation avoids this duplication.
 

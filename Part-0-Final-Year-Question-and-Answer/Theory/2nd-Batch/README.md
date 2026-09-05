@@ -91,38 +91,11 @@ A **data model** is a **set of concepts and rules** used to describe the structu
 
 *(Together, `Loan` acts as a "bridge/junction" entity that connects `Member` and `Book` — this is how the real-world Many-to-Many relationship "Member borrows Book" gets modeled cleanly, since a `Loan` record simply stores which member borrowed which book, and when.)*
 
-```mermaid
-erDiagram
-    PUBLISHER ||--o{ BOOK : publishes
-    BOOK ||--o{ LOAN : "is borrowed via"
-    MEMBER ||--o{ LOAN : makes
+<p align="center">
+  <img src="diagrams/d01-1-d-draw-an-er-diagram.svg" alt="1(d) Draw an ER diagram for a library management system with Book, Member, Loan, and Publisher entities. Identify and illustrate the relationships. [12]" />
+</p>
 
-    PUBLISHER {
-        int PublisherID PK
-        string Name
-        string Address
-    }
-    BOOK {
-        int BookID PK
-        string Title
-        string Author
-        string ISBN
-        int PublisherID FK
-    }
-    MEMBER {
-        int MemberID PK
-        string Name
-        string Email
-        string Phone
-    }
-    LOAN {
-        int LoanID PK
-        date IssueDate
-        date ReturnDate
-        int MemberID FK
-        int BookID FK
-    }
-```
+<sub><em>Editable diagram source: <a href="diagrams/d01-1-d-draw-an-er-diagram.excalidraw">d01-1-d-draw-an-er-diagram.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 > 💡 **Simple explanation:** Think of `Loan` as the "receipt" every time a member borrows a book — each receipt (Loan) points to exactly one Member and exactly one Book, but a Member/Book can appear on many different receipts over time.
 
@@ -281,36 +254,11 @@ A **functional dependency (FD)** `X → Y` means "the value of X determines the 
 - **Patient "Books" Appointment / Doctor "Attends" Appointment** → this models the real **Many-to-Many** relationship *"Patient sees Doctor"*: one patient can book many appointments (with different doctors), and one doctor can have many appointments (with different patients).
 - **Department "Employs" Doctor** → **One-to-Many (1:N)** — one department has many doctors, but each doctor belongs to one department.
 
-```mermaid
-erDiagram
-    PATIENT ||--o{ APPOINTMENT : books
-    DOCTOR ||--o{ APPOINTMENT : attends
-    DEPARTMENT ||--o{ DOCTOR : employs
+<p align="center">
+  <img src="diagrams/d02-3-c-design-an-e-r.svg" alt="3(c) Design an E-R diagram for hospital management system. Identify entities, attributes, relationships, and cardinality. [10]" />
+</p>
 
-    PATIENT {
-        int Patient_ID PK
-        string Name
-        int Age
-        string Address
-    }
-    DOCTOR {
-        int Doctor_ID PK
-        string Name
-        string Specialization
-        int Department_ID FK
-    }
-    DEPARTMENT {
-        int Department_ID PK
-        string Department_Name
-    }
-    APPOINTMENT {
-        int Appointment_ID PK
-        date Date
-        string Time
-        int Patient_ID FK
-        int Doctor_ID FK
-    }
-```
+<sub><em>Editable diagram source: <a href="diagrams/d02-3-c-design-an-e-r.excalidraw">d02-3-c-design-an-e-r.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 > 💡 **Simple explanation:** `Appointment` is the "meeting slip" connecting one Patient and one Doctor at a specific date/time — since a patient can have many appointments and a doctor can have many appointments, this bridge entity cleanly represents their Many-to-Many relationship.
 
@@ -665,17 +613,11 @@ A **transaction** is a **single logical unit of work** made up of one or more da
 
 **State Transition Diagram:**
 
-```mermaid
-stateDiagram-v2
-    [*] --> Active
-    Active --> PartiallyCommitted: last operation executed
-    PartiallyCommitted --> Committed: changes permanently saved
-    Active --> Failed: error occurs
-    PartiallyCommitted --> Failed: system failure
-    Failed --> Aborted: rollback completed
-    Committed --> [*]
-    Aborted --> [*]
-```
+<p align="center">
+  <img src="diagrams/d03-7-a-explain-the-concept.svg" alt="7(a) Explain the concept of a transaction in DBMS, describe its different states with an example, and illustrate a state transition diagram. [07]" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d03-7-a-explain-the-concept.excalidraw">d03-7-a-explain-the-concept.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 ---
 
@@ -728,15 +670,11 @@ stateDiagram-v2
 
 **Step 2 — Draw the Precedence Graph:**
 
-```mermaid
-graph LR
-    T1 --> T2
-    T1 --> T3
-    T3 --> T1
-    T3 --> T2
-    T2 --> T1
-    T2 --> T3
-```
+<p align="center">
+  <img src="diagrams/d04-7-c-define.svg" alt="7(c) Define serializability. Determine whether the given schedule of T1, T2, T3 is conflict serializable. [10]" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d04-7-c-define.excalidraw">d04-7-c-define.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 **Step 3 — Check for cycles:**
 
@@ -878,10 +816,11 @@ The DBMS periodically builds a **wait-for graph (WFG)**:
 - T2 is waiting for a lock held by T3 → edge `T2 → T3`
 - T3 is waiting for a lock held by T1 → edge `T3 → T1`
 
-```mermaid
-graph LR
-    T1 --> T2 --> T3 --> T1
-```
+<p align="center">
+  <img src="diagrams/d05-8-d-describe-deadlock.svg" alt="8(d) Describe deadlock detection and recovery in DBMS. Illustrate a wait-for graph (WFG) scenario where deadlock is detected. [10]" />
+</p>
+
+<sub><em>Editable diagram source: <a href="diagrams/d05-8-d-describe-deadlock.excalidraw">d05-8-d-describe-deadlock.excalidraw</a> — open in <a href="https://excalidraw.com">Excalidraw</a> to edit.</em></sub>
 
 This forms a **cycle** (`T1 → T2 → T3 → T1`) → **deadlock detected.**
 

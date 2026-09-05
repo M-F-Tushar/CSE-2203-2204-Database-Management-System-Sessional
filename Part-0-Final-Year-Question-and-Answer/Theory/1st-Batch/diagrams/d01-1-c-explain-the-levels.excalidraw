@@ -1,0 +1,354 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "id": "whTNOM8lFU6rs4JpXQGyH",
+      "type": "rectangle",
+      "x": 7.5,
+      "y": 8,
+      "width": 261,
+      "height": 210,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#4a90d9",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a0",
+      "roundness": null,
+      "seed": 98040344,
+      "version": 3,
+      "versionNonce": 515271528,
+      "isDeleted": false,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "VRfSV_trUtJ0uVMIJET8s"
+        },
+        {
+          "id": "h5wL0NXwb_AOivdTG2dQP",
+          "type": "arrow"
+        }
+      ],
+      "updated": 1788622054027,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "ZoKa56glw7u4da6zzKM_A",
+      "type": "rectangle",
+      "x": 8,
+      "y": 268,
+      "width": 260,
+      "height": 210,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#57a773",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a1",
+      "roundness": null,
+      "seed": 1598968680,
+      "version": 4,
+      "versionNonce": 1397797224,
+      "isDeleted": false,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "p9Gc5Y060G34CBrGiHgVp"
+        },
+        {
+          "id": "h5wL0NXwb_AOivdTG2dQP",
+          "type": "arrow"
+        },
+        {
+          "id": "5-2CplRfqEhm5SUOxz3u8",
+          "type": "arrow"
+        }
+      ],
+      "updated": 1788622054027,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "XkeLb5SY7HAYQ2xs65L8S",
+      "type": "rectangle",
+      "x": 8,
+      "y": 528,
+      "width": 260,
+      "height": 210,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#c0392b",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a2",
+      "roundness": null,
+      "seed": 1107359512,
+      "version": 3,
+      "versionNonce": 1409696872,
+      "isDeleted": false,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "mZekEoyZWAq6T5KyWLXGl"
+        },
+        {
+          "id": "5-2CplRfqEhm5SUOxz3u8",
+          "type": "arrow"
+        }
+      ],
+      "updated": 1788622054027,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "h5wL0NXwb_AOivdTG2dQP",
+      "type": "arrow",
+      "x": 138,
+      "y": 218,
+      "width": 0,
+      "height": 46,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a3",
+      "roundness": {
+        "type": 2
+      },
+      "seed": 335521384,
+      "version": 4,
+      "versionNonce": 516316952,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1788622054027,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0.5
+        ],
+        [
+          0,
+          25
+        ],
+        [
+          0,
+          45.5
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": {
+        "elementId": "whTNOM8lFU6rs4JpXQGyH",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "ZoKa56glw7u4da6zzKM_A",
+        "focus": 0,
+        "gap": 4
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false
+    },
+    {
+      "id": "5-2CplRfqEhm5SUOxz3u8",
+      "type": "arrow",
+      "x": 138,
+      "y": 478,
+      "width": 0,
+      "height": 46,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a4",
+      "roundness": {
+        "type": 2
+      },
+      "seed": 1778537496,
+      "version": 4,
+      "versionNonce": 1281063192,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1788622054027,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0.5
+        ],
+        [
+          0,
+          25
+        ],
+        [
+          0,
+          45.5
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": {
+        "elementId": "ZoKa56glw7u4da6zzKM_A",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "XkeLb5SY7HAYQ2xs65L8S",
+        "focus": 0,
+        "gap": 4
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false
+    },
+    {
+      "id": "VRfSV_trUtJ0uVMIJET8s",
+      "type": "text",
+      "x": 19.510101318359375,
+      "y": 38,
+      "width": 236.97979736328125,
+      "height": 150,
+      "angle": 0,
+      "strokeColor": "#fff",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a5",
+      "roundness": null,
+      "seed": 1545644824,
+      "version": 3,
+      "versionNonce": 163354136,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1788622054027,
+      "link": null,
+      "locked": false,
+      "text": "1. View Level (External\nLevel)\nWhat ordinary end-users\nsee\nDifferent views for\ndifferent users",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "whTNOM8lFU6rs4JpXQGyH",
+      "originalText": "1. View Level (External Level)\nWhat ordinary end-users see\nDifferent views for different users",
+      "autoResize": true,
+      "lineHeight": 1.25
+    },
+    {
+      "id": "p9Gc5Y060G34CBrGiHgVp",
+      "type": "text",
+      "x": 26.730072021484375,
+      "y": 298,
+      "width": 222.53985595703125,
+      "height": 150,
+      "angle": 0,
+      "strokeColor": "#fff",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a6",
+      "roundness": null,
+      "seed": 235636760,
+      "version": 3,
+      "versionNonce": 1855027048,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1788622054027,
+      "link": null,
+      "locked": false,
+      "text": "2. Logical Level\n(Conceptual Level)\nWhat data is stored &\nhow tables\nrelate to each other\n(the full design)",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "ZoKa56glw7u4da6zzKM_A",
+      "originalText": "2. Logical Level (Conceptual Level)\nWhat data is stored & how tables\nrelate to each other (the full design)",
+      "autoResize": true,
+      "lineHeight": 1.25
+    },
+    {
+      "id": "mZekEoyZWAq6T5KyWLXGl",
+      "type": "text",
+      "x": 39.00006866455078,
+      "y": 558,
+      "width": 197.99986267089844,
+      "height": 150,
+      "angle": 0,
+      "strokeColor": "#fff",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a7",
+      "roundness": null,
+      "seed": 1486013720,
+      "version": 3,
+      "versionNonce": 384963352,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1788622054027,
+      "link": null,
+      "locked": false,
+      "text": "3. Physical Level\n(Internal Level)\nHow data is actually\nstored on\ndisk — bytes, files,\nindexes",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "XkeLb5SY7HAYQ2xs65L8S",
+      "originalText": "3. Physical Level (Internal Level)\nHow data is actually stored on\ndisk — bytes, files, indexes",
+      "autoResize": true,
+      "lineHeight": 1.25
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "gridSize": null
+  },
+  "files": {}
+}
