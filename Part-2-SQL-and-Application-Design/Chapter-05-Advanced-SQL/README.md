@@ -400,149 +400,267 @@ A sandbox is possible only for "safe" languages (Java, C#) that don't allow raw 
 
 ### What Is a Trigger?
 
-> A **trigger** is a statement that the system executes **automatically** as a side effect of a modification to the database.
+> A **trigger** is a special database object that **automatically executes** when a specific event occurs on a table, such as `insert`, `update`, or `delete`.
 
-Defining a trigger requires specifying two things:
+A trigger is attached to **one specific table (or one specific view)**. Once it is created, the database system runs it automatically when the watched event happens.
+
+In this section, we explain triggers using the same database objects used in the SQL examples:
+
+| Table | Purpose | Important columns |
+|---|---|---|
+| `Products` | Stores product information | `ProductId`, `ProductName`, `BrandName`, `ReceiveDate`, `AvailableStock`, `Price`, `CreateDate`, `ModifyDate` |
+| `AuditRecord` | Stores audit/log information about database actions | `RecordId`, `ActionName`, `TableName`, `ColumnName`, `PreviousValue`, `ModifedValue`, `CreateDate` |
+
+So the main idea here is simple:
+- data is inserted, updated, or deleted in `Products`
+- the trigger reacts automatically
+- the trigger can write a log into `AuditRecord`
+
+### Basic Structure of a Trigger
+
+The class-style structure is:
+
+```sql
+create trigger trigger_name
+on table_name
+[after | for | instead of] [insert | update | delete]
+as
+begin
+    -- trigger body
+end;
+```
+
+> **Easy note:** one trigger definition always points to **one specific table**.
+
+A trigger definition usually has these parts:
 
 ```mermaid
 graph LR
-    T[Trigger Definition] --> EV["**Event**<br/>What kind of database change<br/>should be watched for?<br/>(insert / delete / update)"]
-    T --> CD["**Condition**<br/>(optional 'when' clause)<br/>What must be true for the<br/>trigger body to actually run?"]
-    T --> AC["**Action**<br/>What SQL statements execute<br/>when event + condition are met?"]
+    T[Trigger Definition] --> EV["**Event**<br/>Which change should be watched?<br/>(insert / update / delete)"]
+    T --> TM["**Timing**<br/>Should it run after the action,<br/>or replace the action?"]
+    T --> AC["**Action**<br/>What SQL should run automatically?"]
 
     style EV fill:#4a90d9,color:#fff
-    style CD fill:#e67e22,color:#fff
+    style TM fill:#e67e22,color:#fff
     style AC fill:#57a773,color:#fff
 ```
 
-Once a trigger is created, the database system takes full responsibility for firing it automatically whenever the specified event occurs and its condition holds — no application code needs to remember to call it.
-
 ### Why Do We Need Triggers?
 
-- Enforcing integrity constraints that plain SQL constraints **cannot express** (e.g., a cross-table consistency rule).
-- Automatically keeping a **derived/summary value up to date** (e.g., updating a student's total credits whenever a passing grade is recorded).
-- Alerting/automating a task when a condition is met (e.g., automatically creating a reorder record when warehouse inventory falls below a minimum level).
+Triggers are useful when we want the database to do some work automatically.
 
-> **Limitation:** Triggers normally cannot reach *outside* the database (e.g., they cannot directly place a real-world purchase order). Instead, they insert a row into a "pending actions" table, and a separate external process periodically scans that table and performs the real-world action.
+In the `Products` / `AuditRecord` example, common reasons are:
 
-### Trigger Timing: BEFORE, AFTER, and INSTEAD OF
+- **Audit logging** — when someone inserts, updates, or deletes a product, automatically store a log row in `AuditRecord`
+- **Business-rule checking** — stop an invalid action before it is accepted
+- **Automatic follow-up work** — for example, logging old and new values after a product price changes
+
+> **Practical idea:** a trigger is helpful when you do not want to depend on application code remembering to perform an extra step manually.
+
+### Trigger Timing in the SQL Server Style Used Here
+
+The SQL examples here follow **SQL Server-style** trigger syntax.
 
 ```mermaid
 flowchart LR
-    Stmt["Triggering statement issued<br/>(INSERT / UPDATE / DELETE)"]
+    Stmt["INSERT / UPDATE / DELETE issued"] --> A["**AFTER / FOR**<br/>Base table change happens first,<br/>then the trigger runs"]
+    Stmt --> I["**INSTEAD OF**<br/>The original change is replaced;<br/>the trigger body decides what to do"]
 
-    Stmt --> B["**BEFORE trigger**<br/>Fires before the change is applied.<br/>Can validate/modify the incoming row,<br/>or cancel the operation."]
-    B --> Applied["Change is applied to the base table<br/>(only if not cancelled and it's a<br/>normal BEFORE/AFTER trigger)"]
-    Applied --> A["**AFTER trigger**<br/>Fires once the change has already<br/>been applied. Used for cascading<br/>updates, logging, derived-value maintenance."]
-
-    Stmt -.->|"on an updatable VIEW only"| IO["**INSTEAD OF trigger**<br/>REPLACES the triggering action entirely —<br/>the underlying tables are updated manually<br/>inside the trigger body instead"]
-
-    style B fill:#e67e22,color:#fff
     style A fill:#4a90d9,color:#fff
-    style IO fill:#8e44ad,color:#fff
+    style I fill:#8e44ad,color:#fff
 ```
 
-| Timing | When it fires | Typical use |
+| Timing | Meaning in simple words | Use in this section |
 |---|---|---|
-| **BEFORE** | Before the insert/update/delete is applied | Extra validation; auto-correcting/normalizing an incoming value (e.g., replacing a blank grade with `null`) |
-| **AFTER** | After the insert/update/delete has been applied | Referential-integrity enforcement, maintaining derived values, cascading changes, audit logging |
-| **INSTEAD OF** | In place of the triggering action (used on views) | Makes a non-updatable **view** effectively updatable — the trigger body decides how to translate the view-level change into changes on the real base tables |
+| **`AFTER`** | Run the trigger after the insert/update/delete succeeds | Used for audit logging |
+| **`FOR`** | In SQL Server DML triggers, `FOR` acts like `AFTER` | Used in the delete example |
+| **`INSTEAD OF`** | Do not perform the original action automatically; run the trigger body instead | Used to show how a trigger can intercept an insert |
+| **`BEFORE`** | Common in textbook discussion and in some DBMSs, but not the usual SQL Server DML trigger form used here | Keep as concept only |
 
-### Row-Level vs. Statement-Level Triggers
+> **Very important:** in SQL Server, `FOR DELETE` and `AFTER DELETE` mean the same thing for normal DML triggers.
 
-```mermaid
-graph TD
-    G["for each ... clause"] --> Row["**for each row**<br/>(row-level trigger)<br/>Body executes ONCE PER<br/>AFFECTED ROW"]
-    G --> Stm["**for each statement**<br/>(statement-level trigger)<br/>Body executes ONCE for the<br/>ENTIRE SQL statement,<br/>regardless of how many rows it touched"]
+### The Special `inserted` and `deleted` Tables
 
-    Row --> RowUse["Use `referencing new row as`<br/>/ `referencing old row as`<br/>to access that one row's values"]
-    Stm --> StmUse["Use `referencing new table as`<br/>/ `referencing old table as`<br/>(transition tables) to see ALL<br/>affected rows at once"]
+Textbooks often explain triggers using **old row** and **new row** ideas. In SQL Server, the same idea appears through two special temporary tables:
 
-    style Row fill:#4a90d9,color:#fff
-    style Stm fill:#57a773,color:#fff
-```
+| Operation | Special table available | Meaning |
+|---|---|---|
+| `INSERT` | `inserted` | Contains the newly inserted rows |
+| `DELETE` | `deleted` | Contains the rows that were deleted |
+| `UPDATE` | `deleted` and `inserted` | `deleted` holds old values, `inserted` holds new values |
 
-> Transition **tables** (`referencing old table as` / `new table as`) can only be used with **AFTER** triggers — not `BEFORE` triggers, since before a `BEFORE` trigger runs, the full set of changes may not yet be finalized.
+This is how SQL Server lets a trigger see what changed.
 
-### Worked Trigger Examples
+> **Important beginner warning:** a trigger usually fires **once per SQL statement**, not once per row. So `inserted` and `deleted` may contain **multiple rows**.
 
-**1. Enforcing referential integrity on insert (row-level, AFTER, with rollback):**
+That means a trigger like this:
 
 ```sql
-create trigger timeslot_check1 after insert on section
-referencing new row as nrow
-for each row
-when (nrow.time_slot_id not in (select time_slot_id from time_slot))
+insert into AuditRecord (ActionName, TableName)
+values ('Insert', 'Products');
+```
+
+adds **one audit row for the whole statement**, even if that statement inserted 5 product rows.
+
+### Worked Trigger Examples Based on `Products` and `AuditRecord`
+
+#### 1. `AFTER INSERT` trigger — log product insertion
+
+```sql
+create trigger TR_Products_Insert
+on Products after insert
+as
 begin
-    rollback
+    insert into AuditRecord (ActionName, TableName)
+    values ('Insert', 'Products');
+
+    print('This is a trigger!');
 end;
 ```
 
-**2. Maintaining a derived value — updating a student's total credits (row-level, AFTER):**
+### What this trigger does
+
+Whenever a row is inserted into `Products`:
+- the insert into `Products` happens first
+- then the trigger runs automatically
+- one log row is added to `AuditRecord`
+- SQL Server prints the message `This is a trigger!`
+
+Example insert:
 
 ```sql
-create trigger credits_earned after update of takes on grade
-referencing new row as nrow
-referencing old row as orow
-for each row
-when nrow.grade <> 'F' and nrow.grade is not null
-     and (orow.grade = 'F' or orow.grade is null)
-begin atomic
-    update student
-    set tot_cred = tot_cred +
-        (select credits from course where course.course_id = nrow.course_id)
-    where student.id = nrow.id;
-end;
+insert into Products (ProductName, BrandName, ReceiveDate, AvailableStock, Price)
+values ('Product 1', 'Brand 1', '2026-08-30', 100, 99.99);
 ```
 
-**3. Auto-correcting an incoming value (row-level, BEFORE):**
+After this, `Products` gets the new product, and `AuditRecord` gets a log saying an `Insert` happened on `Products`.
+
+#### 2. `INSTEAD OF INSERT` trigger — replace the insert action
 
 ```sql
-create trigger setnull before update of takes
-referencing new row as nrow
-for each row
-when (nrow.grade = ' ')
-begin atomic
-    set nrow.grade = null;
+alter trigger TR_Products_Insert
+on Products instead of insert
+as
+begin
+    insert into AuditRecord (ActionName, TableName)
+    values ('Insert', 'Products');
+
+    print('This is a trigger!');
 end;
 ```
 
-**4. Automatic inventory reordering (row-level, AFTER):**
+### What changes here?
+
+This trigger does **not** let the normal insert happen automatically.
+
+So with this version:
+- the trigger runs
+- a log row is written into `AuditRecord`
+- the message is printed
+- but the new product row is **not inserted into `Products`**, because the trigger body never inserts it manually
+
+> **This is the key difference:** `AFTER INSERT` = "do the insert first, then run the trigger." `INSTEAD OF INSERT` = "do not run the original insert unless the trigger body does it manually."
+
+If the goal is to keep the product row **and** still intercept the action, the trigger body would need to insert from the `inserted` table into `Products` itself.
+
+#### 3. `FOR DELETE` trigger — log product deletion
 
 ```sql
-create trigger reorder after update of level on inventory
-referencing old row as orow, new row as nrow
-for each row
-when nrow.level <= (select level from minlevel where minlevel.item = orow.item)
-     and orow.level > (select level from minlevel where minlevel.item = orow.item)
-begin atomic
-    insert into orders
-        (select item, amount from reorder where reorder.item = orow.item);
+alter trigger TR_Products_Insert
+on Products for delete
+as
+begin
+    insert into AuditRecord (ActionName, TableName)
+    values ('Delete', 'Products');
+
+    print('This is a trigger!');
 end;
 ```
 
-Triggers can be temporarily disabled (`alter trigger trigger_name disable`), re-enabled, or permanently removed (`drop trigger trigger_name`).
+Example delete:
+
+```sql
+delete from Products
+where ProductId = 2;
+```
+
+### What this trigger does
+
+When product `2` is deleted:
+- the row is removed from `Products`
+- the trigger runs automatically
+- a `Delete` log is inserted into `AuditRecord`
+
+> **Naming note:** the example above uses `alter trigger TR_Products_Insert ... for delete`, which means the same trigger name is being redefined for a different event. That is valid for learning purposes, but in real projects, clearer names such as `TR_Products_Delete` are easier to understand.
+
+#### 4. `AFTER UPDATE` trigger — log old and new values
+
+The tables in this section are also suitable for an update trigger, especially because `AuditRecord` already has `PreviousValue` and `ModifedValue` columns.
+
+```sql
+create trigger TR_Products_Update
+on Products after update
+as
+begin
+    insert into AuditRecord
+        (ActionName, TableName, ColumnName, PreviousValue, ModifedValue)
+    select 'Update',
+           'Products',
+           'Price',
+           cast(d.Price as varchar(500)),
+           cast(i.Price as varchar(500))
+    from deleted d
+    join inserted i on d.ProductId = i.ProductId
+    where d.Price <> i.Price;
+end;
+```
+
+### What this trigger does
+
+If a product price changes:
+- `deleted` gives the **old** row values
+- `inserted` gives the **new** row values
+- the trigger stores both values in `AuditRecord`
+
+So this example matches the same `Products` / `AuditRecord` design and also connects nicely with the textbook idea of **old value vs new value**.
+
+### One Short Summary of All Three Events
+
+| Event | Meaning in `Products` table | Typical trigger use |
+|---|---|---|
+| `INSERT` | A new product is added | Write an audit log |
+| `UPDATE` | A product value changes | Store old/new values in audit |
+| `DELETE` | A product is removed | Log that the delete happened |
+
+Triggers can be disabled, re-enabled, altered, or removed later using commands such as `alter trigger ...` and `drop trigger ...`.
 
 ### When *Not* to Use Triggers
 
+Triggers are useful, but they are not always the best tool.
+
 ```mermaid
 graph TD
-    W["Trigger vs. Built-in Alternative"] --> C1["Enforcing `on delete cascade`?<br/>→ Use the FOREIGN KEY cascade<br/>option instead of a custom trigger"]
-    W --> C2["Maintaining a summary/aggregate table?<br/>→ Use a **materialized view**<br/>(auto-maintained by the DBMS)"]
-    W --> C3["Replicating data to a backup site?<br/>→ Use built-in **database<br/>replication** features"]
+    W["Choose the simpler built-in feature first"] --> C1["Need a default value?<br/>Use `default` constraint"]
+    W --> C2["Need parent-child delete behavior?<br/>Use foreign key cascade if possible"]
+    W --> C3["Need simple validation?<br/>Use `check`, `not null`, `unique` first"]
+    W --> C4["Need audit/business workflow?<br/>Then a trigger may be appropriate"]
 
     style W fill:#4a90d9,color:#fff
 ```
 
-Using a trigger where a built-in feature already exists makes the schema harder for other developers to understand, since constraints end up hidden inside procedural trigger code instead of being visible as declarative schema features.
+If a normal constraint already solves the problem clearly, prefer that. Triggers are best used when the task is more procedural, such as writing to an audit table or reacting to a change automatically.
 
-### Pitfalls: Cascading and Infinite Trigger Chains
+### Pitfalls: Cascading, Hidden Behavior, and Multi-Row Effects
 
-Executing one trigger's action can itself fire **another** trigger — and in the worst case, a trigger could (directly or indirectly) re-trigger itself, causing an **infinite chain**. Because of this:
+Triggers are powerful, but they can confuse beginners if used carelessly.
 
-- Most database systems **limit the trigger-chain depth** (e.g., 16 or 32 levels) and raise an error if exceeded.
-- Some systems disallow a trigger from referencing the very relation whose modification caused it to fire.
-- Triggers must also be written carefully around **data reloads / replication**, since replaying already-applied changes should usually *not* re-fire the same trigger actions again — some systems support a `not for replication` trigger option to handle this.
+- A trigger runs **automatically**, so the behavior is somewhat hidden unless you know the trigger exists.
+- One trigger can cause another trigger to fire, creating a **trigger chain**.
+- `INSTEAD OF` triggers can silently block the original action if you forget to perform that action manually inside the trigger body.
+- A single `insert`, `update`, or `delete` statement may affect **many rows**, so never assume there is only one row inside `inserted` or `deleted`.
+- Updating the same table again inside its own trigger can create recursion or cascading effects in some systems.
+
+> **Simple final warning:** triggers are useful, but they should be written carefully and read carefully.
 
 ---
 
