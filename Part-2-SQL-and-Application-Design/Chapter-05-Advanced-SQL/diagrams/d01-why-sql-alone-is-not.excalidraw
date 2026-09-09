@@ -4,15 +4,15 @@
   "source": "https://excalidraw.com",
   "elements": [
     {
-      "id": "2TkP7vBhomO4mUuhYqUvw",
-      "type": "rectangle",
-      "x": 163,
-      "y": 8,
-      "width": 260,
-      "height": 90,
+      "id": "5xTSSfCQwEAYbNfiuAzeY",
+      "type": "text",
+      "x": 242.4160614013672,
+      "y": -25,
+      "width": 413.1678771972656,
+      "height": 35,
       "angle": 0,
-      "strokeColor": "#1e1e1e",
-      "backgroundColor": "#4a90d9",
+      "strokeColor": "#111111",
+      "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 2,
       "strokeStyle": "solid",
@@ -22,38 +22,34 @@
       "frameId": null,
       "index": "a0",
       "roundness": null,
-      "seed": 349773160,
-      "version": 4,
-      "versionNonce": 1959186200,
+      "seed": 243897604,
+      "version": 2,
+      "versionNonce": 271057796,
       "isDeleted": false,
-      "boundElements": [
-        {
-          "type": "text",
-          "id": "QSv0FzOrSKJiVR_tDvTjq"
-        },
-        {
-          "id": "pispjNiEoaiiib9NfGNB6",
-          "type": "arrow"
-        },
-        {
-          "id": "G_HM7Ct-KhjT4U_EPRFo1",
-          "type": "arrow"
-        }
-      ],
-      "updated": 1788622065148,
+      "boundElements": null,
+      "updated": 1788966702975,
       "link": null,
-      "locked": false
+      "locked": false,
+      "text": "Why SQL Alone Is Not Enough",
+      "fontSize": 28,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "Why SQL Alone Is Not Enough",
+      "autoResize": true,
+      "lineHeight": 1.25
     },
     {
-      "id": "uvFp7cfe6kml971U7-R6d",
+      "id": "rAfpHs4psOOnevC_fyb0J",
       "type": "rectangle",
-      "x": 8,
-      "y": 163,
-      "width": 260,
-      "height": 210,
+      "x": 264,
+      "y": 56,
+      "width": 370,
+      "height": 57,
       "angle": 0,
-      "strokeColor": "#1e1e1e",
-      "backgroundColor": "transparent",
+      "strokeColor": "#2b7fd4",
+      "backgroundColor": "#8fcdf7",
       "fillStyle": "solid",
       "strokeWidth": 2,
       "strokeStyle": "solid",
@@ -63,34 +59,38 @@
       "frameId": null,
       "index": "a1",
       "roundness": null,
-      "seed": 383765784,
-      "version": 3,
-      "versionNonce": 1383649816,
+      "seed": 675884348,
+      "version": 4,
+      "versionNonce": 1859087036,
       "isDeleted": false,
       "boundElements": [
         {
           "type": "text",
-          "id": "ZZoPr1H6velUiuVhlZgTP"
+          "id": "6Ke33Sri5syxY-J64xYai"
         },
         {
-          "id": "pispjNiEoaiiib9NfGNB6",
+          "id": "79xZx3IPu5dJ4FU5Km1DX",
+          "type": "arrow"
+        },
+        {
+          "id": "IRtoONmCCSdfmTwy_Jn5g",
           "type": "arrow"
         }
       ],
-      "updated": 1788622065148,
+      "updated": 1788966702977,
       "link": null,
       "locked": false
     },
     {
-      "id": "GsyGQX3HTRXHZ5e4fONll",
+      "id": "_qn6PNuc9w24K2H5JyAos",
       "type": "rectangle",
-      "x": 312.5,
-      "y": 148,
-      "width": 271,
-      "height": 240,
+      "x": 56,
+      "y": 175,
+      "width": 370,
+      "height": 132,
       "angle": 0,
-      "strokeColor": "#1e1e1e",
-      "backgroundColor": "transparent",
+      "strokeColor": "#3aa34a",
+      "backgroundColor": "#9fe8a0",
       "fillStyle": "solid",
       "strokeWidth": 2,
       "strokeStyle": "solid",
@@ -100,34 +100,34 @@
       "frameId": null,
       "index": "a2",
       "roundness": null,
-      "seed": 564211816,
+      "seed": 1041781892,
       "version": 3,
-      "versionNonce": 1984769048,
+      "versionNonce": 104141372,
       "isDeleted": false,
       "boundElements": [
         {
           "type": "text",
-          "id": "O1zQJXMwZ2olIX2BC3ZVA"
+          "id": "8I_uobvW2IamXaG7b8XXX"
         },
         {
-          "id": "G_HM7Ct-KhjT4U_EPRFo1",
+          "id": "79xZx3IPu5dJ4FU5Km1DX",
           "type": "arrow"
         }
       ],
-      "updated": 1788622065148,
+      "updated": 1788966702977,
       "link": null,
       "locked": false
     },
     {
-      "id": "pispjNiEoaiiib9NfGNB6",
-      "type": "arrow",
-      "x": 193.357,
-      "y": 98,
-      "width": 55.357,
-      "height": 61,
+      "id": "a2VNSQdwJJB2H29_F1YKa",
+      "type": "rectangle",
+      "x": 472,
+      "y": 175,
+      "width": 370,
+      "height": 132,
       "angle": 0,
-      "strokeColor": "#1e1e1e",
-      "backgroundColor": "transparent",
+      "strokeColor": "#3aa34a",
+      "backgroundColor": "#9fe8a0",
       "fillStyle": "solid",
       "strokeWidth": 2,
       "strokeStyle": "solid",
@@ -136,58 +136,37 @@
       "groupIds": [],
       "frameId": null,
       "index": "a3",
-      "roundness": {
-        "type": 2
-      },
-      "seed": 680946200,
-      "version": 4,
-      "versionNonce": 1788627048,
+      "roundness": null,
+      "seed": 229123516,
+      "version": 3,
+      "versionNonce": 1938469692,
       "isDeleted": false,
-      "boundElements": null,
-      "updated": 1788622065148,
-      "link": null,
-      "locked": false,
-      "points": [
-        [
-          0,
-          0.5
-        ],
-        [
-          -55.357,
-          25
-        ],
-        [
-          -55.357,
-          60.5
-        ]
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "u09Nh2RozjedStkL0GkyG"
+        },
+        {
+          "id": "IRtoONmCCSdfmTwy_Jn5g",
+          "type": "arrow"
+        }
       ],
-      "lastCommittedPoint": null,
-      "startBinding": {
-        "elementId": "2TkP7vBhomO4mUuhYqUvw",
-        "focus": 0.0000017418370979026966,
-        "gap": 1
-      },
-      "endBinding": {
-        "elementId": "uvFp7cfe6kml971U7-R6d",
-        "focus": 0,
-        "gap": 4
-      },
-      "startArrowhead": null,
-      "endArrowhead": "arrow",
-      "elbowed": false
+      "updated": 1788966702977,
+      "link": null,
+      "locked": false
     },
     {
-      "id": "G_HM7Ct-KhjT4U_EPRFo1",
+      "id": "79xZx3IPu5dJ4FU5Km1DX",
       "type": "arrow",
-      "x": 392.643,
-      "y": 98,
-      "width": 55.35700000000003,
-      "height": 46,
+      "x": 449,
+      "y": 113,
+      "width": 208,
+      "height": 62,
       "angle": 0,
-      "strokeColor": "#1e1e1e",
+      "strokeColor": "#3c4043",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
-      "strokeWidth": 2,
+      "strokeWidth": 1.5,
       "strokeStyle": "solid",
       "roughness": 1,
       "opacity": 100,
@@ -197,12 +176,12 @@
       "roundness": {
         "type": 2
       },
-      "seed": 569303912,
+      "seed": 480453636,
       "version": 4,
-      "versionNonce": 992169576,
+      "versionNonce": 1878777860,
       "isDeleted": false,
       "boundElements": null,
-      "updated": 1788622065148,
+      "updated": 1788966702977,
       "link": null,
       "locked": false,
       "points": [
@@ -211,75 +190,104 @@
           0.5
         ],
         [
-          55.35700000000003,
-          25
+          0,
+          31
         ],
         [
-          55.35700000000003,
-          45.5
+          -208,
+          31
+        ],
+        [
+          -208,
+          61.5
         ]
       ],
       "lastCommittedPoint": null,
       "startBinding": {
-        "elementId": "2TkP7vBhomO4mUuhYqUvw",
-        "focus": -0.000001741837098225585,
+        "elementId": "rAfpHs4psOOnevC_fyb0J",
+        "focus": 0,
         "gap": 1
       },
       "endBinding": {
-        "elementId": "GsyGQX3HTRXHZ5e4fONll",
+        "elementId": "_qn6PNuc9w24K2H5JyAos",
         "focus": 0,
-        "gap": 4
+        "gap": 1
       },
       "startArrowhead": null,
       "endArrowhead": "arrow",
       "elbowed": false
     },
     {
-      "id": "QSv0FzOrSKJiVR_tDvTjq",
-      "type": "text",
-      "x": 186.4900894165039,
-      "y": 28,
-      "width": 213.0198211669922,
-      "height": 50,
+      "id": "IRtoONmCCSdfmTwy_Jn5g",
+      "type": "arrow",
+      "x": 449,
+      "y": 113,
+      "width": 208,
+      "height": 62,
       "angle": 0,
-      "strokeColor": "#fff",
+      "strokeColor": "#3c4043",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
-      "strokeWidth": 2,
+      "strokeWidth": 1.5,
       "strokeStyle": "solid",
       "roughness": 1,
       "opacity": 100,
       "groupIds": [],
       "frameId": null,
       "index": "a5",
-      "roundness": null,
-      "seed": 661765224,
-      "version": 3,
-      "versionNonce": 1098727784,
+      "roundness": {
+        "type": 2
+      },
+      "seed": 1301548604,
+      "version": 4,
+      "versionNonce": 943632132,
       "isDeleted": false,
       "boundElements": null,
-      "updated": 1788622065148,
+      "updated": 1788966702977,
       "link": null,
       "locked": false,
-      "text": "Why can't we use SQL\nalone?",
-      "fontSize": 20,
-      "fontFamily": 5,
-      "textAlign": "center",
-      "verticalAlign": "middle",
-      "containerId": "2TkP7vBhomO4mUuhYqUvw",
-      "originalText": "Why can't we use SQL alone?",
-      "autoResize": true,
-      "lineHeight": 1.25
+      "points": [
+        [
+          0,
+          0.5
+        ],
+        [
+          0,
+          31
+        ],
+        [
+          208,
+          31
+        ],
+        [
+          208,
+          61.5
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": {
+        "elementId": "rAfpHs4psOOnevC_fyb0J",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "a2VNSQdwJJB2H29_F1YKa",
+        "focus": 0,
+        "gap": 1
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false
     },
     {
-      "id": "ZZoPr1H6velUiuVhlZgTP",
+      "id": "6Ke33Sri5syxY-J64xYai",
       "type": "text",
-      "x": 23.860069274902344,
-      "y": 193,
-      "width": 228.2798614501953,
-      "height": 150,
+      "x": 309.1901092529297,
+      "y": 72,
+      "width": 279.6197814941406,
+      "height": 25,
       "angle": 0,
-      "strokeColor": "#1e1e1e",
+      "strokeColor": "#0d3c61",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -290,33 +298,33 @@
       "frameId": null,
       "index": "a6",
       "roundness": null,
-      "seed": 902688616,
+      "seed": 675217924,
       "version": 3,
-      "versionNonce": 285206808,
+      "versionNonce": 1712991876,
       "isDeleted": false,
       "boundElements": null,
-      "updated": 1788622065148,
+      "updated": 1788966702977,
       "link": null,
       "locked": false,
-      "text": "1. Limited expressive\npower\nSome computations\n(loops, complex\ncontrol flow) cannot be\nwritten in SQL",
+      "text": "Why can't we use SQL alone?",
       "fontSize": 20,
       "fontFamily": 5,
       "textAlign": "center",
       "verticalAlign": "middle",
-      "containerId": "uvFp7cfe6kml971U7-R6d",
-      "originalText": "1. Limited expressive power\nSome computations (loops, complex\ncontrol flow) cannot be written in SQL",
+      "containerId": "rAfpHs4psOOnevC_fyb0J",
+      "originalText": "Why can't we use SQL alone?",
       "autoResize": true,
       "lineHeight": 1.25
     },
     {
-      "id": "O1zQJXMwZ2olIX2BC3ZVA",
+      "id": "8I_uobvW2IamXaG7b8XXX",
       "type": "text",
-      "x": 324.6800842285156,
-      "y": 193,
-      "width": 246.63983154296875,
-      "height": 150,
+      "x": 82.23011779785156,
+      "y": 191,
+      "width": 317.5397644042969,
+      "height": 100,
       "angle": 0,
-      "strokeColor": "#1e1e1e",
+      "strokeColor": "#14532d",
       "backgroundColor": "transparent",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -327,20 +335,57 @@
       "frameId": null,
       "index": "a7",
       "roundness": null,
-      "seed": 808174184,
+      "seed": 949494148,
       "version": 3,
-      "versionNonce": 1847645288,
+      "versionNonce": 1120463804,
       "isDeleted": false,
       "boundElements": null,
-      "updated": 1788622065148,
+      "updated": 1788966702977,
       "link": null,
       "locked": false,
-      "text": "2. Nondeclarative actions\nPrinting reports, GUIs,\nsending\nresults to a web page —\nSQL\ncannot do these",
+      "text": "1. Limited expressive power Some\ncomputations (loops, complex\ncontrol flow) cannot be written\nin SQL",
       "fontSize": 20,
       "fontFamily": 5,
       "textAlign": "center",
       "verticalAlign": "middle",
-      "containerId": "GsyGQX3HTRXHZ5e4fONll",
+      "containerId": "_qn6PNuc9w24K2H5JyAos",
+      "originalText": "1. Limited expressive power Some\ncomputations (loops, complex\ncontrol flow) cannot be written\nin SQL",
+      "autoResize": true,
+      "lineHeight": 1.25
+    },
+    {
+      "id": "u09Nh2RozjedStkL0GkyG",
+      "type": "text",
+      "x": 504.7001190185547,
+      "y": 191,
+      "width": 304.5997619628906,
+      "height": 100,
+      "angle": 0,
+      "strokeColor": "#14532d",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a8",
+      "roundness": null,
+      "seed": 799101188,
+      "version": 3,
+      "versionNonce": 1532608004,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1788966702977,
+      "link": null,
+      "locked": false,
+      "text": "2. Nondeclarative actions\nPrinting reports, GUIs, sending\nresults to a web page — SQL\ncannot do these",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "a2VNSQdwJJB2H29_F1YKa",
       "originalText": "2. Nondeclarative actions\nPrinting reports, GUIs, sending\nresults to a web page — SQL\ncannot do these",
       "autoResize": true,
       "lineHeight": 1.25
