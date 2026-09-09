@@ -3,9 +3,7 @@
 **Part:** [Part 3 — Schema Design & Normalization](../README.md)
 **Textbook:** *Database System Concepts*, 7th Edition — Silberschatz, Korth, Sudarshan
 
-> **Book-based scope note:** For this course note, the relevant part of the textbook chapter is mainly **7.1 to 7.5**.
->
-> **Blended-source note:** The overall scope still follows the textbook, but the explanation of **functional dependency**, **Armstrong's rules**, **attribute closure**, and **candidate-key solving** in Sections **7.2** and **7.4** is now aligned **first with the class note**, then blended with textbook terminology.
+> **Scope:** This chapter covers the relational-design material in Sections **7.1 to 7.5**, with step-by-step explanations of functional dependencies, closures, candidate keys, and normalization.
 
 ## Exact Subsections to Read
 
@@ -124,7 +122,6 @@ To normalize properly, we need some formal way to describe the rules of the real
 
 That is what **functional dependencies (FDs)** are for.
 
-> **Class-note priority:** The explanation below follows the class-note style first: definition, determinant/dependent, simple table checking, FD types, Armstrong's rules, and step-by-step closure solving.
 
 ### 7.2.1 What is a functional dependency?
 
@@ -153,11 +150,11 @@ A functional dependency `X → Y` is true on a relation `R` if for any two tuple
 if t1[X] = t2[X], then t1[Y] = t2[Y]
 ```
 
-That is the exact idea written in the class note, just in a cleaner form.
+This definition lets us test whether a dependency is true for the tuples in a relation.
 
-### The class-note style example: `Student`
+### Example: `Student`
 
-In class, FD was explained using a small student-style relation. Below is a cleaned version of the same type of example so the logic becomes easier to see.
+Use the following student-style relation to see how functional dependencies are checked.
 
 ```text
 Student(RNo, Name, Marks, Dept, Course)
@@ -209,9 +206,8 @@ Why?
 - No two rows share the same full combination of `(Name, Marks, Dept)`.
 - So that full combination points to exactly one `RNo`.
 
-### A very important class-note observation
+### A very important observation
 
-The class note says:
 
 > **If every value of `X` is unique, then `X → Y` must hold.**
 
@@ -227,7 +223,7 @@ That is exactly why a **key** determines other attributes.
 
 ### 7.2.2 Types of functional dependency
 
-The class note first divides FDs into **trivial** and **non-trivial**. We keep that style here, with one small textbook clarification.
+Functional dependencies can be divided into **trivial** and **non-trivial** forms.
 
 #### 1. Trivial functional dependency
 
@@ -269,7 +265,7 @@ A → B
 
 #### 3. Completely non-trivial functional dependency
 
-The class note writes the strict no-overlap case as:
+The strict no-overlap case is:
 
 ```text
 X ∩ Y = ∅
@@ -378,11 +374,114 @@ dept_name → building, budget
 
 ## 7.3 Normal Forms
 
-A **normal form** is simply a standard that tells us whether a relation design is good enough or still has avoidable redundancy.
+**Normalization** is the process of organizing data in a relational database to:
 
-The textbook mainly focuses on **BCNF** and **3NF**.
+- reduce data redundancy (duplicate data)
+- eliminate update, insertion, and deletion anomalies
+- improve consistency and storage efficiency
+- divide large tables into smaller logical tables
 
-### 7.3.1 Boyce-Codd Normal Form (BCNF)
+For example, in the relation below, the teacher name is unnecessarily repeated.
+
+| Student_ID | Student_Name | Course | Teacher |
+|---|---|---|---|
+| S01 | Rahim | DBMS | Karim |
+| S02 | Hasan | DBMS | Karim |
+| S03 | Jannat | DBMS | Karim |
+
+If `Karim` changes to `K. Karim`, every matching row must be updated. Missing even one row produces inconsistent data. Similarly, a course with no enrolled students cannot be stored independently, and deleting the last student in a course can also delete the course and teacher information. These are the update, insertion, and deletion anomalies that normalization addresses.
+
+Normalization is performed in stages: **1NF**, **2NF**, **3NF**, **BCNF**, **4NF**, and **5NF**. This chapter focuses especially on 1NF, 2NF, and 3NF.
+
+### 7.3.1 First Normal Form (1NF)
+
+A relation is in **1NF** when all of the following are true:
+
+1. Every attribute contains only **atomic (single) values**.
+2. There are **no repeating groups**.
+3. Every row is uniquely identifiable, normally by a **primary key**.
+
+A multi-valued cell violates 1NF:
+
+| Student_ID | Phone_No |
+|---|---|
+| S01 | 017, 016 |
+
+Store one phone number per row instead:
+
+| Student_ID | Phone_No |
+|---|---|
+| S01 | 017 |
+| S01 | 016 |
+
+Likewise, repeating columns such as `Course1` and `Course2` should be converted to rows.
+
+| Student_ID | Course1 | Course2 |
+|---|---|---|
+| S01 | DBMS | OOP |
+
+becomes:
+
+| Student_ID | Course |
+|---|---|
+| S01 | DBMS |
+| S01 | OOP |
+
+For unique rows, `Student_ID` can act as the primary key:
+
+| Student_ID | Name |
+|---|---|
+| S01 | Rahim |
+| S02 | Hasan |
+
+### 7.3.2 Second Normal Form (2NF)
+
+A relation is in **2NF** if it is already in 1NF and has **no partial dependency**.
+
+A **candidate key** is a minimal set of attributes that uniquely identifies a tuple. An attribute that belongs to at least one candidate key is a **prime attribute**; an attribute that belongs to no candidate key is a **non-prime attribute**.
+
+A **partial dependency** exists when a proper subset of a composite candidate key determines a non-prime attribute. For example, if `AF` is a candidate key and `A → B`, then `A` is only part of the key and `B` is non-prime. Therefore, `A → B` is a partial dependency and the relation is not in 2NF.
+
+#### 2NF example: partial dependency
+
+Given:
+
+```text
+R(A, B, C, D, E, F)
+F = {A → B, B → C, C → D, D → E}
+```
+
+`A+` is `{A, B, C, D, E}`, so it cannot produce `F` and is not a candidate key. Starting with `AF`:
+
+| Step | Applied FD | `AF+` |
+|---|---|---|
+| Start | — | `{A, F}` |
+| 1 | `A → B` | `{A, B, F}` |
+| 2 | `B → C` | `{A, B, C, F}` |
+| 3 | `C → D` | `{A, B, C, D, F}` |
+| 4 | `D → E` | `{A, B, C, D, E, F}` |
+
+Thus `AF` is a superkey. Neither `A` nor `F` alone is a superkey, so `AF` is a candidate key. The prime attributes are `A` and `F`; `B`, `C`, `D`, and `E` are non-prime. Since `A → B` has a proper subset of candidate key `AF` on its left and non-prime `B` on its right, this relation is **not in 2NF**.
+
+#### 2NF example: no partial dependency
+
+Given:
+
+```text
+R(A, B, C, D)
+F = {AB → CD, C → A, D → B}
+```
+
+The candidate keys are `AB`, `BC`, `CD`, and `AD`:
+
+- `AB+ = {A, B, C, D}` by `AB → CD`.
+- `CD+ = {C, D, A, B}` by `C → A` and `D → B`.
+- `BC+ = {B, C, A, D}` by `C → A`, then `AB → CD`.
+- `AD+ = {A, D, B, C}` by `D → B`, then `AB → CD`.
+
+Every attribute appears in at least one candidate key. Therefore all attributes are prime, there are no non-prime attributes, and no partial dependency can exist. The relation is in **2NF**.
+
+### 7.3.3 Boyce-Codd Normal Form (BCNF)
 
 BCNF is one of the strongest and cleanest normal forms based on functional dependencies.
 
@@ -424,7 +523,7 @@ When a relation is not in BCNF:
 2. split the relation using that dependency
 3. repeat until every relation satisfies BCNF
 
-### 7.3.1.2 BCNF and dependency preservation
+### 7.3.3.1 BCNF and dependency preservation
 
 BCNF removes more redundancy, but it has one important drawback:
 
@@ -464,34 +563,61 @@ cannot be checked inside a single relation. To test it, you would need a join.
 
 This means the BCNF decomposition is **not dependency-preserving**.
 
-### 7.3.2 Third Normal Form (3NF)
+### 7.3.4 Third Normal Form (3NF)
 
-3NF is slightly weaker than BCNF.
+A relation is in **3NF** if it is already in 2NF and has no transitive dependency among non-prime attributes.
 
-A relation is in **3NF** if for every nontrivial FD:
+A **transitive dependency** occurs when a candidate key determines a non-prime attribute, which in turn determines another non-prime attribute:
 
 ```text
-X → Y
+Candidate Key → Non-Prime Attribute
+Non-Prime Attribute → Non-Prime Attribute
 ```
 
-at least one of these is true:
+For example:
 
-1. `X` is a superkey, or
-2. every attribute in `Y - X` is part of some candidate key
+```text
+Student_ID → Dept_ID
+Dept_ID → Dept_Name
+```
 
-### Simple meaning of 3NF
+Therefore, `Student_ID → Dept_Name` holds transitively through `Dept_ID`.
 
-3NF allows a small amount of dependency that BCNF does not allow, but only in a controlled way.
+#### Example: employee and department
 
-That small relaxation is useful because it helps us preserve dependencies.
+| Emp_ID | Emp_Name | Dept_ID | Dept_Name |
+|---|---|---|---|
+| E1 | Rahim | D1 | CSE |
+| E2 | Hasan | D2 | EEE |
 
-### Example idea
+The dependencies are:
 
-The textbook's `dept_advisor` example is not in BCNF, but it **is in 3NF** because `dept_name` is part of a candidate key.
+```text
+Emp_ID → Emp_Name
+Emp_ID → Dept_ID
+Dept_ID → Dept_Name
+```
 
-So 3NF accepts some designs that BCNF rejects.
+Because `Emp_ID → Dept_ID` and `Dept_ID → Dept_Name`, `Emp_ID → Dept_Name` is transitive. The relation is not in 3NF. Decompose it into:
 
-### 7.3.3 BCNF vs. 3NF
+```text
+Employee(Emp_ID, Emp_Name, Dept_ID)
+Department(Dept_ID, Dept_Name)
+```
+
+This removes the transitive dependency and stores each department name once.
+
+#### Formal 3NF condition
+
+For every functional dependency `X → Y`, at least one of the following must be true:
+
+1. `X` is a superkey.
+2. Every attribute in `Y − X` is prime (equivalently, for a single attribute RHS, `Y` is prime).
+3. The dependency is trivial: `Y ⊆ X`.
+
+3NF is slightly weaker than BCNF. The textbook's `dept_advisor` example is not in BCNF but is in 3NF because `dept_name` is part of a candidate key. This controlled relaxation can help preserve dependencies.
+
+### 7.3.5 BCNF vs. 3NF
 
 | Point | BCNF | 3NF |
 |---|---|---|
@@ -509,18 +635,29 @@ The answer is:
 
 > **Exam sentence:** BCNF is stronger, but 3NF is often preferred when dependency preservation matters.
 
-### Quick exam bridge: 1NF and 2NF
+### Quick revision table
 
-The textbook discussion here mainly centers on BCNF and 3NF, but board exams may still ask about **1NF** and **2NF**.
-
-| Normal Form | Easy meaning |
+| Normal Form | Requirement |
 |---|---|
-| **1NF** | All attribute values are atomic (no repeating groups inside one cell) |
-| **2NF** | In a relation with a composite candidate key, no non-prime attribute should depend on only part of the key |
-| **3NF** | No problematic transitive dependency on non-key data; formally, every FD must satisfy the 3NF condition |
-| **BCNF** | Every determinant must be a superkey |
+| **1NF** | Atomic values, no repeating groups, and uniquely identifiable rows |
+| **2NF** | In 1NF and no partial dependency |
+| **3NF** | In 2NF and no transitive dependency among non-prime attributes |
+| **BCNF** | Every determinant is a superkey |
+| **4NF** | No non-trivial multivalued dependency |
+| **5NF** | No non-trivial join dependency |
 
-> **Simple ladder to remember:** `1NF -> 2NF -> 3NF -> BCNF`, where each step is stricter than the previous one.
+> **Simple ladder to remember:** `1NF → 2NF → 3NF → BCNF`, where each step is stricter than the previous one.
+
+### Essential definitions
+
+| Term | Definition |
+|---|---|
+| **Normalization** | Organizing relational data to reduce redundancy and eliminate anomalies |
+| **Candidate key** | A minimal set of attributes that uniquely identifies a tuple |
+| **Prime attribute** | An attribute that is part of at least one candidate key |
+| **Non-prime attribute** | An attribute that is not part of any candidate key |
+| **Partial dependency** | A non-prime attribute depends on only part of a candidate key |
+| **Transitive dependency** | A non-prime attribute depends on another non-prime attribute |
 
 ---
 
@@ -528,7 +665,6 @@ The textbook discussion here mainly centers on BCNF and 3NF, but board exams may
 
 This section is about how to **reason** with FDs.
 
-> **Class-note priority:** The first focus here is the class-note pattern: Armstrong's rules, closure, candidate key finding, and step-by-step worked examples.
 
 ### 7.4.1 Closure of a set of functional dependencies: `F+`
 
@@ -610,7 +746,7 @@ then for any `Z`:
 XZ → YZ
 ```
 
-Class-note style example:
+Example:
 
 If:
 
@@ -738,7 +874,7 @@ A simple method:
 
 ---
 
-## Worked Examples in the Class-Note Solving Style
+## Worked Examples: Closure and Candidate Keys
 
 ### Example 1 — Find the closure and identify the key
 
@@ -957,7 +1093,7 @@ Since every attribute appears in at least one candidate key, all of them are **p
 
 ---
 
-### Example 3 — Another candidate-key problem from the class-note style
+### Example 3 — Another candidate-key problem
 
 Given:
 
@@ -1097,7 +1233,7 @@ A canonical cover is like cleaning a formula sheet:
 - remove useless symbols
 - keep only what is truly necessary
 
-> **Scope note:** The class note focused much more on FD definition, Armstrong's rules, closure, and candidate keys. So for canonical cover, the textbook summary is kept brief here.
+> **Scope note:** This chapter emphasizes FD definition, Armstrong's rules, closure, and candidate keys. The canonical-cover summary is kept brief.
 
 ---
 
