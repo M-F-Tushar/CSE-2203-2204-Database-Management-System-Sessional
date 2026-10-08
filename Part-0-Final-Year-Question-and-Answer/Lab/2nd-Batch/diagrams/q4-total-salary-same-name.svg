@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="606" viewBox="0 0 760 606">
+  <rect width="760" height="606" fill="#ffffff"/>
+  <text x="380.0" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#111111">Q1(d): Employee-wise total salary and similar-name count</text>
+  <g font-family="Segoe UI, Arial, sans-serif">
+<text x="30" y="62" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#111111">Step 1: Employee JOIN Salary (duplicate removed)</text>
+<rect x="30" y="70" width="480" height="26" fill="#dbeafe" stroke="#2b5d9e" stroke-width="1.2"/>
+<text x="38" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Emp_ID</text>
+<text x="128" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Emp_Name</text>
+<text x="248" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Designation</text>
+<text x="388" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Salary</text>
+<rect x="30" y="96" width="480" height="26" fill="#fde68a" stroke="#b7791f" stroke-width="1"/>
+<text x="38" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E01</text>
+<text x="128" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">AMIT</text>
+<text x="248" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Manager</text>
+<text x="388" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">60000</text>
+<rect x="30" y="122" width="480" height="26" fill="#fde68a" stroke="#b7791f" stroke-width="1"/>
+<text x="38" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E01</text>
+<text x="128" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">AMIT</text>
+<text x="248" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Manager</text>
+<text x="388" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">62000</text>
+<rect x="30" y="148" width="480" height="26" fill="#ffffff" stroke="#2b5d9e" stroke-width="1"/>
+<text x="38" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E02</text>
+<text x="128" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">RIMA</text>
+<text x="248" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Accountant</text>
+<text x="388" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">45000</text>
+<rect x="30" y="174" width="480" height="26" fill="#ffffff" stroke="#2b5d9e" stroke-width="1"/>
+<text x="38" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E02</text>
+<text x="128" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">RIMA</text>
+<text x="248" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Accountant</text>
+<text x="388" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">46000</text>
+<rect x="30" y="200" width="480" height="26" fill="#fde68a" stroke="#b7791f" stroke-width="1"/>
+<text x="38" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E03</text>
+<text x="128" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">AMIT</text>
+<text x="248" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Developer</text>
+<text x="388" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">48000</text>
+<rect x="30" y="226" width="480" height="26" fill="#ffffff" stroke="#2b5d9e" stroke-width="1"/>
+<text x="38" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E04</text>
+<text x="128" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">SOHEL</text>
+<text x="248" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Officer</text>
+<text x="388" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">30000</text>
+<rect x="30" y="252" width="480" height="26" fill="#ffffff" stroke="#2b5d9e" stroke-width="1"/>
+<text x="38" y="270" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E06</text>
+<text x="128" y="270" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">TANIA</text>
+<text x="248" y="270" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Executive</text>
+<text x="388" y="270" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">70000</text>
+<line x1="270" y1="278" x2="270.0" y2="336.0" stroke="#555" stroke-width="2"/><polygon points="270,346 265.0,336.0 275.0,336.0" fill="#555"/><text x="282" y="317" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333333">GROUP BY Emp_ID, Emp_Name (SUM of Salary)</text>
+<text x="30" y="362" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#111111">Step 2: GROUP BY employee, then count same names</text>
+<rect x="30" y="370" width="520" height="26" fill="#dbeafe" stroke="#2b5d9e" stroke-width="1.2"/>
+<text x="38" y="388" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Emp_ID</text>
+<text x="128" y="388" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Emp_Name</text>
+<text x="248" y="388" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">total_salary</text>
+<text x="388" y="388" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">same_name_count</text>
+<rect x="30" y="396" width="520" height="26" fill="#fde68a" stroke="#b7791f" stroke-width="1"/>
+<text x="38" y="414" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E01</text>
+<text x="128" y="414" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">AMIT</text>
+<text x="248" y="414" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">122000.00</text>
+<text x="388" y="414" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">2</text>
+<rect x="30" y="422" width="520" height="26" fill="#ffffff" stroke="#2b5d9e" stroke-width="1"/>
+<text x="38" y="440" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E02</text>
+<text x="128" y="440" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">RIMA</text>
+<text x="248" y="440" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">91000.00</text>
+<text x="388" y="440" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">1</text>
+<rect x="30" y="448" width="520" height="26" fill="#fde68a" stroke="#b7791f" stroke-width="1"/>
+<text x="38" y="466" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E03</text>
+<text x="128" y="466" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">AMIT</text>
+<text x="248" y="466" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">48000.00</text>
+<text x="388" y="466" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">2</text>
+<rect x="30" y="474" width="520" height="26" fill="#ffffff" stroke="#2b5d9e" stroke-width="1"/>
+<text x="38" y="492" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E04</text>
+<text x="128" y="492" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">SOHEL</text>
+<text x="248" y="492" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">30000.00</text>
+<text x="388" y="492" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">1</text>
+<rect x="30" y="500" width="520" height="26" fill="#ffffff" stroke="#2b5d9e" stroke-width="1"/>
+<text x="38" y="518" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E06</text>
+<text x="128" y="518" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">TANIA</text>
+<text x="248" y="518" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">70000.00</text>
+<text x="388" y="518" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">1</text>
+<text x="30" y="562" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333333">COUNT(*) OVER (PARTITION BY Emp_Name) counts the grouped rows with the same name.</text>
+<text x="30" y="582" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333333">Yellow rows share the name AMIT, so their same_name_count is 2.</text>
+  </g>
+</svg>
