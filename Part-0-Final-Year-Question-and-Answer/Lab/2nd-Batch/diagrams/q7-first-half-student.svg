@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="484" viewBox="0 0 960 484">
+  <rect width="960" height="484" fill="#ffffff"/>
+  <text x="480.0" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#111111">Q1(g): First 50% of records in the Student table</text>
+  <g font-family="Segoe UI, Arial, sans-serif">
+<text x="30" y="62" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#111111">Step 1: Student table ordered by Student_ID (6 rows; 50% = 3)</text>
+<rect x="30" y="70" width="650" height="26" fill="#dbeafe" stroke="#2b5d9e" stroke-width="1.2"/>
+<text x="38" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Student_ID</text>
+<text x="138" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Student_Name</text>
+<text x="298" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Address</text>
+<text x="438" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Department_ID</text>
+<text x="548" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Phone_No</text>
+<rect x="30" y="96" width="650" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">S001</text>
+<text x="138" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Rahim Uddin</text>
+<text x="298" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Chandpur Sadar</text>
+<text x="438" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">D01</text>
+<text x="548" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01711000001</text>
+<text x="692" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#15803d">row 1 of 3</text>
+<rect x="30" y="122" width="650" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">S002</text>
+<text x="138" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Karim Hossain</text>
+<text x="298" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Hajiganj</text>
+<text x="438" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">D01</text>
+<text x="548" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01711000002</text>
+<rect x="30" y="148" width="650" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">S003</text>
+<text x="138" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Nusrat Jahan</text>
+<text x="298" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Faridganj</text>
+<text x="438" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">D01</text>
+<text x="548" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01711000003</text>
+<text x="692" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#15803d">row 3 of 3 (last 50%)</text>
+<rect x="30" y="174" width="650" height="26" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1"/>
+<text x="38" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">S004</text>
+<text x="138" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">Sabbir Ahmed</text>
+<text x="298" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">Matlab</text>
+<text x="438" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">D02</text>
+<text x="548" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">01711000004</text>
+<rect x="30" y="200" width="650" height="26" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1"/>
+<text x="38" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">S005</text>
+<text x="138" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">Mitu Akter</text>
+<text x="298" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">Shahrasti</text>
+<text x="438" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">D02</text>
+<text x="548" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">01711000005</text>
+<rect x="30" y="226" width="650" height="26" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1"/>
+<text x="38" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">S006</text>
+<text x="138" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">Tanvir Hasan</text>
+<text x="298" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">Chandpur Sadar</text>
+<text x="438" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">D02</text>
+<text x="548" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">01711000006</text>
+<line x1="200" y1="252" x2="200.0" y2="290.0" stroke="#555" stroke-width="2"/><polygon points="200,300 195.0,290.0 205.0,290.0" fill="#555"/><text x="212" y="281" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333333">ORDER BY Student_ID LIMIT (SELECT COUNT(*) / 2 FROM Student)</text>
+<text x="30" y="312" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#111111">Step 2: result (first 3 rows)</text>
+<rect x="30" y="320" width="650" height="26" fill="#dbeafe" stroke="#2b5d9e" stroke-width="1.2"/>
+<text x="38" y="338" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Student_ID</text>
+<text x="138" y="338" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Student_Name</text>
+<text x="298" y="338" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Address</text>
+<text x="438" y="338" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Department_ID</text>
+<text x="548" y="338" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Phone_No</text>
+<rect x="30" y="346" width="650" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="364" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">S001</text>
+<text x="138" y="364" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Rahim Uddin</text>
+<text x="298" y="364" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Chandpur Sadar</text>
+<text x="438" y="364" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">D01</text>
+<text x="548" y="364" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01711000001</text>
+<rect x="30" y="372" width="650" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="390" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">S002</text>
+<text x="138" y="390" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Karim Hossain</text>
+<text x="298" y="390" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Hajiganj</text>
+<text x="438" y="390" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">D01</text>
+<text x="548" y="390" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01711000002</text>
+<rect x="30" y="398" width="650" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="416" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">S003</text>
+<text x="138" y="416" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Nusrat Jahan</text>
+<text x="298" y="416" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Faridganj</text>
+<text x="438" y="416" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">D01</text>
+<text x="548" y="416" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01711000003</text>
+<text x="30" y="460" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333333">COUNT(*) / 2 is integer division: 6 / 2 = 3. With an odd count, the result rounds down.</text>
+  </g>
+</svg>
