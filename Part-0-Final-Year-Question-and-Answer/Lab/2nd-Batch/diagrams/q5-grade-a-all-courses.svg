@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="312" viewBox="0 0 800 312">
+  <rect width="800" height="312" fill="#ffffff"/>
+  <text x="400.0" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#111111">Q1(e): Students who secured Grade A in all courses</text>
+  <g font-family="Segoe UI, Arial, sans-serif">
+<text x="30" y="62" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#111111">Students checked against the Result table</text>
+<rect x="30" y="70" width="710" height="26" fill="#dbeafe" stroke="#2b5d9e" stroke-width="1.2"/>
+<text x="38" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Student_ID</text>
+<text x="148" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Student_Name</text>
+<text x="318" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Results found</text>
+<text x="458" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Non-A grades</text>
+<text x="598" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Output</text>
+<rect x="30" y="96" width="710" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">S001</text>
+<text x="148" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Rahim Uddin</text>
+<text x="318" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">2</text>
+<text x="458" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">0</text>
+<text x="598" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">YES</text>
+<rect x="30" y="122" width="710" height="26" fill="#fee2e2" stroke="#b91c1c" stroke-width="1"/>
+<text x="38" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">S002</text>
+<text x="148" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Karim Hossain</text>
+<text x="318" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">2</text>
+<text x="458" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">1 (B)</text>
+<text x="598" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">NO</text>
+<rect x="30" y="148" width="710" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">S003</text>
+<text x="148" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Nusrat Jahan</text>
+<text x="318" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">2</text>
+<text x="458" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">0</text>
+<text x="598" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">YES</text>
+<rect x="30" y="174" width="710" height="26" fill="#fee2e2" stroke="#b91c1c" stroke-width="1"/>
+<text x="38" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">S004</text>
+<text x="148" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Sabbir Ahmed</text>
+<text x="318" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">1</text>
+<text x="458" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">1 (B)</text>
+<text x="598" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">NO</text>
+<rect x="30" y="200" width="710" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">S005</text>
+<text x="148" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Mitu Akter</text>
+<text x="318" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">1</text>
+<text x="458" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">0</text>
+<text x="598" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">YES</text>
+<rect x="30" y="226" width="710" height="26" fill="#fee2e2" stroke="#b91c1c" stroke-width="1"/>
+<text x="38" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">S006</text>
+<text x="148" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Tanvir Hasan</text>
+<text x="318" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">0</text>
+<text x="458" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">0</text>
+<text x="598" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">NO (no results)</text>
+<text x="30" y="288" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333333">Rule: at least one result row AND no result row with Grade &lt;&gt; 'A'.</text>
+  </g>
+</svg>
