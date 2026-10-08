@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="756" viewBox="0 0 900 756">
+  <rect width="900" height="756" fill="#ffffff"/>
+  <text x="450.0" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#111111">Q1(a): Table structure and relationships</text>
+  <g font-family="Segoe UI, Arial, sans-serif">
+<rect x="30" y="60" width="230" height="106" rx="6" fill="#ffffff" stroke="#2b5d9e" stroke-width="1.5"/>
+<rect x="30" y="60" width="230" height="30" rx="6" fill="#dbeafe" stroke="#2b5d9e" stroke-width="1.5"/>
+<text x="145.0" y="80" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#111111">Department</text>
+<text x="40" y="106" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Department_ID</text>
+<text x="250" y="106" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="end" fill="#b7791f">PK</text>
+<text x="40" y="128" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Department_Name</text>
+<text x="40" y="150" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Building</text>
+<rect x="330" y="60" width="230" height="150" rx="6" fill="#ffffff" stroke="#2b5d9e" stroke-width="1.5"/>
+<rect x="330" y="60" width="230" height="30" rx="6" fill="#dbeafe" stroke="#2b5d9e" stroke-width="1.5"/>
+<text x="445.0" y="80" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#111111">Student</text>
+<text x="340" y="106" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Student_ID</text>
+<text x="550" y="106" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="end" fill="#b7791f">PK</text>
+<text x="340" y="128" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Student_Name</text>
+<text x="340" y="150" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Address</text>
+<text x="340" y="172" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Department_ID</text>
+<text x="550" y="172" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="end" fill="#2b5d9e">FK</text>
+<text x="340" y="194" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Phone_No</text>
+<rect x="630" y="60" width="230" height="150" rx="6" fill="#ffffff" stroke="#2b5d9e" stroke-width="1.5"/>
+<rect x="630" y="60" width="230" height="30" rx="6" fill="#dbeafe" stroke="#2b5d9e" stroke-width="1.5"/>
+<text x="745.0" y="80" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#111111">Result</text>
+<text x="640" y="106" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Result_ID</text>
+<text x="850" y="106" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="end" fill="#b7791f">PK</text>
+<text x="640" y="128" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Student_ID</text>
+<text x="850" y="128" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="end" fill="#2b5d9e">FK</text>
+<text x="640" y="150" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Subject</text>
+<text x="640" y="172" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Marks</text>
+<text x="640" y="194" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Grade</text>
+<rect x="30" y="300" width="230" height="106" rx="6" fill="#ffffff" stroke="#2b5d9e" stroke-width="1.5"/>
+<rect x="30" y="300" width="230" height="30" rx="6" fill="#dbeafe" stroke="#2b5d9e" stroke-width="1.5"/>
+<text x="145.0" y="320" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#111111">Product</text>
+<text x="40" y="346" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Product_ID</text>
+<text x="250" y="346" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="end" fill="#b7791f">PK</text>
+<text x="40" y="368" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Name</text>
+<text x="40" y="390" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Commission</text>
+<rect x="330" y="300" width="230" height="128" rx="6" fill="#ffffff" stroke="#2b5d9e" stroke-width="1.5"/>
+<rect x="330" y="300" width="230" height="30" rx="6" fill="#dbeafe" stroke="#2b5d9e" stroke-width="1.5"/>
+<text x="445.0" y="320" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#111111">Customer</text>
+<text x="340" y="346" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Cust_ID</text>
+<text x="550" y="346" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="end" fill="#b7791f">PK</text>
+<text x="340" y="368" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Cust_Name</text>
+<text x="340" y="390" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Phone_No</text>
+<text x="340" y="412" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Product_ID</text>
+<text x="550" y="412" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="end" fill="#2b5d9e">FK</text>
+<rect x="30" y="460" width="230" height="106" rx="6" fill="#ffffff" stroke="#2b5d9e" stroke-width="1.5"/>
+<rect x="30" y="460" width="230" height="30" rx="6" fill="#dbeafe" stroke="#2b5d9e" stroke-width="1.5"/>
+<text x="145.0" y="480" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#111111">Salary</text>
+<text x="40" y="506" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Emp_ID</text>
+<text x="40" y="528" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Designation</text>
+<text x="40" y="550" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Salary</text>
+<rect x="330" y="460" width="230" height="194" rx="6" fill="#ffffff" stroke="#2b5d9e" stroke-width="1.5"/>
+<rect x="330" y="460" width="230" height="30" rx="6" fill="#dbeafe" stroke="#2b5d9e" stroke-width="1.5"/>
+<text x="445.0" y="480" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#111111">Employee</text>
+<text x="340" y="506" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Emp_ID</text>
+<text x="340" y="528" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Emp_Name</text>
+<text x="340" y="550" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Department_Name</text>
+<text x="340" y="572" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Project</text>
+<text x="340" y="594" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">DOJ</text>
+<text x="340" y="616" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Address</text>
+<text x="340" y="638" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Phone_No</text>
+<line x1="330" y1="167" x2="267.3" y2="107.9" stroke="#555" stroke-width="2"/><polygon points="260,101 270.7,104.2 263.8,111.5" fill="#555"/>
+<line x1="630" y1="123" x2="569.5" y2="104.0" stroke="#555" stroke-width="2"/><polygon points="560,101 571.0,99.2 568.0,108.8" fill="#555"/>
+<line x1="330" y1="407" x2="267.3" y2="347.9" stroke="#555" stroke-width="2"/><polygon points="260,341 270.7,344.2 263.8,351.5" fill="#555"/>
+<line x1="260" y1="501" x2="320.0" y2="501.0" stroke="#555" stroke-width="2" stroke-dasharray="6 4"/><polygon points="330,501 320.0,506.0 320.0,496.0" fill="#555"/>
+<text x="30" y="690" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333333">Solid arrows: foreign keys (child -&gt; parent). Dashed arrow: Salary.Emp_ID matches Employee.Emp_ID by value only (no FK declared).</text>
+<text x="30" y="712" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333333">Employee has no primary key on purpose, so an exact duplicate row can exist (question b).</text>
+<text x="30" y="734" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333333">Salary has no primary key: one employee can have several salary records (question d).</text>
+  </g>
+</svg>
