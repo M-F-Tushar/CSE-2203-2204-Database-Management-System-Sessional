@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1010" height="576" viewBox="0 0 1010 576">
+  <rect width="1010" height="576" fill="#ffffff"/>
+  <text x="505.0" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#111111">Q1(b): Removing the duplicate Employee row</text>
+  <g font-family="Segoe UI, Arial, sans-serif">
+<text x="30" y="62" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#111111">Employee before deletion (6 rows)</text>
+<rect x="30" y="70" width="740" height="26" fill="#dbeafe" stroke="#2b5d9e" stroke-width="1.2"/>
+<text x="38" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Emp_ID</text>
+<text x="108" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Emp_Name</text>
+<text x="208" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Department_Name</text>
+<text x="358" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Project</text>
+<text x="458" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">DOJ</text>
+<text x="558" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Address</text>
+<text x="658" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Phone_No</text>
+<rect x="30" y="96" width="740" height="26" fill="#ffffff" stroke="#2b5d9e" stroke-width="1"/>
+<text x="38" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E01</text>
+<text x="108" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">AMIT</text>
+<text x="208" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Sales</text>
+<text x="358" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Project-A</text>
+<text x="458" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">2019-03-01</text>
+<text x="558" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Dhaka</text>
+<text x="658" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01811000001</text>
+<rect x="30" y="122" width="740" height="26" fill="#ffffff" stroke="#2b5d9e" stroke-width="1"/>
+<text x="38" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E02</text>
+<text x="108" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">RIMA</text>
+<text x="208" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Finance</text>
+<text x="358" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Project-B</text>
+<text x="458" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">2020-07-15</text>
+<text x="558" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Comilla</text>
+<text x="658" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01811000002</text>
+<rect x="30" y="148" width="740" height="26" fill="#ffffff" stroke="#2b5d9e" stroke-width="1"/>
+<text x="38" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E03</text>
+<text x="108" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">AMIT</text>
+<text x="208" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">IT</text>
+<text x="358" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Project-C</text>
+<text x="458" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">2021-01-10</text>
+<text x="558" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Chandpur</text>
+<text x="658" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01811000003</text>
+<rect x="30" y="174" width="740" height="26" fill="#ffffff" stroke="#2b5d9e" stroke-width="1"/>
+<text x="38" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E04</text>
+<text x="108" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">SOHEL</text>
+<text x="208" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">HR</text>
+<text x="358" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Project-A</text>
+<text x="458" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">2018-11-20</text>
+<text x="558" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Feni</text>
+<text x="658" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01811000004</text>
+<rect x="30" y="200" width="740" height="26" fill="#fee2e2" stroke="#b91c1c" stroke-width="1"/>
+<text x="38" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E02</text>
+<text x="108" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">RIMA</text>
+<text x="208" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Finance</text>
+<text x="358" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Project-B</text>
+<text x="458" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">2020-07-15</text>
+<text x="558" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Comilla</text>
+<text x="658" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01811000002</text>
+<text x="782" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#b91c1c">&lt;- exact duplicate, deleted</text>
+<rect x="30" y="226" width="740" height="26" fill="#ffffff" stroke="#2b5d9e" stroke-width="1"/>
+<text x="38" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E06</text>
+<text x="108" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">TANIA</text>
+<text x="208" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">IT</text>
+<text x="358" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Project-C</text>
+<text x="458" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">2022-05-05</text>
+<text x="558" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Noakhali</text>
+<text x="658" y="244" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01811000006</text>
+<line x1="400" y1="252" x2="400.0" y2="320.0" stroke="#555" stroke-width="2"/><polygon points="400,330 395.0,320.0 405.0,320.0" fill="#555"/><text x="412" y="296" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333333">DELETE ... USING ... WHERE a.ctid &gt; b.ctid AND all columns equal</text>
+<text x="30" y="352" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#111111">Employee after deletion (5 rows)</text>
+<rect x="30" y="360" width="740" height="26" fill="#dbeafe" stroke="#2b5d9e" stroke-width="1.2"/>
+<text x="38" y="378" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Emp_ID</text>
+<text x="108" y="378" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Emp_Name</text>
+<text x="208" y="378" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Department_Name</text>
+<text x="358" y="378" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Project</text>
+<text x="458" y="378" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">DOJ</text>
+<text x="558" y="378" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Address</text>
+<text x="658" y="378" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Phone_No</text>
+<rect x="30" y="386" width="740" height="26" fill="#ffffff" stroke="#2b5d9e" stroke-width="1"/>
+<text x="38" y="404" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E01</text>
+<text x="108" y="404" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">AMIT</text>
+<text x="208" y="404" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Sales</text>
+<text x="358" y="404" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Project-A</text>
+<text x="458" y="404" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">2019-03-01</text>
+<text x="558" y="404" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Dhaka</text>
+<text x="658" y="404" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01811000001</text>
+<rect x="30" y="412" width="740" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="430" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E02</text>
+<text x="108" y="430" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">RIMA</text>
+<text x="208" y="430" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Finance</text>
+<text x="358" y="430" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Project-B</text>
+<text x="458" y="430" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">2020-07-15</text>
+<text x="558" y="430" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Comilla</text>
+<text x="658" y="430" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01811000002</text>
+<rect x="30" y="438" width="740" height="26" fill="#ffffff" stroke="#2b5d9e" stroke-width="1"/>
+<text x="38" y="456" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E03</text>
+<text x="108" y="456" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">AMIT</text>
+<text x="208" y="456" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">IT</text>
+<text x="358" y="456" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Project-C</text>
+<text x="458" y="456" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">2021-01-10</text>
+<text x="558" y="456" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Chandpur</text>
+<text x="658" y="456" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01811000003</text>
+<rect x="30" y="464" width="740" height="26" fill="#ffffff" stroke="#2b5d9e" stroke-width="1"/>
+<text x="38" y="482" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E04</text>
+<text x="108" y="482" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">SOHEL</text>
+<text x="208" y="482" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">HR</text>
+<text x="358" y="482" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Project-A</text>
+<text x="458" y="482" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">2018-11-20</text>
+<text x="558" y="482" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Feni</text>
+<text x="658" y="482" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01811000004</text>
+<rect x="30" y="490" width="740" height="26" fill="#ffffff" stroke="#2b5d9e" stroke-width="1"/>
+<text x="38" y="508" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">E06</text>
+<text x="108" y="508" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">TANIA</text>
+<text x="208" y="508" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">IT</text>
+<text x="358" y="508" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Project-C</text>
+<text x="458" y="508" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">2022-05-05</text>
+<text x="558" y="508" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Noakhali</text>
+<text x="658" y="508" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01811000006</text>
+<text x="30" y="552" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333333">The first copy of each duplicate is kept; the later copy (higher ctid) is removed.</text>
+  </g>
+</svg>
