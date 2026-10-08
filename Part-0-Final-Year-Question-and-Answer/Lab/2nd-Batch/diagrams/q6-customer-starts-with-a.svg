@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="454" viewBox="0 0 800 454">
+  <rect width="800" height="454" fill="#ffffff"/>
+  <text x="400.0" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#111111">Q1(f): Customers whose name starts with A</text>
+  <g font-family="Segoe UI, Arial, sans-serif">
+<text x="30" y="62" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#111111">Step 1: Customer table (5 rows)</text>
+<rect x="30" y="70" width="530" height="26" fill="#dbeafe" stroke="#2b5d9e" stroke-width="1.2"/>
+<text x="38" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Cust_ID</text>
+<text x="128" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Cust_Name</text>
+<text x="298" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Phone_No</text>
+<text x="448" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Product_ID</text>
+<rect x="30" y="96" width="530" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">C01</text>
+<text x="128" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Abdul Karim</text>
+<text x="298" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01911000001</text>
+<text x="448" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">P01</text>
+<text x="572" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#15803d">starts with A: keep</text>
+<rect x="30" y="122" width="530" height="26" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1"/>
+<text x="38" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">C02</text>
+<text x="128" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">Nazma Begum</text>
+<text x="298" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">01911000002</text>
+<text x="448" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">P02</text>
+<rect x="30" y="148" width="530" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">C03</text>
+<text x="128" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Anik Roy</text>
+<text x="298" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01911000003</text>
+<text x="448" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">P03</text>
+<text x="572" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#15803d">starts with A: keep</text>
+<rect x="30" y="174" width="530" height="26" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1"/>
+<text x="38" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">C04</text>
+<text x="128" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">Sumon Das</text>
+<text x="298" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">01911000004</text>
+<text x="448" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#6b7280">P01</text>
+<rect x="30" y="200" width="530" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">C05</text>
+<text x="128" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Ayesha Siddika</text>
+<text x="298" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01911000005</text>
+<text x="448" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">P02</text>
+<text x="572" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#15803d">starts with A: keep</text>
+<line x1="200" y1="226" x2="200.0" y2="272.0" stroke="#555" stroke-width="2"/><polygon points="200,282 195.0,272.0 205.0,272.0" fill="#555"/><text x="212" y="259" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333333">WHERE Cust_Name LIKE 'A%'</text>
+<text x="30" y="282" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#111111">Step 2: result (3 rows)</text>
+<rect x="30" y="290" width="530" height="26" fill="#dbeafe" stroke="#2b5d9e" stroke-width="1.2"/>
+<text x="38" y="308" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Cust_ID</text>
+<text x="128" y="308" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Cust_Name</text>
+<text x="298" y="308" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Phone_No</text>
+<text x="448" y="308" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Product_ID</text>
+<rect x="30" y="316" width="530" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="334" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">C01</text>
+<text x="128" y="334" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Abdul Karim</text>
+<text x="298" y="334" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01911000001</text>
+<text x="448" y="334" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">P01</text>
+<rect x="30" y="342" width="530" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="360" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">C03</text>
+<text x="128" y="360" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Anik Roy</text>
+<text x="298" y="360" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01911000003</text>
+<text x="448" y="360" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">P03</text>
+<rect x="30" y="368" width="530" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="386" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">C05</text>
+<text x="128" y="386" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Ayesha Siddika</text>
+<text x="298" y="386" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">01911000005</text>
+<text x="448" y="386" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">P02</text>
+<text x="30" y="430" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333333">'A%' means: starts with the letter A, followed by any text. LIKE is case-sensitive in PostgreSQL.</text>
+  </g>
+</svg>
