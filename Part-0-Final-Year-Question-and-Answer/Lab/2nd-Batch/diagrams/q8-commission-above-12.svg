@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="454" viewBox="0 0 900 454">
+  <rect width="900" height="454" fill="#ffffff"/>
+  <text x="450.0" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#111111">Q1(h): Customers whose product commission is above 12%</text>
+  <g font-family="Segoe UI, Arial, sans-serif">
+<text x="30" y="62" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#111111">Step 1: Customer JOIN Product (5 rows)</text>
+<rect x="30" y="70" width="590" height="26" fill="#dbeafe" stroke="#2b5d9e" stroke-width="1.2"/>
+<text x="38" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Cust_ID</text>
+<text x="128" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Cust_Name</text>
+<text x="288" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Product_ID</text>
+<text x="398" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Name</text>
+<text x="508" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Commission</text>
+<rect x="30" y="96" width="590" height="26" fill="#fee2e2" stroke="#b91c1c" stroke-width="1"/>
+<text x="38" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">C01</text>
+<text x="128" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Abdul Karim</text>
+<text x="288" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">P01</text>
+<text x="398" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Laptop</text>
+<text x="508" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">10.00</text>
+<text x="632" y="114" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#b91c1c">10.00 is not &gt; 12: rejected</text>
+<rect x="30" y="122" width="590" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">C02</text>
+<text x="128" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Nazma Begum</text>
+<text x="288" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">P02</text>
+<text x="398" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Mobile</text>
+<text x="508" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">12.50</text>
+<text x="632" y="140" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#15803d">12.50 &gt; 12: keep</text>
+<rect x="30" y="148" width="590" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">C03</text>
+<text x="128" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Anik Roy</text>
+<text x="288" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">P03</text>
+<text x="398" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Tablet</text>
+<text x="508" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">15.00</text>
+<text x="632" y="166" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#15803d">15.00 &gt; 12: keep</text>
+<rect x="30" y="174" width="590" height="26" fill="#fee2e2" stroke="#b91c1c" stroke-width="1"/>
+<text x="38" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">C04</text>
+<text x="128" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Sumon Das</text>
+<text x="288" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">P01</text>
+<text x="398" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Laptop</text>
+<text x="508" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">10.00</text>
+<text x="632" y="192" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#b91c1c">10.00 is not &gt; 12: rejected</text>
+<rect x="30" y="200" width="590" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">C05</text>
+<text x="128" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Ayesha Siddika</text>
+<text x="288" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">P02</text>
+<text x="398" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Mobile</text>
+<text x="508" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">12.50</text>
+<text x="632" y="218" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#15803d">12.50 &gt; 12: keep</text>
+<line x1="200" y1="226" x2="200.0" y2="272.0" stroke="#555" stroke-width="2"/><polygon points="200,282 195.0,272.0 205.0,272.0" fill="#555"/><text x="212" y="259" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333333">WHERE p.Commission &gt; 12</text>
+<text x="30" y="282" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="start" fill="#111111">Step 2: result (3 rows)</text>
+<rect x="30" y="290" width="590" height="26" fill="#dbeafe" stroke="#2b5d9e" stroke-width="1.2"/>
+<text x="38" y="308" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Cust_ID</text>
+<text x="128" y="308" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Cust_Name</text>
+<text x="288" y="308" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Product_ID</text>
+<text x="398" y="308" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Name</text>
+<text x="508" y="308" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="start" fill="#111111">Commission</text>
+<rect x="30" y="316" width="590" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="334" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">C02</text>
+<text x="128" y="334" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Nazma Begum</text>
+<text x="288" y="334" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">P02</text>
+<text x="398" y="334" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Mobile</text>
+<text x="508" y="334" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">12.50</text>
+<rect x="30" y="342" width="590" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="360" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">C03</text>
+<text x="128" y="360" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Anik Roy</text>
+<text x="288" y="360" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">P03</text>
+<text x="398" y="360" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Tablet</text>
+<text x="508" y="360" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">15.00</text>
+<rect x="30" y="368" width="590" height="26" fill="#dcfce7" stroke="#15803d" stroke-width="1"/>
+<text x="38" y="386" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">C05</text>
+<text x="128" y="386" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Ayesha Siddika</text>
+<text x="288" y="386" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">P02</text>
+<text x="398" y="386" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">Mobile</text>
+<text x="508" y="386" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#111111">12.50</text>
+<text x="30" y="430" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="normal" text-anchor="start" fill="#333333">Commission is stored as a percentage number, so 12% is written as 12.</text>
+  </g>
+</svg>
