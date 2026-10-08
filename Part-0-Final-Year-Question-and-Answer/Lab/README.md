@@ -9,4 +9,4 @@ This folder holds the **sessional/lab** final exam papers, one folder per batch.
 | Batch | Link | Status |
 |---|---|---|
 | 1st Batch | [Open](1st-Batch/README.md) | Pending |
-| 2nd Batch | [Open](2nd-Batch/README.md) | Pending |
+| 2nd Batch | [Open](2nd-Batch/README.md) | All 8 parts solved |
