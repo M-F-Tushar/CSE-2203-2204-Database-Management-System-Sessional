@@ -13,7 +13,7 @@ Department of Computer Science and Engineering
 >
 > All eight parts (a)–(h) are answered for practice. The easiest part to start with is **Question 1(f)** (customers whose name starts with `A`). Its end-to-end explanation and task-by-task walkthrough can be expanded below.
 
-**Database used:** PostgreSQL (the DBMS used in this lab). The schema and sample data come from Question 1(a), and every query below was run against that data.
+**Database used:** MySQL (written for MySQL Workbench, MySQL 8.0 or later). The schema and sample data come from Question 1(a), and every query below is written for that data.
 
 **Assumptions:**
 - `Customer.Phone No` is written as `Phone_No`, because SQL names cannot contain spaces.
@@ -41,16 +41,18 @@ CREATE TABLE Student (
   Student_ID    VARCHAR(10) PRIMARY KEY,
   Student_Name  VARCHAR(50),
   Address       VARCHAR(100),
-  Department_ID VARCHAR(10) REFERENCES Department(Department_ID),
-  Phone_No      VARCHAR(15)
+  Department_ID VARCHAR(10),
+  Phone_No      VARCHAR(15),
+  FOREIGN KEY (Department_ID) REFERENCES Department(Department_ID)
 );
 
 CREATE TABLE Result (
   Result_ID  VARCHAR(10) PRIMARY KEY,
-  Student_ID VARCHAR(10) REFERENCES Student(Student_ID),
+  Student_ID VARCHAR(10),
   Subject    VARCHAR(50),
   Marks      INT,
-  Grade      CHAR(1)
+  Grade      CHAR(1),
+  FOREIGN KEY (Student_ID) REFERENCES Student(Student_ID)
 );
 
 CREATE TABLE Employee (
@@ -66,20 +68,21 @@ CREATE TABLE Employee (
 CREATE TABLE Salary (
   Emp_ID      VARCHAR(10),
   Designation VARCHAR(50),
-  Salary      NUMERIC(10,2)
+  Salary      DECIMAL(10,2)
 );
 
 CREATE TABLE Product (
   Product_ID VARCHAR(10) PRIMARY KEY,
   Name       VARCHAR(50),
-  Commission NUMERIC(5,2)
+  Commission DECIMAL(5,2)
 );
 
 CREATE TABLE Customer (
   Cust_ID    VARCHAR(10) PRIMARY KEY,
   Cust_Name  VARCHAR(50),
   Phone_No   VARCHAR(15),
-  Product_ID VARCHAR(10) REFERENCES Product(Product_ID)
+  Product_ID VARCHAR(10),
+  FOREIGN KEY (Product_ID) REFERENCES Product(Product_ID)
 );
 ```
 
@@ -157,19 +160,15 @@ Delete the duplicate record from the Employee table (if any).
 ### Answer
 
 ```sql
-DELETE FROM Employee a
-USING Employee b
-WHERE a.ctid > b.ctid
-  AND a.Emp_ID = b.Emp_ID
-  AND a.Emp_Name = b.Emp_Name
-  AND a.Department_Name = b.Department_Name
-  AND a.Project = b.Project
-  AND a.DOJ = b.DOJ
-  AND a.Address = b.Address
-  AND a.Phone_No = b.Phone_No;
+CREATE TABLE Employee_Clean AS
+SELECT DISTINCT * FROM Employee;
+
+DROP TABLE Employee;
+
+RENAME TABLE Employee_Clean TO Employee;
 ```
 
-Result: **1 row deleted**, so the table goes from 6 rows to 5.
+Result: the table goes from **6 rows to 5**.
 
 <p align="center">
   <img src="diagrams/q2-employee-dedupe.svg" alt="Employee table before and after deleting the exact duplicate E02 RIMA row" />
@@ -177,7 +176,7 @@ Result: **1 row deleted**, so the table goes from 6 rows to 5.
 
 <sub>Importable diagram: [Open the duplicate-removal SVG](diagrams/q2-employee-dedupe.svg).</sub>
 
-`ctid` is PostgreSQL's internal physical row address. Two rows that match on every column are copies. The query keeps the copy with the smaller `ctid` and deletes the other one. Because `Employee` has no primary key, this is a practical way to remove the copy in place; if the table had a primary key, you would compare that key instead.
+`SELECT DISTINCT *` keeps one copy of each row that is identical in every column. The table is then rebuilt with those rows. This works because `Employee` has no primary key, and it avoids MySQL Workbench's safe-update mode, which blocks a `DELETE` that has no key in its `WHERE` clause. If the table had a primary key, a simple `DELETE ... WHERE` on that key would be the normal approach.
 
 ---
 
@@ -250,7 +249,7 @@ Output (5 rows):
 
 <sub>Importable diagram: [Open the total-salary SVG](diagrams/q4-total-salary-same-name.svg).</sub>
 
-`GROUP BY` produces one row per employee, and `SUM` adds all of that employee's salary records. `COUNT(*) OVER (PARTITION BY e.Emp_Name)` then counts how many employee rows share the same name, so both AMIT rows show `2`.
+`GROUP BY` produces one row per employee, and `SUM` adds all of that employee's salary records. `COUNT(*) OVER (PARTITION BY e.Emp_Name)` then counts how many employee rows share the same name, so both AMIT rows show `2`. The window function needs MySQL 8.0 or later.
 
 **Run part (b) first.** The duplicate RIMA row would join with both RIMA salary rows, so RIMA's total would be counted twice and show `182000.00` instead of `91000.00`.
 
@@ -326,14 +325,14 @@ Output (3 rows):
 
 <sub>Importable diagram: [Open the starts-with-A SVG](diagrams/q6-customer-starts-with-a.svg).</sub>
 
-`LIKE 'A%'` means: first letter `A`, then any text (including none). `LIKE` is case-sensitive in PostgreSQL, so a name starting with a lowercase `a` would not match. Use `ILIKE 'a%'` to ignore case. On this data both versions return the same three rows.
+`LIKE 'A%'` means: first letter `A`, then any text (including none). MySQL's default collation is case-insensitive, so `LIKE 'A%'` also matches names that start with a lowercase `a`. This data has only uppercase `A` names, so the result is the same three rows.
 
 <details>
 <summary>Expand: understand the answer end to end</summary>
 
 Think of `Customer` as a list of five names. The question asks for names whose first letter is `A`. The database checks every row against the pattern `'A%'`:
 
-- `A` must match the first character exactly.
+- `A` must match the first character.
 - `%` means "any number of any characters, including none". This is why `Abdul Karim` and `Ayesha Siddika` match.
 
 Rows that match are kept, and the rest are skipped. `SELECT *` returns the full record, and `ORDER BY Cust_ID` sorts the result so the output is in a fixed order.
@@ -357,7 +356,7 @@ Why the `%` matters: `'A'` alone would only match a name that is exactly `A`. `'
 2. **Write the filter:** `WHERE Cust_Name LIKE 'A%'`.
 3. **Explain the pattern:** `A` matches the first letter; `%` matches any remaining text.
 4. **Choose the columns:** `SELECT *` returns every customer column. You can list specific columns if the question asks for them.
-5. **Mention case:** `LIKE` is case-sensitive in PostgreSQL. Use `ILIKE` if the names might be stored in mixed case.
+5. **Mention case:** with MySQL's default collation, `LIKE` ignores case, so `'A%'` also matches `'a...'`.
 
 **Memory cue:** `LIKE 'A%'` = starts with A · `LIKE '%A'` = ends with A · `LIKE '%A%'` = contains A.
 
@@ -377,7 +376,7 @@ Find first 50% record from the student table.
 SELECT *
 FROM Student
 ORDER BY Student_ID
-LIMIT (SELECT COUNT(*) / 2 FROM Student);
+LIMIT 3;
 ```
 
 Output (3 rows, because the table has 6 students):
@@ -394,7 +393,7 @@ Output (3 rows, because the table has 6 students):
 
 <sub>Importable diagram: [Open the first-half SVG](diagrams/q7-first-half-student.svg).</sub>
 
-`COUNT(*) / 2` gives half the number of rows. `LIMIT` returns that many rows after the `ORDER BY`, so "first" means the first in Student ID order. `COUNT(*) / 2` uses integer division, so with an odd count the result rounds down (for example, 7 students gives 3 rows).
+`ORDER BY Student_ID` puts the students in ID order, so "first" means the first in that order. Half of the 6 students is 3, so `LIMIT 3` returns the first three rows. MySQL does not allow a subquery inside `LIMIT`, so the number is typed directly. If the table grows, change `3` to match half of the new row count.
 
 ---
 
