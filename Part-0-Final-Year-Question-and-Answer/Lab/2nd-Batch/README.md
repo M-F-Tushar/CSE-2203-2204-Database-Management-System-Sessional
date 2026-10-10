@@ -223,10 +223,7 @@ Retrieve employee-wise total salary and count similar names.
 ### Answer
 
 ```sql
-SELECT e.Emp_ID,
-       e.Emp_Name,
-       SUM(s.Salary) AS total_salary,
-       COUNT(*) OVER (PARTITION BY e.Emp_Name) AS same_name_count
+SELECT e.Emp_ID, e.Emp_Name, SUM(s.Salary) AS total_salary
 FROM Employee e
 JOIN Salary s ON e.Emp_ID = s.Emp_ID
 GROUP BY e.Emp_ID, e.Emp_Name
@@ -235,13 +232,30 @@ ORDER BY e.Emp_ID;
 
 Output (5 rows):
 
-| Emp_ID | Emp_Name | total_salary | same_name_count |
-|---|---|---|---|
-| E01 | AMIT | 122000.00 | 2 |
-| E02 | RIMA | 91000.00 | 1 |
-| E03 | AMIT | 48000.00 | 2 |
-| E04 | SOHEL | 30000.00 | 1 |
-| E06 | TANIA | 70000.00 | 1 |
+| Emp_ID | Emp_Name | total_salary |
+|---|---|---|
+| E01 | AMIT | 122000.00 |
+| E02 | RIMA | 91000.00 |
+| E03 | AMIT | 48000.00 |
+| E04 | SOHEL | 30000.00 |
+| E06 | TANIA | 70000.00 |
+
+Similar-name count (second query):
+
+```sql
+SELECT Emp_Name, COUNT(*) AS same_name_count
+FROM Employee
+GROUP BY Emp_Name;
+```
+
+Output (4 rows):
+
+| Emp_Name | same_name_count |
+|---|---|
+| AMIT | 2 |
+| RIMA | 1 |
+| SOHEL | 1 |
+| TANIA | 1 |
 
 <p align="center">
   <img src="diagrams/q4-total-salary-same-name.svg" alt="Employee salary rows grouped by employee, then a same-name count added for AMIT" />
@@ -249,7 +263,7 @@ Output (5 rows):
 
 <sub>Importable diagram: [Open the total-salary SVG](diagrams/q4-total-salary-same-name.svg).</sub>
 
-`GROUP BY` produces one row per employee, and `SUM` adds all of that employee's salary records. `COUNT(*) OVER (PARTITION BY e.Emp_Name)` then counts how many employee rows share the same name, so both AMIT rows show `2`. The window function needs MySQL 8.0 or later.
+The first query uses `GROUP BY` to produce one row per employee, and `SUM` adds all of that employee's salary records. The second query uses `GROUP BY Emp_Name` and `COUNT(*)` to count how many employee rows share each name, so AMIT shows `2`. No window functions are needed, so it works on any MySQL version.
 
 **Run part (b) first.** The duplicate RIMA row would join with both RIMA salary rows, so RIMA's total would be counted twice and show `182000.00` instead of `91000.00`.
 
@@ -266,13 +280,9 @@ Find the students who secured Grade A in all the courses.
 ```sql
 SELECT s.Student_ID, s.Student_Name
 FROM Student s
-WHERE EXISTS (
-        SELECT 1 FROM Result r
-        WHERE r.Student_ID = s.Student_ID)
-  AND NOT EXISTS (
-        SELECT 1 FROM Result r
-        WHERE r.Student_ID = s.Student_ID
-          AND r.Grade <> 'A')
+JOIN Result r ON s.Student_ID = r.Student_ID
+GROUP BY s.Student_ID, s.Student_Name
+HAVING SUM(r.Grade <> 'A') = 0
 ORDER BY s.Student_ID;
 ```
 
@@ -290,7 +300,7 @@ Output (3 rows):
 
 <sub>Importable diagram: [Open the Grade A SVG](diagrams/q5-grade-a-all-courses.svg).</sub>
 
-"Grade A in all courses" means the student has at least one result, and no result has a grade other than A. The first `EXISTS` removes students with no results (S006). Without it, `NOT EXISTS` alone would wrongly include S006.
+"Grade A in all courses" means the student has at least one result, and no result has a grade other than A. The `JOIN` keeps only students who have results, so S006 (no results) is dropped automatically. `GROUP BY` gives one row per student. In `HAVING`, `r.Grade <> 'A'` is `1` for a non-A result and `0` for an A, so `SUM(...) = 0` keeps only students with no non-A grades.
 
 ---
 
